@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coach Dashboard | Spinova</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <div class="topbar">
+    <a href="dashboard.html" class="topbar-brand"><img src="../assets/images/spinova-logo.png" alt="Spinova Logo" style="height: 40px; width: auto; vertical-align: middle;"></a>
+    <div class="topbar-user" id="topbar-user"></div>
+  </div>
+  <script src="../assets/nav.js"></script>
+  <script>
+    checkAuth(['coach']);
+  </script>
+
+  <div class="layout">
+    <nav class="sidenav">
+      <div class="sidenav-top">
+        <div class="sidenav-label">Overview</div>
+        <a href="dashboard.html" class="active">Dashboard</a>
+
+        <div class="sidenav-label">My Profile</div>
+        <a href="profile.html">View Profile</a>
+
+        <div class="sidenav-label">Team</div>
+        <a href="team.html">Team & Players</a>
+
+        <div class="sidenav-label">Reports</div>
+        <a href="reports.html">Match Reports</a>
+      </div>
+      <div class="sidenav-logout">
+        <button onclick="logout()">Logout</button>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <section class="hero">
+        <div class="hero-content">
+          <div class="hero-eyebrow">Coach Dashboard</div>
+          <h1>Welcome back, <em>Omar</em>.</h1>
+          <p>Coach · Falcon U18 Elite · Riyadh</p>
+        </div>
+      </section>
+
+      <div class="page-container">
+        <div class="stat-row">
+          <div class="stat-box">
+            <div class="stat-num blue">3</div>
+            <div class="stat-label">Active Players</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num green">2</div>
+            <div class="stat-label">Active Reports</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num" style="color: var(--court);">4W–2L</div>
+            <div class="stat-label">Team Record</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">My Profile Summary</div>
+          <div style="display: flex; gap: 20px; align-items: start; margin-top: 16px;">
+            <img src="../assets/images/avatar.webp" alt="Profile Avatar" class="avatar large" style="object-fit: cover;">
+            <div style="flex: 1;">
+              <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px;">
+                <span style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 20px; color: var(--navy);">Omar Salah</span>
+                <span class="badge badge-navy">FIBA Level 2</span>
+                <span class="badge badge-navy">8 Years Experience</span>
+              </div>
+              <p style="color: var(--mid); font-size: 14px;">Omar brings an analytical, player-first approach to coaching. With 8 years developing competitive youth athletes in Riyadh, his expertise in pick-and-roll systems and defensive rotations has produced measurable results at the U18 level.</p>
+              <a href="profile.html" class="btn btn-primary btn-sm" style="margin-top: 16px;">View Full Profile →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="page-header" style="margin-top: 24px;">
+          <h2>Team Roster</h2>
+        </div>
+
+        <div class="table-wrap">
+          <table class="sp-table">
+            <thead>
+              <tr>
+                <th>Player</th>
+                <th>Position</th>
+                <th>Level</th>
+                <th>Reports</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Ahmed Al-Rashidi</td>
+                <td><span class="badge badge-navy">PG</span></td>
+                <td>Competitive</td>
+                <td>2 reports</td>
+              </tr>
+              <tr>
+                <td>Youssef Samir</td>
+                <td><span class="badge badge-navy">SF</span></td>
+                <td>Elite</td>
+                <td>1 report</td>
+              </tr>
+              <tr>
+                <td>Kareem Mostafa</td>
+                <td><span class="badge badge-navy">C</span></td>
+                <td>Competitive</td>
+                <td>0 reports</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="page-header" style="margin-top: 24px;">
+          <h2>Recent Reports</h2>
+        </div>
+
+        <div class="two-col">
+          <div class="card interactive">
+            <div class="card-title">Falcon U18 vs Al-Nassr Youth</div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span style="font-size: 13px; color: var(--light);">Apr 10, 2026</span>
+            </div>
+            <a href="reports.html" class="btn btn-ghost btn-sm">View</a>
+          </div>
+          <div class="card interactive">
+            <div class="card-title">Falcon U18 vs Al-Ahly Youth</div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span style="font-size: 13px; color: var(--light);">Apr 3, 2026</span>
+            </div>
+            <a href="reports.html" class="btn btn-ghost btn-sm">View</a>
+          </div>
+        </div>
+
+        <div class="callout orange" style="margin-top: 24px;">
+          <div class="callout-tag">Need a Report?</div>
+          <p style="margin-bottom: 12px;">Need a match analysed? Submit a request to the admin team.</p>
+          <a href="reports-request.html" class="btn btn-primary btn-sm" style="text-decoration: none; display: inline-block;">Request New Report →</a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+
+</body>
+</html>

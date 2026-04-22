@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pending Reports | Spinova Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <div class="topbar">
+    <a href="dashboard.html" class="topbar-brand"><img src="../assets/images/spinova-logo.png" alt="Spinova Logo" style="height: 40px; width: auto; vertical-align: middle;"></a>
+    <div class="topbar-user" id="topbar-user"></div>
+  </div></div>
+
+  <div class="layout">
+    <nav class="sidenav">
+      <div class="sidenav-top">
+
+      <div class="sidenav-label">Overview</div>
+      <a href="dashboard.html">Dashboard</a>
+
+      <div class="sidenav-label">Reports</div>
+      <a href="reports.html">All Reports</a>
+      <a href="reports-new.html">New Report</a>
+      <a href="reports-requested.html">Requested Reports</a>
+      <a href="reports-pending.html" class="active">Pending Approval</a>
+
+      <div class="sidenav-label">Profiles</div>
+      <a href="profiles-players.html">All Players</a>
+      <a href="profiles-coaches.html">All Coaches</a>
+
+      <div class="sidenav-label">Users</div>
+      <a href="users.html">All Users</a>
+      <a href="users-invite.html">Invite User</a>
+
+      <div class="sidenav-label">Settings</div>
+      <a href="settings.html">Settings</a>
+    
+      </div>
+      <div class="sidenav-logout">
+        <button onclick="logout()">Logout</button>
+      </div>
+</nav>
+
+    <main class="main-content">
+      <section class="hero">
+        <div class="hero-content">
+          <div class="hero-eyebrow">Reports</div>
+          <h1>Pending Report <em>Approval</em></h1>
+          <p><span class="badge badge-orange" style="background: rgba(232,119,34,0.15);">1 awaiting review</span></p>
+        </div>
+      </section>
+
+      <div class="page-container">
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+            <div>
+              <div class="card-title" style="font-size: 20px;">Saudi U20 Championship — Match 7</div>
+              <p style="color: var(--mid); font-size: 14px;">National U20 · Riyadh Stars · Apr 15, 2026</p>
+            </div>
+            <span class="badge badge-orange">Pending Approval</span>
+          </div>
+
+          <div class="two-col" style="margin-top: 20px;">
+            <div class="card" style="margin: 0; border: none; box-shadow: none; padding: 0;">
+              <div style="font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; color: var(--navy); margin-bottom: 12px;">AI-Generated Report Preview</div>
+              <p style="color: var(--mid); font-size: 14px; margin-bottom: 12px;">
+                National U20 delivered a strong performance against Riyadh Stars in a high-stakes matchup. The first quarter set the tone with balanced scoring from both sides.
+              </p>
+              <p style="color: var(--mid); font-size: 14px; margin-bottom: 16px;">
+                Key moments included a 10–0 run in the third quarter that gave National U20 a lead they would not relinquish. Defensive intensity was a highlight throughout.
+              </p>
+              <div style="border-top: 1px solid var(--border); padding-top: 16px;">
+                <div style="font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 13px; color: var(--navy); margin-bottom: 8px;">Player Highlights</div>
+                <ul style="color: var(--mid); font-size: 13px; margin-left: 18px;">
+                  <li>Ahmed Al-Rashidi: 18 points, 5 assists</li>
+                  <li>Youssef Samir: 14 points, 8 rebounds</li>
+                </ul>
+              </div>
+            </div>
+            <div class="card" style="margin: 0; background: var(--bg);">
+              <div style="font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; color: var(--navy); margin-bottom: 12px;">Raw Match Data</div>
+              <div style="margin-bottom: 12px;">
+                <div style="font-size: 11px; font-weight: 700; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">YouTube URL</div>
+                <div style="font-size: 13px; color: var(--mid); word-break: break-all;">https://youtube.com/watch?v=demo123</div>
+              </div>
+              <div style="margin-bottom: 12px;">
+                <div style="font-size: 11px; font-weight: 700; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Transcript Excerpt</div>
+                <div style="font-size: 13px; color: var(--mid);">...and the pass finds Ahmed for the layup. Great execution on the pick and roll...</div>
+              </div>
+              <div>
+                <div style="font-size: 11px; font-weight: 700; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Tagged Players</div>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                  <span class="badge badge-navy">Ahmed Al-Rashidi</span>
+                  <span class="badge badge-navy">Youssef Samir</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 12px; margin-top: 24px; justify-content: flex-end;">
+            <button class="btn btn-ghost">Edit Report</button>
+            <button class="btn btn-danger">Reject</button>
+            <button class="btn btn-lime">Approve & Publish</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div></body>
+</html>

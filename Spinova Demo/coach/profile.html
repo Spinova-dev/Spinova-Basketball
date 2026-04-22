@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile | Spinova Coach</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <div class="topbar">
+    <a href="dashboard.html" class="topbar-brand"><img src="../assets/images/spinova-logo.png" alt="Spinova Logo" style="height: 40px; width: auto; vertical-align: middle;"></a>
+    <div class="topbar-user" id="topbar-user"></div>
+  </div>
+  <script src="../assets/nav.js"></script>
+  <script>
+    checkAuth(['coach']);
+  </script>
+
+  <div class="layout">
+    <nav class="sidenav">
+      <div class="sidenav-top">
+
+      <div class="sidenav-label">Overview</div>
+      <a href="dashboard.html">Dashboard</a>
+
+      <div class="sidenav-label">My Profile</div>
+      <a href="profile.html" class="active">View Profile</a>
+
+      <div class="sidenav-label">Team</div>
+      <a href="team.html">Team & Players</a>
+
+      <div class="sidenav-label">Reports</div>
+      <a href="reports.html">Match Reports</a>
+      <a href="reports-request.html">Request Report</a>
+    
+      </div>
+      <div class="sidenav-logout">
+        <button onclick="logout()">Logout</button>
+      </div>
+</nav>
+
+    <main class="main-content">
+      <section class="hero">
+        <div class="hero-content" style="display: flex; align-items: center; gap: 24px;">
+          <img src="../assets/images/avatar.webp" alt="Profile Avatar" class="avatar large" style="object-fit: cover;">
+          <div>
+            <div class="hero-eyebrow">My Profile</div>
+            <h1>Omar <em>Salah</em></h1>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px;">
+              <span class="badge badge-green">FIBA Level 2</span>
+              <span class="badge badge-navy">8 Years Experience</span>
+              <span class="badge badge-navy">Riyadh, KSA</span>
+            </div>
+            <p style="margin-top: 8px;">Languages: English + Arabic</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="page-container">
+        <div class="card" style="border-top: 3px solid var(--lime2);">
+          <div class="card-title">Summary</div>
+          <p style="color: var(--mid); margin-bottom: 12px;">Omar Salah brings an analytical, player-first philosophy to every session. His FIBA Level 2 credentials and 8 years of hands-on development work with competitive youth in Riyadh have shaped a coaching identity built around precision, accountability, and long-term athlete growth.</p>
+          <p style="color: var(--mid);">Omar's expertise in pick-and-roll systems and structured defensive rotations has produced a recognisable team identity at the U18 level. His bilingual coaching ability in Arabic and English allows him to connect deeply with players from diverse backgrounds, building trust through clear, direct communication and consistent technical feedback.</p>
+        </div>
+        <div class="card" style="margin-top: 16px;">
+          <div class="card-title">Personal Information</div>
+          <div class="two-col" style="margin-top: 12px;">
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Full Name</div>
+              <div style="font-weight: 600; color: var(--navy);">Omar Salah</div>
+            </div>
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Date of Birth</div>
+              <div style="font-weight: 600; color: var(--navy);">Mar 15, 1988</div>
+            </div>
+          </div>
+          <div class="two-col" style="margin-top: 12px;">
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Country</div>
+              <div style="font-weight: 600; color: var(--navy);">Saudi Arabia</div>
+            </div>
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">City</div>
+              <div style="font-weight: 600; color: var(--navy);">Riyadh</div>
+            </div>
+          </div>
+          <div class="two-col" style="margin-top: 12px;">
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Phone Number</div>
+              <div style="font-weight: 600; color: var(--navy);">+966 50 987 6543</div>
+            </div>
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Email</div>
+              <div style="font-weight: 600; color: var(--navy);">omar.salah@email.com</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 16px;">
+          <div class="card-title">Coaching Profile</div>
+          <div class="two-col" style="margin-top: 12px;">
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Years of Coaching Experience</div>
+              <div style="font-weight: 600; color: var(--navy);">8 years</div>
+            </div>
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Highest Coaching Certification</div>
+              <div style="font-weight: 600; color: var(--navy);">FIBA Level 2</div>
+            </div>
+          </div>
+          <div style="margin-top: 12px;">
+            <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Other Certifications</div>
+            <div style="font-weight: 600; color: var(--navy);">Saudi Basketball Federation Level 3, Strength & Conditioning Coach (NASM)</div>
+          </div>
+          <div style="margin-top: 12px;">
+            <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Age Groups Specialized In</div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <span class="badge badge-navy">U16</span>
+              <span class="badge badge-navy">U18</span>
+            </div>
+          </div>
+          <div class="two-col" style="margin-top: 12px;">
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Playing Level Coached</div>
+              <div style="font-weight: 600; color: var(--navy);">Competitive</div>
+            </div>
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Coaching Languages</div>
+              <div style="font-weight: 600; color: var(--navy);">English + Arabic</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 16px;">
+          <div class="card-title">Social Links</div>
+          <div class="two-col" style="margin-top: 12px;">
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">LinkedIn</div>
+              <a href="https://linkedin.com/in/omarsalah-coach" target="_blank" style="font-weight: 600; color: var(--court);">linkedin.com/in/omarsalah-coach</a>
+            </div>
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Website</div>
+              <a href="https://falconbasketball.com" target="_blank" style="font-weight: 600; color: var(--court);">falconbasketball.com</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 16px; border-top: 3px solid var(--court);">
+          <div class="card-title">Current Status & Students</div>
+          <div class="two-col" style="margin-top: 12px;">
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Current Status</div>
+              <div style="font-weight: 600; color: var(--navy);">Academy-based</div>
+            </div>
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Academy / Club Name</div>
+              <div style="font-weight: 600; color: var(--navy);">Falcon Academy</div>
+            </div>
+          </div>
+          <div class="two-col" style="margin-top: 12px;">
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Current Active Students</div>
+              <div style="font-weight: 600; color: var(--navy);">12</div>
+            </div>
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Coached Competitive/Pro Players</div>
+              <div style="font-weight: 600; color: var(--navy);">Yes</div>
+            </div>
+          </div>
+          <div style="margin-top: 12px;">
+            <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Personal Playing Background & Level</div>
+            <div style="font-weight: 600; color: var(--navy);">Former point guard at King Saud University; competed in Saudi University Basketball League (2008-2012)</div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 16px; border-top: 3px solid var(--blue);">
+          <div class="card-title">Coaching Philosophy & Style</div>
+          <div style="margin-top: 12px;">
+            <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Offensive System Expertise</div>
+            <div style="font-weight: 600; color: var(--navy);">Pick & Roll, Motion Offense</div>
+          </div>
+          <div style="margin-top: 12px;">
+            <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Defensive Approach</div>
+            <div style="font-weight: 600; color: var(--navy);">Zone + Man-to-Man; emphasis on help defense and transition</div>
+          </div>
+          <div class="two-col" style="margin-top: 12px;">
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Player Development Focus</div>
+              <div style="font-weight: 600; color: var(--navy);">Mixed (Technical, Tactical, Physical, Mental)</div>
+            </div>
+          </div>
+          <div style="margin-top: 12px;">
+            <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Top Coaching Achievement</div>
+            <div style="font-weight: 600; color: var(--navy);">Led Falcon U18 to Saudi Regional Championship Finals 2025</div>
+          </div>
+          <div style="margin-top: 12px;">
+            <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Coaching Style</div>
+            <div style="font-weight: 600; color: var(--navy);">Player-first, analytical, detail-oriented, with clear, direct communication</div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 16px; border-top: 3px solid var(--navy3);">
+          <div class="card-title">Media & Discovery</div>
+          <div style="margin-top: 12px;">
+            <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">How did you hear about Spinova?</div>
+            <div style="font-weight: 600; color: var(--navy);">Recommended by a fellow coach at a FIBA clinic</div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 16px;">
+          <div class="card-title">Linked Reports & Players</div>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px;">
+            <div class="card" style="padding: 14px 16px; flex: 1; min-width: 240px;">
+              <div style="font-weight: 600; color: var(--navy); font-family: 'Outfit', sans-serif;">Falcon U18 vs Al-Nassr Youth</div>
+              <div style="font-size: 12px; color: var(--light); margin-top: 4px;">Apr 10, 2026</div>
+            </div>
+            <div class="card" style="padding: 14px 16px; flex: 1; min-width: 240px;">
+              <div style="font-weight: 600; color: var(--navy); font-family: 'Outfit', sans-serif;">Falcon U18 vs Al-Ahly Youth</div>
+              <div style="font-size: 12px; color: var(--light); margin-top: 4px;">Apr 3, 2026</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

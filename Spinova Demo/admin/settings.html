@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings | Spinova Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/styles.css">
+  <style>
+    .toggle-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
+    .toggle { width: 44px; height: 26px; background: var(--border); border-radius: 999px; position: relative; cursor: pointer; transition: background 0.2s; }
+    .toggle.active { background: var(--court); }
+    .toggle::after { content: ''; position: absolute; width: 20px; height: 20px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: left 0.2s; }
+    .toggle.active::after { left: 21px; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <a href="dashboard.html" class="topbar-brand"><img src="../assets/images/spinova-logo.png" alt="Spinova Logo" style="height: 40px; width: auto; vertical-align: middle;"></a>
+    <div class="topbar-user" id="topbar-user"></div>
+  </div></div>
+
+  <div class="layout">
+    <nav class="sidenav">
+      <div class="sidenav-top">
+
+      <div class="sidenav-label">Overview</div>
+      <a href="dashboard.html">Dashboard</a>
+
+      <div class="sidenav-label">Reports</div>
+      <a href="reports.html">All Reports</a>
+      <a href="reports-new.html">New Report</a>
+      <a href="reports-requested.html">Requested Reports</a>
+      <a href="reports-pending.html">Pending Approval</a>
+
+      <div class="sidenav-label">Profiles</div>
+      <a href="profiles-players.html">All Players</a>
+      <a href="profiles-coaches.html">All Coaches</a>
+
+      <div class="sidenav-label">Users</div>
+      <a href="users.html">All Users</a>
+      <a href="users-invite.html">Invite User</a>
+
+      <div class="sidenav-label">Settings</div>
+      <a href="settings.html" class="active">Settings</a>
+    
+      </div>
+      <div class="sidenav-logout">
+        <button onclick="logout()">Logout</button>
+      </div>
+</nav>
+
+    <main class="main-content">
+      <section class="hero">
+        <div class="hero-content">
+          <div class="hero-eyebrow">Settings</div>
+          <h1>Platform <em>Settings</em></h1>
+          <p>Manage teams, AI prompts, and notifications.</p>
+        </div>
+      </section>
+
+      <div class="page-container">
+        <div class="card" style="margin-bottom: 24px;">
+          <div class="card-title">Teams Registry</div>
+          <div style="margin: 16px 0; display: flex; flex-wrap: wrap; gap: 8px;">
+            <span class="badge badge-navy">Falcon U18 Elite</span>
+            <span class="badge badge-navy">Al-Nassr Youth</span>
+            <span class="badge badge-navy">Al-Ahly Youth</span>
+            <span class="badge badge-navy">Jeddah Eagles</span>
+            <span class="badge badge-navy">Riyadh Stars</span>
+            <span class="badge badge-navy">National U20</span>
+          </div>
+          <button class="btn btn-secondary btn-sm">+ Add Team</button>
+        </div>
+
+        <div class="card" style="margin-bottom: 24px;">
+          <div class="card-title">AI Prompt Templates</div>
+          <details style="margin-top: 16px;">
+            <summary style="font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--navy); cursor: pointer; padding: 12px 0;">Player Profile Prompt</summary>
+            <textarea class="input" style="font-family: monospace; font-size: 12px; background: var(--bg);" readonly>Analyze the player's form answers and generate a comprehensive profile including bio, playing style, strengths, and development recommendations...</textarea>
+            <button class="btn btn-secondary btn-sm" style="margin-top: 12px;">Edit Prompt</button>
+          </details>
+          <details style="margin-top: 16px;">
+            <summary style="font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--navy); cursor: pointer; padding: 12px 0;">Match Report Prompt</summary>
+            <textarea class="input" style="font-family: monospace; font-size: 12px; background: var(--bg);" readonly>Generate a detailed match report including narrative, key events, player highlights, and statistical analysis...</textarea>
+            <button class="btn btn-secondary btn-sm" style="margin-top: 12px;">Edit Prompt</button>
+          </details>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Notifications</div>
+          <div class="toggle-row">
+            <div>
+              <div style="font-weight: 600; color: var(--navy); font-size: 14px;">Email on new profile submission</div>
+              <div style="font-size: 12px; color: var(--light);">Get notified when a new profile is submitted for review</div>
+            </div>
+            <div class="toggle active"></div>
+          </div>
+          <div class="toggle-row">
+            <div>
+              <div style="font-weight: 600; color: var(--navy); font-size: 14px;">Email on report ready for review</div>
+              <div style="font-size: 12px; color: var(--light);">Get notified when an AI report is ready for approval</div>
+            </div>
+            <div class="toggle active"></div>
+          </div>
+          <div class="toggle-row">
+            <div>
+              <div style="font-weight: 600; color: var(--navy); font-size: 14px;">Email on profile approved</div>
+              <div style="font-size: 12px; color: var(--light);">Confirmation when a profile is published</div>
+            </div>
+            <div class="toggle active"></div>
+          </div>
+          <div class="toggle-row" style="border-bottom: none;">
+            <div>
+              <div style="font-weight: 600; color: var(--navy); font-size: 14px;">Email on report published</div>
+              <div style="font-size: 12px; color: var(--light);">Confirmation when a match report goes live</div>
+            </div>
+            <div class="toggle active"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div></body>
+</html>

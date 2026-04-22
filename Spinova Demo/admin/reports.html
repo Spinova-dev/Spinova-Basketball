@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Reports | Spinova Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <div class="topbar">
+    <a href="dashboard.html" class="topbar-brand"><img src="../assets/images/spinova-logo.png" alt="Spinova Logo" style="height: 40px; width: auto; vertical-align: middle;"></a>
+    <div class="topbar-user" id="topbar-user"></div>
+  </div>
+  <script src="../assets/nav.js"></script>
+  <script>
+    checkAuth(['admin']);
+  </script>
+
+  <div class="layout">
+    <nav class="sidenav">
+      <div class="sidenav-top">
+
+      <div class="sidenav-label">Overview</div>
+      <a href="dashboard.html">Dashboard</a>
+
+      <div class="sidenav-label">Reports</div>
+      <a href="reports.html" class="active">All Reports</a>
+      <a href="reports-new.html">New Report</a>
+      <a href="reports-requested.html">Requested Reports</a>
+      <a href="reports-pending.html">Pending Approval</a>
+
+      <div class="sidenav-label">Profiles</div>
+      <a href="profiles-players.html">All Players</a>
+      <a href="profiles-coaches.html">All Coaches</a>
+
+      <div class="sidenav-label">Users</div>
+      <a href="users.html">All Users</a>
+      <a href="users-invite.html">Invite User</a>
+
+      <div class="sidenav-label">Settings</div>
+      <a href="settings.html">Settings</a>
+    
+      </div>
+      <div class="sidenav-logout">
+        <button onclick="logout()">Logout</button>
+      </div>
+</nav>
+
+    <main class="main-content">
+      <section class="hero">
+        <div class="hero-content">
+          <div class="hero-eyebrow">Reports</div>
+          <h1>All <em>Reports</em></h1>
+          <p>View and manage all match reports in the system.</p>
+        </div>
+      </section>
+
+      <div class="page-container">
+        <div class="page-header">
+          <h2>Reports</h2>
+          <div class="filter-tabs">
+            <button class="tab active">All</button>
+            <button class="tab">Published</button>
+            <button class="tab">Pending</button>
+            <button class="tab">Processing</button>
+            <button class="tab">Draft</button>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="sp-table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Teams</th>
+                <th>Date Submitted</th>
+                <th>Status</th>
+                <th>Linked Players</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Falcon U18 vs Al-Nassr Youth</td>
+                <td>Falcon U18 · Al-Nassr Youth</td>
+                <td>Apr 10, 2026</td>
+                <td><span class="badge badge-green">Published</span></td>
+                <td>Ahmed Al-Rashidi, Youssef Samir</td>
+                <td><a href="#" class="btn btn-ghost btn-sm">View</a></td>
+              </tr>
+              <tr>
+                <td>Falcon U18 vs Al-Ahly Youth</td>
+                <td>Falcon U18 · Al-Ahly Youth</td>
+                <td>Apr 3, 2026</td>
+                <td><span class="badge badge-green">Published</span></td>
+                <td>Ahmed Al-Rashidi, Youssef Samir</td>
+                <td><a href="#" class="btn btn-ghost btn-sm">View</a></td>
+              </tr>
+              <tr>
+                <td>Saudi U20 Championship — Match 7</td>
+                <td>National U20 · Riyadh Stars</td>
+                <td>Apr 15, 2026</td>
+                <td><span class="badge badge-orange">Pending Approval</span></td>
+                <td>—</td>
+                <td><a href="reports-pending.html" class="btn btn-primary btn-sm">Review</a></td>
+              </tr>
+              <tr>
+                <td>Falcon U18 vs Jeddah Eagles</td>
+                <td>Falcon U18 · Jeddah Eagles</td>
+                <td>Apr 17, 2026</td>
+                <td><span class="badge badge-blue">Processing</span></td>
+                <td>—</td>
+                <td>—</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/nav.js"></script>
+  <script>
+    checkAuth(['admin']);
+  </script>
+</body>
+</html>

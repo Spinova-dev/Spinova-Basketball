@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile | Spinova Player</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <div class="topbar">
+    <a href="dashboard.html" class="topbar-brand"><img src="../assets/images/spinova-logo.png" alt="Spinova Logo" style="height: 40px; width: auto; vertical-align: middle;"></a>
+    <div class="topbar-user" id="topbar-user"></div>
+  </div>
+
+  <div class="layout">
+    <nav class="sidenav">
+      <div class="sidenav-top">
+
+      <div class="sidenav-label">Overview</div>
+      <a href="dashboard.html">Dashboard</a>
+
+      <div class="sidenav-label">My Profile</div>
+      <a href="profile.html" class="active">View Profile</a>
+
+      <div class="sidenav-label">Reports</div>
+      <a href="reports.html">My Reports</a>
+      <a href="reports-request.html">Request Report</a>
+    
+      </div>
+      <div class="sidenav-logout">
+        <button onclick="logout()">Logout</button>
+      </div>
+</nav>
+
+    <main class="main-content">
+      <section class="hero">
+        <div class="hero-content" style="display: flex; align-items: center; gap: 24px;">
+          <img src="../assets/images/avatar.webp" alt="Profile Avatar" class="avatar large" style="object-fit: cover;">
+          <div>
+            <div class="hero-eyebrow">My Profile</div>
+            <h1>Ahmed <em>Al-Rashidi</em></h1>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px;">
+              <span class="badge badge-navy">PG</span>
+              <span class="badge badge-navy">SG</span>
+              <span class="badge badge-green">Competitive</span>
+              <span class="badge badge-navy">Falcon U18 Elite</span>
+              <span class="badge badge-navy">Riyadh, KSA</span>
+            </div>
+            <p style="margin-top: 8px;">183cm · 78kg · Right-handed</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="page-container">
+        <div class="card" style="border-top: 3px solid var(--lime2);">
+          <div class="card-title">Summary</div>
+          <p style="color: var(--mid); margin-bottom: 12px;">Ahmed Al-Rashidi is a dynamic and highly instinctive point guard operating out of Riyadh's competitive U18 circuit. With an elite court vision rating and a first step that creates consistent separation at the arc, Ahmed excels as both a primary scoring threat and a genuine playmaker for the Falcon U18 Elite roster.</p>
+          <p style="color: var(--mid);">His 7 years of structured development, combined with consistent high-frequency training under Coach Omar Salah, has built a technical foundation that is rare for his age group. Ahmed's ambition to compete at the national level and ultimately pursue a professional career reflects the discipline and clarity of purpose that defines his approach to the game.</p>
+        </div>
+        <div class="card" style="margin-top: 16px;">
+          <div class="card-title">Personal Information</div>
+          <div class="two-col" style="margin-top: 12px;">
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Date of Birth</div>
+              <div style="font-weight: 600; color: var(--navy);">Jan 5, 2007</div>
+            </div>
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Nationality</div>
+              <div style="font-weight: 600; color: var(--navy);">Saudi</div>
+            </div>
+          </div>
+          <div class="two-col" style="margin-top: 12px;">
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">City</div>
+              <div style="font-weight: 600; color: var(--navy);">Riyadh</div>
+            </div>
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Phone Number</div>
+              <div style="font-weight: 600; color: var(--navy);">+966 50 123 4567</div>
+            </div>
+          </div>
+          <div class="two-col" style="margin-top: 12px;">
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Email</div>
+              <div style="font-weight: 600; color: var(--navy);">ahmed.alrashidi@email.com</div>
+            </div>
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Parent/Guardian Email</div>
+              <div style="font-weight: 600; color: var(--navy);">mohammed.alrashidi@email.com</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 16px;">
+          <div class="card-title">Basketball Profile</div>
+          <div class="two-col" style="margin-top: 12px;">
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Primary Position</div>
+              <div style="font-weight: 600; color: var(--navy);">PG</div>
+            </div>
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Secondary Position</div>
+              <div style="font-weight: 600; color: var(--navy);">SG</div>
+            </div>
+          </div>
+          <div class="two-col" style="margin-top: 12px;">
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Dominant Hand</div>
+              <div style="font-weight: 600; color: var(--navy);">Right</div>
+            </div>
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Years Playing</div>
+              <div style="font-weight: 600; color: var(--navy);">7 years</div>
+            </div>
+          </div>
+          <div class="two-col" style="margin-top: 12px;">
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Height</div>
+              <div style="font-weight: 600; color: var(--navy);">183 cm</div>
+            </div>
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Weight</div>
+              <div style="font-weight: 600; color: var(--navy);">78 kg</div>
+            </div>
+          </div>
+          <div style="margin-top: 12px;">
+            <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Current Playing Level</div>
+            <div style="font-weight: 600; color: var(--navy);">Competitive</div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 16px; border-top: 3px solid var(--court);">
+          <div class="card-title">Playing Style & Strengths</div>
+          <div class="two-col" style="margin-top: 12px;">
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Preferred Offensive Style</div>
+              <div style="font-weight: 600; color: var(--navy);">Playmaker / Slasher</div>
+            </div>
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Preferred Team Role</div>
+              <div style="font-weight: 600; color: var(--navy);">Primary ball handler</div>
+            </div>
+          </div>
+          <div style="margin-top: 12px;">
+            <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Strongest Physical Attributes</div>
+            <div style="font-weight: 600; color: var(--navy);">Speed, first step, balance</div>
+          </div>
+          <p style="color: var(--mid); margin-top: 12px; margin-bottom: 16px;">Offensive strengths: perimeter shooting, pick-and-roll execution, isolation scoring. Defensive engagement: high intensity with active hands in the passing lanes. Areas to develop: physicality in the paint and consistency in late-shot-clock situations.</p>
+          <div class="three-col">
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Defensive Intensity</div>
+              <div style="font-weight: 700; color: var(--navy); font-family: 'Outfit', sans-serif;">8/10</div>
+            </div>
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Court Vision</div>
+              <div style="font-weight: 700; color: var(--navy); font-family: 'Outfit', sans-serif;">9/10</div>
+            </div>
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Pace of Play</div>
+              <div style="font-weight: 700; color: var(--navy); font-family: 'Outfit', sans-serif;">Fast</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 16px; border-top: 3px solid var(--blue);">
+          <div class="card-title">Training & Academy</div>
+          <div class="two-col" style="margin-top: 12px;">
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Weekly Training Frequency</div>
+              <div style="font-weight: 600; color: var(--navy);">4x/week</div>
+            </div>
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Current Coach Status</div>
+              <div style="font-weight: 600; color: var(--navy);">Yes</div>
+            </div>
+          </div>
+          <div class="two-col" style="margin-top: 12px;">
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Years Structured Training</div>
+              <div style="font-weight: 600; color: var(--navy);">5 years</div>
+            </div>
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Current Academy</div>
+              <div style="font-weight: 600; color: var(--navy);">Falcon Academy</div>
+            </div>
+          </div>
+          <div style="margin-top: 12px;">
+            <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Previous Academies</div>
+            <div style="font-weight: 600; color: var(--navy);">Riyadh Youth Academy (2018-2021)</div>
+          </div>
+          <div style="margin-top: 12px;">
+            <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Current Coach</div>
+            <div style="font-weight: 600; color: var(--navy);">Omar Salah</div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 16px; border-top: 3px solid var(--lime2);">
+          <div class="card-title">Goals & Achievements</div>
+          <div style="margin-top: 12px;">
+            <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Main Basketball Goals</div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <span class="badge badge-navy">Compete Nationally</span>
+              <span class="badge badge-navy">Go Professional</span>
+              <span class="badge badge-navy">Join Top Academy</span>
+            </div>
+          </div>
+          <div style="margin-top: 12px;">
+            <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Timeline to Main Goal</div>
+            <div style="font-weight: 600; color: var(--navy);">6-12 months</div>
+          </div>
+          <div style="margin-top: 12px;">
+            <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Top Career Achievement</div>
+            <div style="font-weight: 600; color: var(--navy);">Top scorer in Riyadh U18 League 2024</div>
+          </div>
+          <div style="margin-top: 12px;">
+            <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Tournament History</div>
+            <div style="font-weight: 600; color: var(--navy);">Saudi U18 Regional Championship 2025</div>
+          </div>
+          <div style="margin-top: 12px;">
+            <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Awards / Recognition</div>
+            <div style="font-weight: 600; color: var(--navy);">MVP - Riyadh Youth Cup 2024, All-Tournament Team - Saudi Regional 2025</div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 16px; border-top: 3px solid var(--navy3);">
+          <div class="card-title">Visibility & Media</div>
+          <div class="two-col" style="margin-top: 12px;">
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Public Scouting Directory</div>
+              <span class="badge badge-green">Visible</span>
+            </div>
+            <div>
+              <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">How did you hear about Spinova?</div>
+              <div style="font-weight: 600; color: var(--navy);">Recommended by Coach Omar</div>
+            </div>
+          </div>
+          <div style="margin-top: 12px;">
+            <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">Instagram</div>
+            <a href="https://instagram.com/ahmed.alrashidi.bball" target="_blank" style="font-weight: 600; color: var(--court);">@ahmed.alrashidi.bball</a>
+          </div>
+          <div style="margin-top: 12px;">
+            <div style="font-size: 12px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">YouTube Highlights</div>
+            <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+              <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 8px;"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 16px;">
+          <div class="card-title">Connected Match Reports</div>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px;">
+            <div class="card" style="padding: 14px 16px; flex: 1; min-width: 240px;">
+              <div style="font-weight: 600; color: var(--navy); font-family: 'Outfit', sans-serif;">Falcon U18 vs Al-Nassr Youth</div>
+              <div style="font-size: 12px; color: var(--light); margin-top: 4px;">Apr 10, 2026 · 32 points</div>
+            </div>
+            <div class="card" style="padding: 14px 16px; flex: 1; min-width: 240px;">
+              <div style="font-weight: 600; color: var(--navy); font-family: 'Outfit', sans-serif;">Falcon U18 vs Al-Ahly Youth</div>
+              <div style="font-size: 12px; color: var(--light); margin-top: 4px;">Apr 3, 2026 · 24 points</div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </main>
+  </div>
+</body>
+</html>

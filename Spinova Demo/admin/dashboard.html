@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Spinova</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <div class="topbar">
+    <a href="dashboard.html" class="topbar-brand"><img src="../assets/images/spinova-logo.png" alt="Spinova Logo" style="height: 40px; width: auto; vertical-align: middle;"></a>
+    <div class="topbar-user" id="topbar-user"></div>
+  </div>
+  <script src="../assets/nav.js"></script>
+  <script>
+    checkAuth(['admin']);
+  </script>
+
+  <div class="layout">
+    <nav class="sidenav">
+      <div class="sidenav-top">
+
+      <div class="sidenav-label">Overview</div>
+      <a href="dashboard.html" class="active">Dashboard</a>
+
+      <div class="sidenav-label">Reports</div>
+      <a href="reports.html">All Reports</a>
+      <a href="reports-new.html">New Report</a>
+      <a href="reports-requested.html">Requested Reports</a>
+      <a href="reports-pending.html">Pending Approval</a>
+
+      <div class="sidenav-label">Profiles</div>
+      <a href="profiles-players.html">All Players</a>
+      <a href="profiles-coaches.html">All Coaches</a>
+
+      <div class="sidenav-label">Users</div>
+      <a href="users.html">All Users</a>
+      <a href="users-invite.html">Invite User</a>
+
+      <div class="sidenav-label">Settings</div>
+      <a href="settings.html">Settings</a>
+    
+      </div>
+      <div class="sidenav-logout">
+        <button onclick="logout()">Logout</button>
+      </div>
+</nav>
+
+    <main class="main-content">
+      <section class="hero">
+        <div class="hero-content">
+          <div class="hero-eyebrow">Admin Dashboard</div>
+          <h1>Platform <em>Overview</em></h1>
+          <p>April 2026 · Manage profiles, reports, and users.</p>
+        </div>
+      </section>
+
+      <div class="page-container">
+        <div class="stat-row">
+          <div class="stat-box">
+            <div class="stat-num" style="color: var(--court);">2</div>
+            <div class="stat-label">Pending Profiles</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num" style="color: var(--court);">1</div>
+            <div class="stat-label">Pending Reports</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num blue">3</div>
+            <div class="stat-label">Total Players</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num blue">2</div>
+            <div class="stat-label">Total Coaches</div>
+          </div>
+        </div>
+
+        <div class="callout orange">
+          <div class="callout-tag">Action Required</div>
+          <p style="font-weight: 600; margin-bottom: 12px;">2 items need your review</p>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <div class="card" style="padding: 14px 18px; flex: 1; min-width: 280px;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                  <div style="font-weight: 700; color: var(--navy); font-family: 'Outfit', sans-serif;">Kareem Mostafa</div>
+                  <div style="font-size: 12px; color: var(--light);">Player Profile · Submitted Apr 16</div>
+                </div>
+                <a href="profiles-pending.html" class="btn btn-primary btn-sm">Review</a>
+              </div>
+            </div>
+            <div class="card" style="padding: 14px 18px; flex: 1; min-width: 280px;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                  <div style="font-weight: 700; color: var(--navy); font-family: 'Outfit', sans-serif;">Hassan Al-Zahrawi</div>
+                  <div style="font-size: 12px; color: var(--light);">Coach Profile · Submitted Apr 14</div>
+                </div>
+                <a href="profiles-pending.html" class="btn btn-primary btn-sm">Review</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="page-header" style="margin-top: 32px;">
+          <h2>Recent Reports</h2>
+        </div>
+
+        <div class="table-wrap">
+          <table class="sp-table">
+            <thead>
+              <tr>
+                <th>Report Title</th>
+                <th>Teams</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Falcon U18 vs Al-Nassr Youth</td>
+                <td>Falcon U18 · Al-Nassr Youth</td>
+                <td>Apr 10, 2026</td>
+                <td><span class="badge badge-green">Published</span></td>
+                <td><a href="reports.html" class="btn btn-ghost btn-sm">View</a></td>
+              </tr>
+              <tr>
+                <td>Falcon U18 vs Al-Ahly Youth</td>
+                <td>Falcon U18 · Al-Ahly Youth</td>
+                <td>Apr 3, 2026</td>
+                <td><span class="badge badge-green">Published</span></td>
+                <td><a href="reports.html" class="btn btn-ghost btn-sm">View</a></td>
+              </tr>
+              <tr>
+                <td>Saudi U20 Championship — Match 7</td>
+                <td>National U20 · Riyadh Stars</td>
+                <td>Apr 15, 2026</td>
+                <td><span class="badge badge-orange">Pending Approval</span></td>
+                <td><a href="reports-pending.html" class="btn btn-primary btn-sm">Review</a></td>
+              </tr>
+              <tr>
+                <td>Falcon U18 vs Jeddah Eagles</td>
+                <td>Falcon U18 · Jeddah Eagles</td>
+                <td>Apr 17, 2026</td>
+                <td><span class="badge badge-blue">Processing</span></td>
+                <td>—</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="page-header" style="margin-top: 32px;">
+          <h2>Quick Actions</h2>
+        </div>
+
+        <div class="three-col">
+          <a href="users-invite.html" class="card interactive" style="text-decoration: none; display: block;">
+            <div class="card-title">Invite New User</div>
+            <p style="color: var(--mid); font-size: 13px;">Add a new player or coach to the platform.</p>
+          </a>
+          <a href="reports-new.html" class="card interactive" style="text-decoration: none; display: block;">
+            <div class="card-title">Submit New Report</div>
+            <p style="color: var(--mid); font-size: 13px;">Submit a YouTube match for AI analysis.</p>
+          </a>
+          <a href="profiles-players.html" class="card interactive" style="text-decoration: none; display: block;">
+            <div class="card-title">View All Profiles</div>
+            <p style="color: var(--mid); font-size: 13px;">Browse and manage all player and coach profiles.</p>
+          </a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+
+</body>
+</html>

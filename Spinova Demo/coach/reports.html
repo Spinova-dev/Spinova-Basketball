@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Match Reports | Spinova Coach</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <div class="topbar">
+    <a href="dashboard.html" class="topbar-brand"><img src="../assets/images/spinova-logo.png" alt="Spinova Logo" style="height: 40px; width: auto; vertical-align: middle;"></a>
+    <div class="topbar-user" id="topbar-user"></div>
+  </div>
+  <script src="../assets/nav.js"></script>
+  <script>
+    checkAuth(['coach']);
+  </script>
+
+  <div class="layout">
+    <nav class="sidenav">
+      <div class="sidenav-top">
+
+      <div class="sidenav-label">Overview</div>
+      <a href="dashboard.html">Dashboard</a>
+
+      <div class="sidenav-label">My Profile</div>
+      <a href="profile.html">View Profile</a>
+
+      <div class="sidenav-label">Team</div>
+      <a href="team.html">Team & Players</a>
+
+      <div class="sidenav-label">Reports</div>
+      <a href="reports.html" class="active">Match Reports</a>
+      <a href="reports-request.html">Request Report</a>
+    
+      </div>
+      <div class="sidenav-logout">
+        <button onclick="logout()">Logout</button>
+      </div>
+</nav>
+
+    <main class="main-content">
+      <section class="hero">
+        <div class="hero-content">
+          <div class="hero-eyebrow">Reports</div>
+          <h1>Match Reports · <em>My Team</em></h1>
+        </div>
+      </section>
+
+      <div class="page-container">
+        <div class="page-header">
+          <h2>Reports</h2>
+        </div>
+
+        <div class="card" style="margin-bottom: 20px;">
+          <div class="card-title">Falcon U18 vs Al-Nassr Youth</div>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px;">
+            <span style="font-size: 13px; color: var(--light);">Apr 10, 2026</span>
+            <span class="badge badge-navy">78–65</span>
+          </div>
+          <p style="color: var(--mid); font-size: 14px; margin-bottom: 16px;">Falcon U18 Elite delivered a commanding second-half performance to defeat Al-Nassr Youth 78–65 in a tightly contested Saudi U18 matchup. After trailing by 4 at halftime, Falcon's adjusted defensive scheme under Coach Omar Salah produced six consecutive forced turnovers to open the third quarter — a run that proved decisive.</p>
+          <div style="margin-bottom: 16px;">
+            <div style="font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--navy); margin-bottom: 8px;">Player Highlights</div>
+            <ul style="color: var(--mid); margin-left: 20px; font-size: 14px;">
+              <li>Ahmed Al-Rashidi: 32 points on 12/18 shooting. 8 assists. Led the fourth-quarter comeback.</li>
+              <li>Youssef Samir: 18 points, 9 rebounds. Strong interior presence.</li>
+            </ul>
+          </div>
+          <button class="btn btn-primary btn-sm">View Full Report</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Falcon U18 vs Al-Ahly Youth</div>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px;">
+            <span style="font-size: 13px; color: var(--light);">Apr 3, 2026</span>
+            <span class="badge badge-navy">91–80</span>
+          </div>
+          <p style="color: var(--mid); font-size: 14px; margin-bottom: 16px;">Falcon U18 Elite recorded a dominant 91–80 victory over Al-Ahly Youth in what was a high-tempo affair throughout. Both teams pushed pace aggressively, but Falcon's transition defence and offensive rebounding advantage — 14 second-chance points — proved the decisive margin.</p>
+          <div style="margin-bottom: 16px;">
+            <div style="font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--navy); margin-bottom: 8px;">Player Highlights</div>
+            <ul style="color: var(--mid); margin-left: 20px; font-size: 14px;">
+              <li>Ahmed Al-Rashidi: 24 points on 9/15 shooting. 7 assists. Set a season-high 4 steals.</li>
+              <li>Youssef Samir: 18 points and 9 rebounds.</li>
+            </ul>
+          </div>
+          <button class="btn btn-primary btn-sm">View Full Report</button>
+        </div>
+      </div>
+    </main>
+  </div></body>
+</html>

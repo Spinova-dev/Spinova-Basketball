@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Player Onboarding | Spinova</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/styles.css">
+  <style>
+    .onboarding-page {
+      background: var(--bg);
+      min-height: 100vh;
+    }
+    .onboarding-topbar {
+      background: var(--white);
+      padding: 16px 40px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .onboarding-brand {
+      font-family: 'Outfit', sans-serif;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--navy);
+      text-decoration: none;
+    }
+    .onboarding-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--mid);
+    }
+    .lang-toggle {
+      display: flex;
+      gap: 4px;
+      background: var(--bg);
+      padding: 4px;
+      border-radius: var(--r-pill);
+    }
+    .lang-toggle button {
+      padding: 6px 16px;
+      border: none;
+      background: transparent;
+      border-radius: var(--r-pill);
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--light);
+      transition: all 0.2s;
+    }
+    .lang-toggle button.active {
+      background: var(--court);
+      color: white;
+    }
+    .onboarding-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    .progress-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 32px;
+    }
+    .progress-step {
+      flex: 1;
+      height: 6px;
+      background: var(--border);
+      border-radius: 3px;
+      transition: background 0.3s;
+    }
+    .progress-step.active { background: var(--court); }
+    .progress-step.completed { background: var(--lime2); }
+    .form-section-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .form-section-head {
+      padding: 16px 20px;
+      background: #F9FBFD;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .form-section-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: var(--court);
+      font-size: 13px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Outfit', sans-serif;
+    }
+    .form-section-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .form-section-body {
+      padding: 24px 20px;
+    }
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 32px;
+    }
+    .check-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .check-grid label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--mid);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .step-content { display: none; }
+    .step-content.active { display: block; }
+  </style>
+</head>
+<body class="onboarding-page">
+  <div class="onboarding-topbar">
+    <div style="display: flex; align-items: center; gap: 24px;">
+      <a href="../login.html" class="onboarding-brand"><img src="../assets/images/spinova-logo.png" alt="Spinova Logo" style="height: 40px; width: auto; vertical-align: middle;"></a>
+      <span class="onboarding-title">Complete Your Profile</span>
+    </div>
+    <div class="lang-toggle">
+      <button class="active" id="lang-en">EN</button>
+      <button id="lang-ar">AR</button>
+    </div>
+  </div>
+
+  <div class="onboarding-container">
+    <div class="progress-bar" id="progress-bar">
+      <div class="progress-step active" data-step="1"></div>
+      <div class="progress-step" data-step="2"></div>
+      <div class="progress-step" data-step="3"></div>
+      <div class="progress-step" data-step="4"></div>
+      <div class="progress-step" data-step="5"></div>
+      <div class="progress-step" data-step="6"></div>
+    </div>
+
+    <form id="onboarding-form">
+      <div class="step-content active" data-step="1">
+        <div class="form-section-card">
+          <div class="form-section-head">
+            <div class="form-section-num">1</div>
+            <div class="form-section-title">Personal Information</div>
+          </div>
+          <div class="form-section-body">
+            <div class="form-group">
+              <label class="input-label">Full Name</label>
+              <input type="text" class="input" placeholder="Ali Ahmed">
+            </div>
+            <div class="two-col">
+              <div class="form-group">
+                <label class="input-label">Date of Birth</label>
+                <input type="date" class="input">
+              </div>
+              <div class="form-group">
+                <label class="input-label">Nationality</label>
+                <input type="text" class="input" placeholder="Saudi">
+              </div>
+            </div>
+            <div class="two-col">
+              <div class="form-group">
+                <label class="input-label">City of Residence</label>
+                <input type="text" class="input" placeholder="Riyadh">
+              </div>
+              <div class="form-group">
+                <label class="input-label">Phone Number</label>
+                <input type="tel" class="input" placeholder="+966...">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="input-label">Email Address</label>
+              <input type="email" class="input" placeholder="player@email.com">
+            </div>
+            <div class="form-group">
+              <label class="input-label">Parent/Guardian Email (if under 18)</label>
+              <input type="email" class="input" placeholder="guardian@email.com">
+            </div>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" disabled>← Back</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Next Step →</button>
+        </div>
+      </div>
+
+      <div class="step-content" data-step="2">
+        <div class="form-section-card">
+          <div class="form-section-head">
+            <div class="form-section-num">2</div>
+            <div class="form-section-title">Basketball Profile</div>
+          </div>
+          <div class="form-section-body">
+            <div class="two-col">
+              <div class="form-group">
+                <label class="input-label">Primary Position</label>
+                <select class="input">
+                  <option>PG</option>
+                  <option>SG</option>
+                  <option>SF</option>
+                  <option>PF</option>
+                  <option>C</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="input-label">Secondary Position</label>
+                <select class="input">
+                  <option>None</option>
+                  <option>PG</option>
+                  <option>SG</option>
+                  <option>SF</option>
+                  <option>PF</option>
+                  <option>C</option>
+                </select>
+              </div>
+            </div>
+            <div class="two-col">
+              <div class="form-group">
+                <label class="input-label">Dominant Hand</label>
+                <select class="input">
+                  <option>Right</option>
+                  <option>Left</option>
+                  <option>Both</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="input-label">Years Playing Basketball</label>
+                <input type="number" class="input" min="0" placeholder="7">
+              </div>
+            </div>
+            <div class="two-col">
+              <div class="form-group">
+                <label class="input-label">Height (cm)</label>
+                <input type="number" class="input" placeholder="183">
+              </div>
+              <div class="form-group">
+                <label class="input-label">Weight (kg)</label>
+                <input type="number" class="input" placeholder="78">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="input-label">Current Playing Level</label>
+              <select class="input">
+                <option>Recreational</option>
+                <option>Competitive</option>
+                <option>Elite</option>
+                <option>Professional</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" onclick="prevStep()">← Back</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Next Step →</button>
+        </div>
+      </div>
+
+      <div class="step-content" data-step="3">
+        <div class="form-section-card">
+          <div class="form-section-head">
+            <div class="form-section-num">3</div>
+            <div class="form-section-title">Playing Style & Strengths</div>
+          </div>
+          <div class="form-section-body">
+            <div class="form-group">
+              <label class="input-label">Preferred Offensive Style</label>
+              <input type="text" class="input" placeholder="Playmaker / Slasher / Shooter">
+            </div>
+            <div class="two-col">
+              <div class="form-group">
+                <label class="input-label">Defensive Intensity (1-10)</label>
+                <input type="number" class="input" min="1" max="10">
+              </div>
+              <div class="form-group">
+                <label class="input-label">Court Vision (1-10)</label>
+                <input type="number" class="input" min="1" max="10">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="input-label">Preferred Team Role</label>
+              <input type="text" class="input" placeholder="Primary ball handler">
+            </div>
+            <div class="form-group">
+              <label class="input-label">Strongest Physical Attributes</label>
+              <textarea class="input" placeholder="Speed, first step, balance..."></textarea>
+            </div>
+            <div class="form-group">
+              <label class="input-label">Pace of Play Preference</label>
+              <select class="input">
+                <option>Fast</option>
+                <option>Balanced</option>
+                <option>Controlled</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" onclick="prevStep()">← Back</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Next Step →</button>
+        </div>
+      </div>
+
+      <div class="step-content" data-step="4">
+        <div class="form-section-card">
+          <div class="form-section-head">
+            <div class="form-section-num">4</div>
+            <div class="form-section-title">Training & Academy</div>
+          </div>
+          <div class="form-section-body">
+            <div class="two-col">
+              <div class="form-group">
+                <label class="input-label">Weekly Training Frequency</label>
+                <input type="number" class="input" min="0">
+              </div>
+              <div class="form-group">
+                <label class="input-label">Current Coach Status</label>
+                <select class="input">
+                  <option>Yes</option>
+                  <option>No</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="input-label">Current Academy or Club</label>
+              <input type="text" class="input" placeholder="Falcon Academy">
+            </div>
+            <div class="form-group">
+              <label class="input-label">Previous Academies</label>
+              <textarea class="input"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="input-label">Years of Structured Training</label>
+              <input type="number" class="input" min="0">
+            </div>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" onclick="prevStep()">← Back</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Next Step →</button>
+        </div>
+      </div>
+
+      <div class="step-content" data-step="5">
+        <div class="form-section-card">
+          <div class="form-section-head">
+            <div class="form-section-num">5</div>
+            <div class="form-section-title">Goals & Achievements</div>
+          </div>
+          <div class="form-section-body">
+            <div class="form-group">
+              <label class="input-label">Main Basketball Goals (Multi-select)</label>
+              <div class="check-grid">
+                <label><input type="checkbox"> Compete Nationally</label>
+                <label><input type="checkbox"> Go Professional</label>
+                <label><input type="checkbox"> Improve Fitness</label>
+                <label><input type="checkbox"> Join Top Academy</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="input-label">Timeline to Main Goal</label>
+              <input type="text" class="input" placeholder="6-12 months">
+            </div>
+            <div class="form-group">
+              <label class="input-label">Tournament History</label>
+              <textarea class="input"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="input-label">Top Career Achievement</label>
+              <textarea class="input"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="input-label">Awards / Recognition</label>
+              <textarea class="input"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" onclick="prevStep()">← Back</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Next Step →</button>
+        </div>
+      </div>
+
+      <div class="step-content" data-step="6">
+        <div class="form-section-card">
+          <div class="form-section-head">
+            <div class="form-section-num">6</div>
+            <div class="form-section-title">Visibility & Media</div>
+          </div>
+          <div class="form-section-body">
+            <div class="form-group">
+              <label class="input-label">Public Scouting Directory Visibility</label>
+              <select class="input">
+                <option>Yes</option>
+                <option>No</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="input-label">Profile Photo Upload</label>
+              <input type="file" class="input">
+            </div>
+            <div class="form-group">
+              <label class="input-label">Instagram Link</label>
+              <input type="url" class="input" placeholder="https://instagram.com/...">
+            </div>
+            <div class="form-group">
+              <label class="input-label">YouTube Highlights Link (optional)</label>
+              <input type="url" class="input" placeholder="https://youtube.com/...">
+            </div>
+            <div class="form-group">
+              <label class="input-label">How did you hear about Spinova?</label>
+              <input type="text" class="input">
+            </div>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" onclick="prevStep()">← Back</button>
+          <button type="submit" class="btn btn-primary">Complete Profile →</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const langEn = document.getElementById('lang-en');
+    const langAr = document.getElementById('lang-ar');
+    let currentStep = 1;
+    const totalSteps = 6;
+
+    langEn.addEventListener('click', () => {
+      langEn.classList.add('active');
+      langAr.classList.remove('active');
+      document.documentElement.setAttribute('dir', 'ltr');
+    });
+    
+    langAr.addEventListener('click', () => {
+      langAr.classList.add('active');
+      langEn.classList.remove('active');
+      document.documentElement.setAttribute('dir', 'rtl');
+    });
+
+    function updateProgress() {
+      const steps = document.querySelectorAll('.progress-step');
+      const contents = document.querySelectorAll('.step-content');
+      steps.forEach((step, index) => {
+        const stepNum = index + 1;
+        step.classList.remove('active', 'completed');
+        if (stepNum < currentStep) {
+          step.classList.add('completed');
+        } else if (stepNum === currentStep) {
+          step.classList.add('active');
+        }
+      });
+      contents.forEach(content => {
+        if (parseInt(content.dataset.step) === currentStep) {
+          content.classList.add('active');
+        } else {
+          content.classList.remove('active');
+        }
+      });
+    }
+
+    function nextStep() {
+      if (currentStep < totalSteps) {
+        currentStep++;
+        updateProgress();
+      }
+    }
+
+    function prevStep() {
+      if (currentStep > 1) {
+        currentStep--;
+        updateProgress();
+      }
+    }
+
+    document.getElementById('onboarding-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      window.location.href = '../login.html';
+    });
+  </script>
+</body>
+</html>

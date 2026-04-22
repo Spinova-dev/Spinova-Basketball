@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Player Dashboard | Spinova</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <div class="topbar">
+    <a href="dashboard.html" class="topbar-brand"><img src="../assets/images/spinova-logo.png" alt="Spinova Logo" style="height: 40px; width: auto; vertical-align: middle;"></a>
+    <div class="topbar-user" id="topbar-user"></div>
+  </div>
+  <script src="../assets/nav.js"></script>
+  <script>
+    checkAuth(['player']);
+  </script>
+
+  <div class="layout">
+    <nav class="sidenav">
+      <div class="sidenav-top">
+
+      <div class="sidenav-label">Overview</div>
+      <a href="dashboard.html" class="active">Dashboard</a>
+
+      <div class="sidenav-label">My Profile</div>
+      <a href="profile.html">View Profile</a>
+
+      <div class="sidenav-label">Reports</div>
+      <a href="reports.html">My Reports</a>
+      <a href="reports-request.html">Request Report</a>
+    
+      </div>
+      <div class="sidenav-logout">
+        <button onclick="logout()">Logout</button>
+      </div>
+</nav>
+
+    <main class="main-content">
+      <section class="hero">
+        <div class="hero-content">
+          <div class="hero-eyebrow">Player Dashboard</div>
+          <h1>Welcome back, <em>Ahmed</em>.</h1>
+          <p>Point Guard · Falcon U18 Elite</p>
+        </div>
+      </section>
+
+      <div class="page-container">
+        <div class="stat-row">
+          <div class="stat-box">
+            <div class="stat-num" style="color: var(--court);">28.4</div>
+            <div class="stat-label">PPG</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num blue">7.2</div>
+            <div class="stat-label">APG</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num lime">87%</div>
+            <div class="stat-label">FT%</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">My Profile Summary</div>
+          <div style="display: flex; gap: 20px; align-items: start; margin-top: 16px;">
+            <img src="../assets/images/avatar.webp" alt="Profile Avatar" class="avatar large" style="object-fit: cover;">
+            <div style="flex: 1;">
+              <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px;">
+                <span class="badge badge-navy">PG</span>
+              </div>
+              <div style="font-size: 14px; color: var(--mid); margin-bottom: 8px;"><strong>Team:</strong> Falcon U18 Elite · <strong>Level:</strong> Competitive</div>
+              <p style="color: var(--mid); font-size: 14px;">Ahmed is a dynamic point guard with an elite court vision and a relentless first step. His ability to both score from the perimeter and create for teammates makes him one of the most versatile guards in the Riyadh U18 circuit.</p>
+              <a href="profile.html" class="btn btn-primary btn-sm" style="margin-top: 16px;">View Full Profile →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="page-header" style="margin-top: 24px;">
+          <h2>My Reports</h2>
+        </div>
+
+        <div class="two-col">
+          <div class="card interactive">
+            <div class="card-title">Falcon U18 vs Al-Nassr Youth</div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span style="font-size: 13px; color: var(--light);">Apr 10, 2026</span>
+            </div>
+            <a href="reports.html" class="btn btn-ghost btn-sm">View</a>
+          </div>
+          <div class="card interactive">
+            <div class="card-title">Falcon U18 vs Al-Ahly Youth</div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span style="font-size: 13px; color: var(--light);">Apr 3, 2026</span>
+            </div>
+            <a href="reports.html" class="btn btn-ghost btn-sm">View</a>
+          </div>
+        </div>
+
+        <div class="callout orange" style="margin-top: 24px;">
+          <div class="callout-tag">Need a Report?</div>
+          <p style="margin-bottom: 12px;">Want a match analysed? Your coach or admin can request an AI report for any game.</p>
+          <a href="reports-request.html" class="btn btn-primary btn-sm">Request New Report →</a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+
+</body>
+</html>

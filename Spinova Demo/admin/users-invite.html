@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invite User | Spinova Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/styles.css">
+  <style>
+    .role-card { background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 24px; cursor: pointer; transition: all 0.2s; }
+    .role-card:hover { border-color: var(--court); background: rgba(232,119,34,0.03); }
+    .role-card.selected { border-color: var(--court); background: rgba(232,119,34,0.05); }
+    .role-card .icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 12px; }
+    .role-card.player .icon { background: rgba(58,155,213,0.12); color: var(--blue2); }
+    .role-card.coach .icon { background: rgba(232,119,34,0.12); color: var(--court2); }
+    .email-preview { background: var(--bg); border-radius: 8px; padding: 20px; }
+    .email-header { background: var(--navy); padding: 14px 20px; border-radius: 6px 6px 0 0; margin: -20px -20px 20px; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <a href="dashboard.html" class="topbar-brand"><img src="../assets/images/spinova-logo.png" alt="Spinova Logo" style="height: 40px; width: auto; vertical-align: middle;"></a>
+    <div class="topbar-user" id="topbar-user"></div>
+  </div></div>
+
+  <div class="layout">
+    <nav class="sidenav">
+      <div class="sidenav-top">
+
+      <div class="sidenav-label">Overview</div>
+      <a href="dashboard.html">Dashboard</a>
+
+      <div class="sidenav-label">Reports</div>
+      <a href="reports.html">All Reports</a>
+      <a href="reports-new.html">New Report</a>
+      <a href="reports-requested.html">Requested Reports</a>
+      <a href="reports-pending.html">Pending Approval</a>
+
+      <div class="sidenav-label">Profiles</div>
+      <a href="profiles-players.html">All Players</a>
+      <a href="profiles-coaches.html">All Coaches</a>
+
+      <div class="sidenav-label">Users</div>
+      <a href="users.html">All Users</a>
+      <a href="users-invite.html" class="active">Invite User</a>
+
+      <div class="sidenav-label">Settings</div>
+      <a href="settings.html">Settings</a>
+    
+      </div>
+      <div class="sidenav-logout">
+        <button onclick="logout()">Logout</button>
+      </div>
+</nav>
+
+    <main class="main-content">
+      <section class="hero">
+        <div class="hero-content">
+          <div class="hero-eyebrow">Users</div>
+          <h1>Invite a New <em>User</em></h1>
+          <p>Send an onboarding invite to a new player or coach.</p>
+        </div>
+      </section>
+
+      <div class="page-container">
+        <div class="card">
+          <div class="card-title">Select Role</div>
+          <div class="two-col" style="margin-bottom: 24px;">
+            <div class="role-card player selected" data-role="player">
+              <div class="icon">🏀</div>
+              <div style="font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 16px; color: var(--navy); margin-bottom: 4px;">Player</div>
+              <div style="font-size: 13px; color: var(--mid);">Athlete profile with stats and match reports</div>
+            </div>
+            <div class="role-card coach" data-role="coach">
+              <div class="icon">📋</div>
+              <div style="font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 16px; color: var(--navy); margin-bottom: 4px;">Coach</div>
+              <div style="font-size: 13px; color: var(--mid);">Team management and player development</div>
+            </div>
+          </div>
+
+          <div class="two-col">
+            <div class="form-group">
+              <label class="input-label">First Name</label>
+              <input type="text" class="input" placeholder="First Name">
+            </div>
+            <div class="form-group">
+              <label class="input-label">Last Name</label>
+              <input type="text" class="input" placeholder="Last Name">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="input-label">Email Address</label>
+            <input type="email" class="input" placeholder="email@example.com">
+          </div>
+
+          <div class="form-group">
+            <label class="input-label">Personal Message (optional)</label>
+            <textarea class="input" placeholder="Add a personal note to the invite email..."></textarea>
+          </div>
+
+          <details style="margin-top: 24px;">
+            <summary style="font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--navy); cursor: pointer;">Preview Invite Email</summary>
+            <div class="email-preview" style="margin-top: 16px;">
+              <div class="email-header">
+                <div style="font-family: 'Outfit', sans-serif; font-weight: 900; color: white; letter-spacing: 2px; text-transform: uppercase;">Spin<em style="color: var(--court); font-style: normal;">ova</em></div>
+              </div>
+              <p style="color: var(--mid); font-size: 14px; margin-bottom: 16px;">Hi [First Name],</p>
+              <p style="color: var(--mid); font-size: 14px; margin-bottom: 20px;">You've been invited to join Spinova. Click below to complete your profile.</p>
+              <a href="#" class="btn btn-primary" style="display: inline-flex; margin-bottom: 20px;">Complete Your Profile →</a>
+              <p style="color: var(--light); font-size: 12px;">— The Spinova Team</p>
+            </div>
+          </details>
+
+          <button class="btn btn-primary btn-lg" style="width: 100%; justify-content: center; margin-top: 28px;">
+            Send Invite Email →
+          </button>
+        </div>
+      </div>
+    </main>
+  </div></body>
+</html>

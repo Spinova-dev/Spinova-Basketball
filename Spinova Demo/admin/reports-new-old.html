@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Report | Spinova Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <div class="topbar">
+    <a href="dashboard.html" class="topbar-brand"><img src="../assets/images/spinova-logo.png" alt="Spinova Logo" style="height: 40px; width: auto; vertical-align: middle;"></a>
+    <div class="topbar-user" id="topbar-user"></div>
+  </div>
+  <script src="../assets/nav.js"></script>
+  <script>
+    checkAuth(['admin']);
+  </script>
+
+  <div class="layout">
+    <nav class="sidenav">
+      <div class="sidenav-top">
+
+      <div class="sidenav-label">Overview</div>
+      <a href="dashboard.html">Dashboard</a>
+
+      <div class="sidenav-label">Reports</div>
+      <a href="reports.html">All Reports</a>
+      <a href="reports-new.html" class="active">New Report</a>
+      <a href="reports-requested.html">Requested Reports</a>
+      <a href="reports-pending.html">Pending Approval</a>
+
+      <div class="sidenav-label">Profiles</div>
+      <a href="profiles-players.html">All Players</a>
+      <a href="profiles-coaches.html">All Coaches</a>
+
+      <div class="sidenav-label">Users</div>
+      <a href="users.html">All Users</a>
+      <a href="users-invite.html">Invite User</a>
+
+      <div class="sidenav-label">Settings</div>
+      <a href="settings.html">Settings</a>
+    
+      </div>
+      <div class="sidenav-logout">
+        <button onclick="logout()">Logout</button>
+      </div>
+</nav>
+
+    <main class="main-content">
+      <section class="hero">
+        <div class="hero-content">
+          <div class="hero-eyebrow">Reports</div>
+          <h1>New Match <em>Report</em></h1>
+          <p>Submit a YouTube match for AI analysis.</p>
+        </div>
+      </section>
+
+      <div class="page-container">
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+          <div style="flex: 1; min-width: 0;">
+            <div style="display: flex; gap: 8px; margin-bottom: 28px; align-items: center;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--court); color: white; display: flex; align-items: center; justify-content: center; font-family: 'Outfit', sans-serif; font-weight: 800;">1</div>
+                <span style="font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--navy);">Match Details</span>
+              </div>
+              <div style="flex: 1; height: 2px; background: var(--border);"></div>
+              <div style="display: flex; align-items: center; gap: 10px; opacity: 0.5;">
+                <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--border); color: var(--light); display: flex; align-items: center; justify-content: center; font-family: 'Outfit', sans-serif; font-weight: 800;">2</div>
+                <span style="font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--light);">Processing</span>
+              </div>
+              <div style="flex: 1; height: 2px; background: var(--border);"></div>
+              <div style="display: flex; align-items: center; gap: 10px; opacity: 0.5;">
+                <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--border); color: var(--light); display: flex; align-items: center; justify-content: center; font-family: 'Outfit', sans-serif; font-weight: 800;">3</div>
+                <span style="font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--light);">Review & Approve</span>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-title">YouTube Link</div>
+              <div class="form-group">
+                <label class="input-label">YouTube Match URL</label>
+                <input type="url" class="input" placeholder="https://youtube.com/watch?v=...">
+              </div>
+              <div class="callout blue">
+                <p>Spinova will transcribe the audio, extract play-by-play events, and generate a structured match report. Processing takes 2–5 minutes.</p>
+              </div>
+            </div>
+
+            <div class="card" style="margin-top: 16px;">
+              <div class="card-title">Match Information</div>
+              <div class="two-col">
+                <div class="form-group">
+                  <label class="input-label">Match Title</label>
+                  <input type="text" class="input" placeholder="Falcon U18 vs Al-Nassr Youth · Apr 2026">
+                </div>
+                <div class="form-group">
+                  <label class="input-label">Match Date</label>
+                  <input type="date" class="input">
+                </div>
+              </div>
+              <div class="two-col">
+                <div class="form-group">
+                  <label class="input-label">Competition / League</label>
+                  <input type="text" class="input" placeholder="Saudi U18 Championship">
+                </div>
+                <div class="form-group">
+                  <label class="input-label">Match Venue</label>
+                  <input type="text" class="input" placeholder="King Fahd Sports City, Riyadh">
+                </div>
+              </div>
+            </div>
+
+            <div class="card" style="margin-top: 16px;">
+              <div class="card-title">Teams</div>
+              <div class="two-col">
+                <div class="form-group">
+                  <label class="input-label">Team A</label>
+                  <select class="input">
+                    <option>Falcon U18 Elite</option>
+                    <option>Al-Nassr Youth</option>
+                    <option>Al-Ahly Youth</option>
+                    <option>Jeddah Eagles</option>
+                    <option>Riyadh Stars</option>
+                    <option>National U20</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="input-label">Team B</label>
+                  <select class="input">
+                    <option>Al-Nassr Youth</option>
+                    <option>Falcon U18 Elite</option>
+                    <option>Al-Ahly Youth</option>
+                    <option>Jeddah Eagles</option>
+                    <option>Riyadh Stars</option>
+                    <option>National U20</option>
+                  </select>
+                </div>
+              </div>
+              <div class="two-col">
+                <div class="form-group">
+                  <label class="input-label">Final Score Team A</label>
+                  <input type="number" class="input" placeholder="0">
+                </div>
+                <div class="form-group">
+                  <label class="input-label">Final Score Team B</label>
+                  <input type="number" class="input" placeholder="0">
+                </div>
+              </div>
+            </div>
+
+            <div class="card" style="margin-top: 16px;">
+              <div class="card-title">Player Tagging</div>
+              <div class="form-group">
+                <label class="input-label">Tag Players in This Match (optional)</label>
+                <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 8px;">
+                  <label style="display: flex; gap: 10px; align-items: center; cursor: pointer;">
+                    <input type="checkbox">
+                    <span style="font-size: 14px; color: var(--mid);">Ahmed Al-Rashidi</span>
+                  </label>
+                  <label style="display: flex; gap: 10px; align-items: center; cursor: pointer;">
+                    <input type="checkbox">
+                    <span style="font-size: 14px; color: var(--mid);">Youssef Samir</span>
+                  </label>
+                  <label style="display: flex; gap: 10px; align-items: center; cursor: pointer;">
+                    <input type="checkbox">
+                    <span style="font-size: 14px; color: var(--mid);">Kareem Mostafa</span>
+                  </label>
+                </div>
+              </div>
+              <p style="font-size: 13px; color: var(--light);">Tagged players will have this report appear on their profile once published</p>
+            </div>
+
+            <div class="card" style="margin-top: 16px;">
+              <div class="card-title">Report Notes for AI</div>
+              <div class="form-group">
+                <textarea class="input" placeholder="Any context for the AI analyst (optional): key moments to highlight, player to focus on, coaching observations..."></textarea>
+              </div>
+            </div>
+
+            <button class="btn btn-primary btn-lg" style="width: 100%; justify-content: center; margin-top: 24px;">
+              Submit for Processing →
+            </button>
+          </div>
+
+          <div style="width: 320px;">
+            <div class="card" style="position: sticky; top: 90px;">
+              <div class="card-title">Processing Status</div>
+              <div style="margin-top: 16px;">
+                <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 16px;">
+                  <div style="width: 24px; height: 24px; border-radius: 50%; background: rgba(31,171,110,0.15); display: flex; align-items: center; justify-content: center; color: var(--green);">✓</div>
+                  <div style="flex: 1;">
+                    <div style="font-size: 13px; font-weight: 600; color: var(--navy); font-family: 'Outfit', sans-serif;">YouTube URL Validated</div>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 16px; opacity: 0.5;">
+                  <div style="width: 24px; height: 24px; border-radius: 50%; background: var(--border); display: flex; align-items: center; justify-content: center; color: var(--light);">⚙️</div>
+                  <div style="flex: 1;">
+                    <div style="font-size: 13px; font-weight: 600; color: var(--light); font-family: 'Outfit', sans-serif;">Audio Transcription</div>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 16px; opacity: 0.5;">
+                  <div style="width: 24px; height: 24px; border-radius: 50%; background: var(--border); display: flex; align-items: center; justify-content: center; color: var(--light);">⚙️</div>
+                  <div style="flex: 1;">
+                    <div style="font-size: 13px; font-weight: 600; color: var(--light); font-family: 'Outfit', sans-serif;">AI Analysis</div>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 16px; opacity: 0.5;">
+                  <div style="width: 24px; height: 24px; border-radius: 50%; background: var(--border); display: flex; align-items: center; justify-content: center; color: var(--light);">⚙️</div>
+                  <div style="flex: 1;">
+                    <div style="font-size: 13px; font-weight: 600; color: var(--light); font-family: 'Outfit', sans-serif;">Report Draft Ready</div>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 12px; align-items: center; opacity: 0.5;">
+                  <div style="width: 24px; height: 24px; border-radius: 50%; background: var(--border); display: flex; align-items: center; justify-content: center; color: var(--light);">⚙️</div>
+                  <div style="flex: 1;">
+                    <div style="font-size: 13px; font-weight: 600; color: var(--light); font-family: 'Outfit', sans-serif;">Awaiting Admin Review</div>
+                  </div>
+                </div>
+                <p style="font-size: 12px; color: var(--light); margin-top: 20px;">You'll receive a notification when the draft is ready for review</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div></body>
+</html>

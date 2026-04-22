@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Request Report | Spinova Coach</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <div class="topbar">
+    <a href="dashboard.html" class="topbar-brand"><img src="../assets/images/spinova-logo.png" alt="Spinova Logo" style="height: 40px; width: auto; vertical-align: middle;"></a>
+    <div class="topbar-user" id="topbar-user"></div>
+  </div>
+  <script src="../assets/nav.js"></script>
+  <script>
+    checkAuth(['coach']);
+  </script>
+
+  <div class="layout">
+    <nav class="sidenav">
+      <div class="sidenav-top">
+
+      <div class="sidenav-label">Overview</div>
+      <a href="dashboard.html">Dashboard</a>
+
+      <div class="sidenav-label">My Profile</div>
+      <a href="profile.html">View Profile</a>
+
+      <div class="sidenav-label">Team</div>
+      <a href="team.html">Team & Players</a>
+
+      <div class="sidenav-label">Reports</div>
+      <a href="reports.html">Match Reports</a>
+      <a href="reports-request.html" class="active">Request Report</a>
+    
+      </div>
+      <div class="sidenav-logout">
+        <button onclick="logout()">Logout</button>
+      </div>
+</nav>
+
+    <main class="main-content">
+      <section class="hero">
+        <div class="hero-content">
+          <div class="hero-eyebrow">Reports</div>
+          <h1>Request a Match <em>Report</em></h1>
+        </div>
+      </section>
+
+      <div class="page-container">
+        <div class="card">
+          <form id="request-form">
+            <div class="form-group">
+              <label class="input-label">Match Name / Opponent</label>
+              <input type="text" class="input" placeholder="e.g., vs Al-Hilal Youth">
+            </div>
+            <div class="form-group">
+              <label class="input-label">Match Date</label>
+              <input type="date" class="input">
+            </div>
+            <div class="form-group">
+              <label class="input-label">YouTube Link (optional)</label>
+              <input type="url" class="input" placeholder="https://youtube.com/watch?v=...">
+            </div>
+            <div class="form-group">
+              <label class="input-label">Notes for Admin</label>
+              <textarea class="input" placeholder="Any context that might help — match details, which players to focus on..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; justify-content: center;">
+              Send Request →
+            </button>
+          </form>
+          <div id="success-message" class="callout green" style="display: none; margin-top: 24px;">
+            <div class="callout-tag">Success</div>
+            <p>Request sent. Admin will review and process your match.</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script>
+    document.getElementById('request-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('success-message').style.display = 'block';
+      document.getElementById('request-form').style.display = 'none';
+      setTimeout(() => {
+        window.location.href = 'reports.html';
+      }, 2500);
+    });
+  </script>
+</body>
+</html>

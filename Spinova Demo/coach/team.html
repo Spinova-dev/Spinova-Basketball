@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team & Players | Spinova Coach</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <div class="topbar">
+    <a href="dashboard.html" class="topbar-brand"><img src="../assets/images/spinova-logo.png" alt="Spinova Logo" style="height: 40px; width: auto; vertical-align: middle;"></a>
+    <div class="topbar-user" id="topbar-user"></div>
+  </div>
+  <script src="../assets/nav.js"></script>
+  <script>
+    checkAuth(['coach']);
+  </script>
+
+  <div class="layout">
+    <nav class="sidenav">
+      <div class="sidenav-top">
+
+      <div class="sidenav-label">Overview</div>
+      <a href="dashboard.html">Dashboard</a>
+
+      <div class="sidenav-label">My Profile</div>
+      <a href="profile.html">View Profile</a>
+
+      <div class="sidenav-label">Team</div>
+      <a href="team.html" class="active">Team & Players</a>
+
+      <div class="sidenav-label">Reports</div>
+      <a href="reports.html">Match Reports</a>
+      <a href="reports-request.html">Request Report</a>
+    
+      </div>
+      <div class="sidenav-logout">
+        <button onclick="logout()">Logout</button>
+      </div>
+</nav>
+
+    <main class="main-content">
+      <section class="hero">
+        <div class="hero-content">
+          <div class="hero-eyebrow">Team</div>
+          <h1>Falcon U18 <em>Elite</em> · My Team</h1>
+        </div>
+      </section>
+
+      <div class="page-container">
+        <div class="card card-accent-top">
+          <div class="card-title">Team Summary</div>
+          <div class="three-col">
+            <div>
+              <div class="stat-num" style="font-size: 32px;">3</div>
+              <div class="stat-label">Total Players</div>
+            </div>
+            <div>
+              <div class="stat-num green" style="font-size: 32px;">2</div>
+              <div class="stat-label">Active Reports</div>
+            </div>
+            <div>
+              <div class="stat-num blue" style="font-size: 32px;">Omar Salah</div>
+              <div class="stat-label">Coach</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="page-header" style="margin-top: 24px;">
+          <h2>Players</h2>
+        </div>
+
+        <div class="three-col">
+          <div class="card interactive">
+            <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+              <img src="../assets/images/avatar.webp" alt="Player Avatar" class="avatar" style="object-fit: cover;">
+              <div>
+                <div style="font-weight: 700; color: var(--navy); font-family: 'Outfit', sans-serif;">Ahmed Al-Rashidi</div>
+                <div style="display: flex; gap: 6px; margin-top: 4px;">
+                  <span class="badge badge-navy">PG</span>
+                </div>
+              </div>
+            </div>
+            <div style="font-size: 13px; color: var(--mid); margin-bottom: 12px;">
+              <div><strong>Level:</strong> Competitive</div>
+              <div><strong>Reports:</strong> 2 reports</div>
+            </div>
+            <a href="reports.html" class="btn btn-primary btn-sm">View Reports</a>
+          </div>
+
+          <div class="card interactive">
+            <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+              <img src="../assets/images/avatar.webp" alt="Player Avatar" class="avatar" style="object-fit: cover;">
+              <div>
+                <div style="font-weight: 700; color: var(--navy); font-family: 'Outfit', sans-serif;">Youssef Samir</div>
+                <div style="display: flex; gap: 6px; margin-top: 4px;">
+                  <span class="badge badge-navy">SF</span>
+                </div>
+              </div>
+            </div>
+            <div style="font-size: 13px; color: var(--mid); margin-bottom: 12px;">
+              <div><strong>Level:</strong> Elite</div>
+              <div><strong>Reports:</strong> 1 report</div>
+            </div>
+            <a href="reports.html" class="btn btn-primary btn-sm">View Reports</a>
+          </div>
+
+          <div class="card interactive">
+            <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+              <img src="../assets/images/avatar.webp" alt="Player Avatar" class="avatar" style="object-fit: cover;">
+              <div>
+                <div style="font-weight: 700; color: var(--navy); font-family: 'Outfit', sans-serif;">Kareem Mostafa</div>
+                <div style="display: flex; gap: 6px; margin-top: 4px;">
+                  <span class="badge badge-navy">C</span>
+                </div>
+              </div>
+            </div>
+            <div style="font-size: 13px; color: var(--mid); margin-bottom: 12px;">
+              <div><strong>Level:</strong> Competitive</div>
+              <div><strong>Reports:</strong> 0 reports</div>
+            </div>
+            <a href="reports.html" class="btn btn-primary btn-sm">View Reports</a>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div></body>
+</html>

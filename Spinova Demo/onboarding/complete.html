@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Complete | Spinova</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/styles.css">
+  <script>
+    setTimeout(() => {
+      const user = JSON.parse(localStorage.getItem('spinova_user'));
+      if (user) {
+        window.location.href = '../' + user.role + '/dashboard.html';
+      } else {
+        window.location.href = '../login.html';
+      }
+    }, 3000);
+  </script>
+  <style>
+    .confirm-page {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: var(--bg);
+      padding: 40px 20px;
+    }
+    .confirm-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 60px 48px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(13,27,42,0.08);
+      max-width: 520px;
+      width: 100%;
+    }
+    .check-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--lime);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 28px;
+    }
+    .check-icon svg { width: 40px; height: 40px; color: var(--navy); }
+    .confirm-card h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 16px;
+    }
+    .confirm-card p {
+      font-size: 15px;
+      color: var(--mid);
+      margin-bottom: 8px;
+    }
+    .confirm-card .sub-note {
+      font-size: 13px;
+      color: var(--light);
+      margin-top: 24px;
+    }
+    .confirm-brand {
+      margin-top: 40px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--navy);
+    }
+    .confirm-brand em { color: var(--court); font-style: normal; }
+  </style>
+</head>
+<body class="confirm-page">
+  <div class="confirm-card">
+    <div class="check-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+      </svg>
+    </div>
+    <h2>Profile Complete!</h2>
+    <p>Welcome to Spinova! Your profile has been published.</p>
+    <p>Redirecting you to your dashboard in 3 seconds...</p>
+    <img src="../assets/images/spinova-logo.png" alt="Spinova Logo" style="height: 60px; width: auto; margin-top: 40px;">
+  </div>
+</body>
+</html>

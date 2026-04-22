@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Coaches | Spinova Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <div class="topbar">
+    <a href="dashboard.html" class="topbar-brand"><img src="../assets/images/spinova-logo.png" alt="Spinova Logo" style="height: 40px; width: auto; vertical-align: middle;"></a>
+    <div class="topbar-user" id="topbar-user"></div>
+  </div></div>
+
+  <div class="layout">
+    <nav class="sidenav">
+      <div class="sidenav-top">
+
+      <div class="sidenav-label">Overview</div>
+      <a href="dashboard.html">Dashboard</a>
+
+      <div class="sidenav-label">Reports</div>
+      <a href="reports.html">All Reports</a>
+      <a href="reports-new.html">New Report</a>
+      <a href="reports-requested.html">Requested Reports</a>
+      <a href="reports-pending.html">Pending Approval</a>
+
+      <div class="sidenav-label">Profiles</div>
+      <a href="profiles-players.html">All Players</a>
+      <a href="profiles-coaches.html" class="active">All Coaches</a>
+
+      <div class="sidenav-label">Users</div>
+      <a href="users.html">All Users</a>
+      <a href="users-invite.html">Invite User</a>
+
+      <div class="sidenav-label">Settings</div>
+      <a href="settings.html">Settings</a>
+    
+      </div>
+      <div class="sidenav-logout">
+        <button onclick="logout()">Logout</button>
+      </div>
+</nav>
+
+    <main class="main-content">
+      <section class="hero">
+        <div class="hero-content">
+          <div class="hero-eyebrow">Profiles</div>
+          <h1>All <em>Coaches</em></h1>
+          <p>Manage all coach profiles in the system.</p>
+        </div>
+      </section>
+
+      <div class="page-container">
+        <div class="page-header">
+          <h2>Coaches</h2>
+        </div>
+
+        <div class="table-wrap">
+          <table class="sp-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Certification</th>
+                <th>Status</th>
+                <th>Active Students</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Omar Salah</td>
+                <td>FIBA Level 2</td>
+                <td>Academy-based</td>
+                <td>12</td>
+                <td><a href="#" class="btn btn-ghost btn-sm">View</a></td>
+              </tr>
+              <tr>
+                <td>Hassan Al-Zahrawi</td>
+                <td>FIBA Level 3</td>
+                <td>Independent</td>
+                <td>—</td>
+                <td><a href="#" class="btn btn-ghost btn-sm">View</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div></body>
+</html>

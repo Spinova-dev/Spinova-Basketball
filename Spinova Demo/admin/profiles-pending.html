@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pending Profiles | Spinova Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <div class="topbar">
+    <a href="dashboard.html" class="topbar-brand"><img src="../assets/images/spinova-logo.png" alt="Spinova Logo" style="height: 40px; width: auto; vertical-align: middle;"></a>
+    <div class="topbar-user" id="topbar-user"></div>
+  </div></div>
+
+  <div class="layout">
+    <nav class="sidenav">
+      <div class="sidenav-top">
+
+      <div class="sidenav-label">Overview</div>
+      <a href="dashboard.html">Dashboard</a>
+
+      <div class="sidenav-label">Reports</div>
+      <a href="reports.html">All Reports</a>
+      <a href="reports-new.html">New Report</a>
+      <a href="reports-requested.html">Requested Reports</a>
+      <a href="reports-pending.html">Pending Approval</a>
+
+      <div class="sidenav-label">Profiles</div>
+      <a href="profiles-players.html">All Players</a>
+      <a href="profiles-coaches.html">All Coaches</a>
+
+      <div class="sidenav-label">Users</div>
+      <a href="users.html">All Users</a>
+      <a href="users-invite.html">Invite User</a>
+
+      <div class="sidenav-label">Settings</div>
+      <a href="settings.html">Settings</a>
+    
+      </div>
+      <div class="sidenav-logout">
+        <button onclick="logout()">Logout</button>
+      </div>
+</nav>
+
+    <main class="main-content">
+      <section class="hero">
+        <div class="hero-content">
+          <div class="hero-eyebrow">Profiles</div>
+          <h1>Pending Profile <em>Approvals</em></h1>
+          <p><span class="badge badge-orange" style="background: rgba(232,119,34,0.15);">2 items</span></p>
+        </div>
+      </section>
+
+      <div class="page-container">
+        <div class="card" style="margin-bottom: 24px;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+            <div>
+              <div class="card-title" style="font-size: 20px;">Kareem Mostafa</div>
+              <p style="color: var(--mid); font-size: 14px;">Player Profile · Submitted Apr 16</p>
+            </div>
+            <span class="badge badge-orange">Pending</span>
+          </div>
+
+          <div class="two-col" style="margin-top: 20px;">
+            <div class="card" style="margin: 0; border: none; box-shadow: none; padding: 0;">
+              <div style="font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; color: var(--navy); margin-bottom: 12px;">Form Answers</div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div>
+                  <div style="font-size: 11px; font-weight: 700; color: var(--light); text-transform: uppercase; letter-spacing: 1px;">Position</div>
+                  <div style="font-size: 14px; color: var(--mid);">C</div>
+                </div>
+                <div>
+                  <div style="font-size: 11px; font-weight: 700; color: var(--light); text-transform: uppercase; letter-spacing: 1px;">Height</div>
+                  <div style="font-size: 14px; color: var(--mid);">208cm</div>
+                </div>
+                <div>
+                  <div style="font-size: 11px; font-weight: 700; color: var(--light); text-transform: uppercase; letter-spacing: 1px;">Team</div>
+                  <div style="font-size: 14px; color: var(--mid);">None</div>
+                </div>
+                <div>
+                  <div style="font-size: 11px; font-weight: 700; color: var(--light); text-transform: uppercase; letter-spacing: 1px;">Level</div>
+                  <div style="font-size: 14px; color: var(--mid);">Competitive</div>
+                </div>
+                <div style="grid-column: span 2;">
+                  <div style="font-size: 11px; font-weight: 700; color: var(--light); text-transform: uppercase; letter-spacing: 1px;">Goal</div>
+                  <div style="font-size: 14px; color: var(--mid);">Compete Nationally</div>
+                </div>
+              </div>
+            </div>
+            <div class="card" style="margin: 0; background: var(--bg);">
+              <div style="font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; color: var(--navy); margin-bottom: 12px;">AI-Generated Profile Preview</div>
+              <p style="color: var(--mid); font-size: 13px; margin-bottom: 12px;">
+                Kareem is a promising young center with great size and mobility for his age. At 208cm, he provides a strong interior presence on both ends of the floor.
+              </p>
+              <div style="margin-bottom: 12px;">
+                <div style="font-size: 12px; font-weight: 700; color: var(--navy); font-family: 'Outfit', sans-serif; margin-bottom: 4px;">Playing Style</div>
+                <p style="color: var(--mid); font-size: 13px;">Traditional low-post center with good footwork. Strong rebounder and rim protector.</p>
+              </div>
+              <div>
+                <div style="font-size: 12px; font-weight: 700; color: var(--navy); font-family: 'Outfit', sans-serif; margin-bottom: 4px;">Development</div>
+                <p style="color: var(--mid); font-size: 13px;">Focus on adding strength and developing a mid-range shot to complement his post game.</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 12px; margin-top: 24px; justify-content: flex-end;">
+            <button class="btn btn-ghost">Edit</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+            <div>
+              <div class="card-title" style="font-size: 20px;">Hassan Al-Zahrawi</div>
+              <p style="color: var(--mid); font-size: 14px;">Coach Profile · Submitted Apr 14</p>
+            </div>
+            <span class="badge badge-orange">Pending</span>
+          </div>
+
+          <div class="two-col" style="margin-top: 20px;">
+            <div class="card" style="margin: 0; border: none; box-shadow: none; padding: 0;">
+              <div style="font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; color: var(--navy); margin-bottom: 12px;">Form Answers</div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div>
+                  <div style="font-size: 11px; font-weight: 700; color: var(--light); text-transform: uppercase; letter-spacing: 1px;">Experience</div>
+                  <div style="font-size: 14px; color: var(--mid);">14 years</div>
+                </div>
+                <div>
+                  <div style="font-size: 11px; font-weight: 700; color: var(--light); text-transform: uppercase; letter-spacing: 1px;">Certification</div>
+                  <div style="font-size: 14px; color: var(--mid);">FIBA Level 3</div>
+                </div>
+                <div>
+                  <div style="font-size: 11px; font-weight: 700; color: var(--light); text-transform: uppercase; letter-spacing: 1px;">Status</div>
+                  <div style="font-size: 14px; color: var(--mid);">Independent</div>
+                </div>
+                <div>
+                  <div style="font-size: 11px; font-weight: 700; color: var(--light); text-transform: uppercase; letter-spacing: 1px;">Specialization</div>
+                  <div style="font-size: 14px; color: var(--mid);">Seniors, Elite</div>
+                </div>
+              </div>
+            </div>
+            <div class="card" style="margin: 0; background: var(--bg);">
+              <div style="font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; color: var(--navy); margin-bottom: 12px;">AI-Generated Profile Preview</div>
+              <p style="color: var(--mid); font-size: 13px; margin-bottom: 12px;">
+                Hassan brings extensive experience at the elite level, with 14 years coaching seniors and professional players.
+              </p>
+              <p style="color: var(--mid); font-size: 13px;">
+                His FIBA Level 3 certification and track record of developing elite talent make him a valuable addition to the platform.
+              </p>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 12px; margin-top: 24px; justify-content: flex-end;">
+            <button class="btn btn-ghost">Edit</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div></body>
+</html>

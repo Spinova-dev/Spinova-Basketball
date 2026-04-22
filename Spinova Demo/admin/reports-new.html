@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Report | Spinova Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <div class="topbar">
+    <a href="dashboard.html" class="topbar-brand"><img src="../assets/images/spinova-logo.png" alt="Spinova Logo" style="height: 40px; width: auto; vertical-align: middle;"></a>
+    <div class="topbar-user" id="topbar-user"></div>
+  </div>
+  <script src="../assets/nav.js"></script>
+  <script>
+    checkAuth(['admin']);
+  </script>
+
+  <div class="layout">
+    <nav class="sidenav">
+      <div class="sidenav-top">
+
+      <div class="sidenav-label">Overview</div>
+      <a href="dashboard.html">Dashboard</a>
+
+      <div class="sidenav-label">Reports</div>
+      <a href="reports.html">All Reports</a>
+      <a href="reports-new.html" class="active">New Report</a>
+      <a href="reports-requested.html">Requested Reports</a>
+      <a href="reports-pending.html">Pending Approval</a>
+
+      <div class="sidenav-label">Profiles</div>
+      <a href="profiles-players.html">All Players</a>
+      <a href="profiles-coaches.html">All Coaches</a>
+
+      <div class="sidenav-label">Users</div>
+      <a href="users.html">All Users</a>
+      <a href="users-invite.html">Invite User</a>
+
+      <div class="sidenav-label">Settings</div>
+      <a href="settings.html">Settings</a>
+    
+      </div>
+      <div class="sidenav-logout">
+        <button onclick="logout()">Logout</button>
+      </div>
+</nav>
+
+    <main class="main-content">
+      <section class="hero">
+        <div class="hero-content">
+          <div class="hero-eyebrow">Reports</div>
+          <h1>New Match <em>Report</em></h1>
+          <p>Submit a YouTube match for AI analysis.</p>
+        </div>
+      </section>
+
+      <div class="page-container">
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+          <div style="flex: 1; min-width: 0;">
+            <!-- Progress Steps -->
+            <div id="progress-bar" style="display: flex; gap: 8px; margin-bottom: 28px; align-items: center;">
+              <div id="step-ind-1" style="display: flex; align-items: center; gap: 10px;">
+                <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--court); color: white; display: flex; align-items: center; justify-content: center; font-family: 'Outfit', sans-serif; font-weight: 800;">1</div>
+                <span style="font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--navy);">Match Details</span>
+              </div>
+              <div id="progress-line-1" style="flex: 1; height: 2px; background: var(--border);"></div>
+              <div id="step-ind-2" style="display: flex; align-items: center; gap: 10px; opacity: 0.5;">
+                <div id="step-num-2" style="width: 36px; height: 36px; border-radius: 50%; background: var(--border); color: var(--light); display: flex; align-items: center; justify-content: center; font-family: 'Outfit', sans-serif; font-weight: 800;">2</div>
+                <span id="step-text-2" style="font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--light);">Processing</span>
+              </div>
+              <div id="progress-line-2" style="flex: 1; height: 2px; background: var(--border);"></div>
+              <div id="step-ind-3" style="display: flex; align-items: center; gap: 10px; opacity: 0.5;">
+                <div id="step-num-3" style="width: 36px; height: 36px; border-radius: 50%; background: var(--border); color: var(--light); display: flex; align-items: center; justify-content: center; font-family: 'Outfit', sans-serif; font-weight: 800;">3</div>
+                <span id="step-text-3" style="font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--light);">Review & Approve</span>
+              </div>
+            </div>
+
+            <!-- Step 1: Match Details -->
+            <div id="step-1">
+              <div class="card">
+                <div class="card-title">YouTube Link</div>
+                <div class="form-group">
+                  <label class="input-label">YouTube Match URL</label>
+                  <input type="url" class="input" placeholder="https://youtube.com/watch?v=...">
+                </div>
+                <div class="callout blue">
+                  <p>Spinova will transcribe the audio, extract play-by-play events, and generate a structured match report. Processing takes 2–5 minutes.</p>
+                </div>
+              </div>
+
+              <div class="card" style="margin-top: 16px;">
+                <div class="card-title">Match Information</div>
+                <div class="two-col">
+                  <div class="form-group">
+                    <label class="input-label">Match Title</label>
+                    <input type="text" class="input" placeholder="Falcon U18 vs Al-Nassr Youth · Apr 2026">
+                  </div>
+                  <div class="form-group">
+                    <label class="input-label">Match Date</label>
+                    <input type="date" class="input">
+                  </div>
+                </div>
+                <div class="two-col">
+                  <div class="form-group">
+                    <label class="input-label">Competition / League</label>
+                    <input type="text" class="input" placeholder="Saudi U18 Championship">
+                  </div>
+                  <div class="form-group">
+                    <label class="input-label">Match Venue</label>
+                    <input type="text" class="input" placeholder="King Fahd Sports City, Riyadh">
+                  </div>
+                </div>
+              </div>
+
+              <div class="card" style="margin-top: 16px;">
+                <div class="card-title">Teams</div>
+                <div class="two-col">
+                  <div class="form-group">
+                    <label class="input-label">Team A</label>
+                    <select class="input">
+                      <option>Falcon U18 Elite</option>
+                      <option>Al-Nassr Youth</option>
+                      <option>Al-Ahly Youth</option>
+                      <option>Jeddah Eagles</option>
+                      <option>Riyadh Stars</option>
+                      <option>National U20</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="input-label">Team B</label>
+                    <select class="input">
+                      <option>Al-Nassr Youth</option>
+                      <option>Falcon U18 Elite</option>
+                      <option>Al-Ahly Youth</option>
+                      <option>Jeddah Eagles</option>
+                      <option>Riyadh Stars</option>
+                      <option>National U20</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="two-col">
+                  <div class="form-group">
+                    <label class="input-label">Final Score Team A</label>
+                    <input type="number" class="input" placeholder="0">
+                  </div>
+                  <div class="form-group">
+                    <label class="input-label">Final Score Team B</label>
+                    <input type="number" class="input" placeholder="0">
+                  </div>
+                </div>
+              </div>
+
+              <div class="card" style="margin-top: 16px;">
+                <div class="card-title">Player Tagging</div>
+                <div class="form-group">
+                  <label class="input-label">Tag Players in This Match (optional)</label>
+                  <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 8px;">
+                    <label style="display: flex; gap: 10px; align-items: center; cursor: pointer;">
+                      <input type="checkbox">
+                      <span style="font-size: 14px; color: var(--mid);">Ahmed Al-Rashidi</span>
+                    </label>
+                    <label style="display: flex; gap: 10px; align-items: center; cursor: pointer;">
+                      <input type="checkbox">
+                      <span style="font-size: 14px; color: var(--mid);">Youssef Samir</span>
+                    </label>
+                    <label style="display: flex; gap: 10px; align-items: center; cursor: pointer;">
+                      <input type="checkbox">
+                      <span style="font-size: 14px; color: var(--mid);">Kareem Mostafa</span>
+                    </label>
+                  </div>
+                </div>
+                <p style="font-size: 13px; color: var(--light);">Tagged players will have this report appear on their profile once published</p>
+              </div>
+
+              <div class="card" style="margin-top: 16px;">
+                <div class="card-title">Report Notes for AI</div>
+                <div class="form-group">
+                  <textarea class="input" placeholder="Any context for the AI analyst (optional): key moments to highlight, player to focus on, coaching observations..."></textarea>
+                </div>
+              </div>
+
+              <button id="step1-next" class="btn btn-primary btn-lg" style="width: 100%; justify-content: center; margin-top: 24px;">
+                Submit for Processing →
+              </button>
+            </div>
+
+            <!-- Step 2: Processing -->
+            <div id="step-2" style="display: none;">
+              <div class="card">
+                <div class="card-title">Processing</div>
+                <div style="text-align: center; padding: 48px 24px;">
+                  <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, rgba(232,119,34,0.15), rgba(31,171,110,0.15)); display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;">
+                    <div style="width: 40px; height: 40px; border: 4px solid var(--border); border-top-color: var(--court2); border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                  </div>
+                  <h3 style="font-family: 'Outfit', sans-serif; font-weight: 800; color: var(--navy); font-size: 22px; margin-bottom: 12px;">Analyzing the Match...</h3>
+                  <p style="color: var(--mid); margin-bottom: 32px;">This takes 2–5 minutes. Feel free to browse away.</p>
+                  <div id="processing-status" style="text-align: left; max-width: 360px; margin: 0 auto;">
+                    <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 16px;">
+                      <div style="width: 24px; height: 24px; border-radius: 50%; background: rgba(31,171,110,0.15); display: flex; align-items: center; justify-content: center; color: var(--green);">✓</div>
+                      <div style="flex: 1;">
+                        <div style="font-size: 13px; font-weight: 600; color: var(--navy); font-family: 'Outfit', sans-serif;">YouTube URL Validated</div>
+                      </div>
+                    </div>
+                    <div id="status-1" style="display: flex; gap: 12px; align-items: center; margin-bottom: 16px;">
+                      <div style="width: 24px; height: 24px; border-radius: 50%; background: var(--border); display: flex; align-items: center; justify-content: center; color: var(--light);">⚙️</div>
+                      <div style="flex: 1;">
+                        <div style="font-size: 13px; font-weight: 600; color: var(--light); font-family: 'Outfit', sans-serif;">Audio Transcription</div>
+                      </div>
+                    </div>
+                    <div id="status-2" style="display: flex; gap: 12px; align-items: center; margin-bottom: 16px; opacity: 0.5;">
+                      <div style="width: 24px; height: 24px; border-radius: 50%; background: var(--border); display: flex; align-items: center; justify-content: center; color: var(--light);">⚙️</div>
+                      <div style="flex: 1;">
+                        <div style="font-size: 13px; font-weight: 600; color: var(--light); font-family: 'Outfit', sans-serif;">AI Analysis</div>
+                      </div>
+                    </div>
+                    <div id="status-3" style="display: flex; gap: 12px; align-items: center; margin-bottom: 16px; opacity: 0.5;">
+                      <div style="width: 24px; height: 24px; border-radius: 50%; background: var(--border); display: flex; align-items: center; justify-content: center; color: var(--light);">⚙️</div>
+                      <div style="flex: 1;">
+                        <div style="font-size: 13px; font-weight: 600; color: var(--light); font-family: 'Outfit', sans-serif;">Report Draft Ready</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 3: Review & Approve -->
+            <div id="step-3" style="display: none;">
+              <div class="card">
+                <div class="card-title">Report Preview</div>
+                <div style="border: 1px solid var(--border); border-radius: var(--r-lg); padding: 20px;">
+                  <h3 style="font-family: 'Outfit', sans-serif; font-weight: 800; color: var(--navy); font-size: 20px; margin-bottom: 12px;">Falcon U18 Elite vs Al-Nassr Youth</h3>
+                  <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px;">
+                    <span class="tag">Final: 72 - 68</span>
+                    <span class="tag">Saudi U18 Championship</span>
+                    <span class="tag">Apr 12, 2026</span>
+                  </div>
+                  <p style="color: var(--mid); margin-bottom: 20px;">This is a draft report generated by Spinova AI. Review it, make any edits, and publish.</p>
+                  <div class="two-col" style="margin-bottom: 16px;">
+                    <div class="stat-card">
+                      <div class="stat-value">72</div>
+                      <div class="stat-label">Team A Points</div>
+                    </div>
+                    <div class="stat-card">
+                      <div class="stat-value">68</div>
+                      <div class="stat-label">Team B Points</div>
+                    </div>
+                  </div>
+                  <div style="margin-bottom: 24px;">
+                    <div class="card-title" style="font-size: 16px; margin-bottom: 12px;">Key Moments</div>
+                    <ul style="color: var(--mid); line-height: 1.7; padding-left: 18px;">
+                      <li>Q3 4:12 — Ahmed Al-Rashidi hits a clutch three-pointer</li>
+                      <li>Q4 1:05 — Youssef Samir with a crucial steal</li>
+                      <li>Q4 0:18 — Kareem Mostafa makes two free throws to seal the win</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card" style="margin-top: 16px;">
+                <div class="card-title">Final Actions</div>
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                  <button id="step3-publish" class="btn btn-primary btn-lg">
+                    Publish Report →
+                  </button>
+                  <button id="step3-edit" class="btn btn-secondary btn-lg">
+                    Edit Draft
+                  </button>
+                  <button id="step3-cancel" class="btn btn-secondary btn-lg">
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Sidebar -->
+          <div style="width: 320px;">
+            <div class="card" style="position: sticky; top: 90px;">
+              <div class="card-title">Report Flow</div>
+              <div style="margin-top: 16px;">
+                <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 16px;">
+                  <div style="width: 24px; height: 24px; border-radius: 50%; background: rgba(31,171,110,0.15); display: flex; align-items: center; justify-content: center; color: var(--green);">1</div>
+                  <div style="flex: 1;">
+                    <div style="font-size: 13px; font-weight: 600; color: var(--navy); font-family: 'Outfit', sans-serif;">Enter Match Details</div>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 16px;">
+                  <div style="width: 24px; height: 24px; border-radius: 50%; background: var(--border); display: flex; align-items: center; justify-content: center; color: var(--light);">2</div>
+                  <div style="flex: 1;">
+                    <div style="font-size: 13px; font-weight: 600; color: var(--light); font-family: 'Outfit', sans-serif;">AI Processing</div>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 16px;">
+                  <div style="width: 24px; height: 24px; border-radius: 50%; background: var(--border); display: flex; align-items: center; justify-content: center; color: var(--light);">3</div>
+                  <div style="flex: 1;">
+                    <div style="font-size: 13px; font-weight: 600; color: var(--light); font-family: 'Outfit', sans-serif;">Review & Approve</div>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 12px; align-items: center;">
+                  <div style="width: 24px; height: 24px; border-radius: 50%; background: var(--border); display: flex; align-items: center; justify-content: center; color: var(--light);">4</div>
+                  <div style="flex: 1;">
+                    <div style="font-size: 13px; font-weight: 600; color: var(--light); font-family: 'Outfit', sans-serif;">Report Published</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <style>
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  </style>
+
+  <script>
+    let currentStep = 1;
+
+    function goToStep(step) {
+      // Hide all steps
+      document.getElementById('step-1').style.display = 'none';
+      document.getElementById('step-2').style.display = 'none';
+      document.getElementById('step-3').style.display = 'none';
+      // Show current step
+      document.getElementById('step-' + step).style.display = 'block';
+
+      // Update progress bar
+      if (step >= 1) {
+        document.getElementById('step-ind-1').style.opacity = '1';
+        document.getElementById('step-ind-1').querySelector('div').style.background = 'var(--court)';
+        document.getElementById('step-ind-1').querySelector('div').style.color = 'white';
+        document.getElementById('step-ind-1').querySelector('span').style.color = 'var(--navy)';
+      }
+      if (step >= 2) {
+        document.getElementById('step-ind-2').style.opacity = '1';
+        document.getElementById('step-num-2').style.background = 'var(--court)';
+        document.getElementById('step-num-2').style.color = 'white';
+        document.getElementById('step-text-2').style.color = 'var(--navy)';
+        document.getElementById('progress-line-1').style.background = 'var(--court)';
+      } else {
+        document.getElementById('step-ind-2').style.opacity = '0.5';
+        document.getElementById('step-num-2').style.background = 'var(--border)';
+        document.getElementById('step-num-2').style.color = 'var(--light)';
+        document.getElementById('step-text-2').style.color = 'var(--light)';
+        document.getElementById('progress-line-1').style.background = 'var(--border)';
+      }
+      if (step >= 3) {
+        document.getElementById('step-ind-3').style.opacity = '1';
+        document.getElementById('step-num-3').style.background = 'var(--court)';
+        document.getElementById('step-num-3').style.color = 'white';
+        document.getElementById('step-text-3').style.color = 'var(--navy)';
+        document.getElementById('progress-line-2').style.background = 'var(--court)';
+      } else {
+        document.getElementById('step-ind-3').style.opacity = '0.5';
+        document.getElementById('step-num-3').style.background = 'var(--border)';
+        document.getElementById('step-num-3').style.color = 'var(--light)';
+        document.getElementById('step-text-3').style.color = 'var(--light)';
+        document.getElementById('progress-line-2').style.background = 'var(--border)';
+      }
+      currentStep = step;
+    }
+
+    // Step1 Next
+    document.getElementById('step1-next').addEventListener('click', function() {
+      goToStep(2);
+      simulateProcessing();
+    });
+
+    function simulateProcessing() {
+      setTimeout(() => {
+        document.getElementById('status-1').style.opacity = '1';
+        document.getElementById('status-1').querySelector('div').style.background = 'rgba(31,171,110,0.15)';
+        document.getElementById('status-1').querySelector('div').style.color = 'var(--green)';
+        document.getElementById('status-1').querySelector('div').innerHTML = '✓';
+        document.getElementById('status-1').querySelector('div + div div').style.color = 'var(--navy)';
+      }, 1000);
+
+      setTimeout(() => {
+        document.getElementById('status-2').style.opacity = '1';
+        document.getElementById('status-2').querySelector('div').style.background = 'rgba(31,171,110,0.15)';
+        document.getElementById('status-2').querySelector('div').style.color = 'var(--green)';
+        document.getElementById('status-2').querySelector('div').innerHTML = '✓';
+        document.getElementById('status-2').querySelector('div + div div').style.color = 'var(--navy)';
+      }, 2000);
+
+      setTimeout(() => {
+        document.getElementById('status-3').style.opacity = '1';
+        document.getElementById('status-3').querySelector('div').style.background = 'rgba(31,171,110,0.15)';
+        document.getElementById('status-3').querySelector('div').style.color = 'var(--green)';
+        document.getElementById('status-3').querySelector('div').innerHTML = '✓';
+        document.getElementById('status-3').querySelector('div + div div').style.color = 'var(--navy)';
+        setTimeout(() => {
+          goToStep(3);
+        }, 1000);
+      }, 3000);
+    }
+
+    // Step3 actions
+    document.getElementById('step3-publish').addEventListener('click', function() {
+      alert('Report published! Redirecting to all reports...');
+      window.location.href = 'reports.html';
+    });
+
+    document.getElementById('step3-edit').addEventListener('click', function() {
+      goToStep(1);
+    });
+
+    document.getElementById('step3-cancel').addEventListener('click', function() {
+      window.location.href = 'dashboard.html';
+    });
+  </script>
+</body>
+</html>
