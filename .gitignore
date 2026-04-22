@@ -1,0 +1,6 @@
+frontend-next app/node_modules/
+frontend-next app/.next/
+frontend-next app/.env.local
+frontend-next app/generated/
+frontend-next app/public/generated/
+frontend-next app/*.log
