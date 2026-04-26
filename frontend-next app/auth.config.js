@@ -1,6 +1,6 @@
 import Authentik from "next-auth/providers/authentik";
 import Credentials from "next-auth/providers/credentials";
-import { validateDemoUser } from "@/lib/auth";
+import { demoUsers } from "./lib/demo-data";
 
 const DEMO_ENABLED = String(process.env.AUTH_DEMO_ENABLED || "true").toLowerCase() === "true";
 const ADMIN_GROUP = (process.env.AUTH_ADMIN_GROUP || "spinova-admins").toLowerCase();
@@ -41,6 +41,12 @@ const authentikTokenAuth =
   String(process.env.AUTH_AUTHENTIK_CLIENT_AUTH || "post").toLowerCase() === "basic"
     ? "client_secret_basic"
     : "client_secret_post";
+
+function validateDemoUser(email, password) {
+  const user = demoUsers.find((u) => u.email === email && u.password === password);
+  if (!user) return null;
+  return { email: user.email, name: user.name, role: user.role };
+}
 
 function roleFromGroups(groups = []) {
   const g = new Set((groups || []).map((x) => String(x).toLowerCase()));
