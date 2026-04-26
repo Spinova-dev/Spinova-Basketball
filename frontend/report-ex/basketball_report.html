@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Match Analytics Report — Sporting vs Smouha | U16 Girls</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Spinova brand (matches football reports) */
+    --blue: #2E8BC0;
+    --blue-dark: #1a6a9a;
+    --blue-deep: #0d4f73;
+    --blue-vdark: #1f2d40;
+    --blue-light: #5BA4D0;
+    --blue-50: #e8f4fa;
+    --lime: #9BC53D;
+    --lime-dark: #7da32e;
+    --dark: #1a2332;
+    --mid-gray: #526378;
+    --light-gray: #8896a7;
+    --page-bg: #f5f7fa;
+    --white: #ffffff;
+    /* Teams */
+    --sport-primary: #E8340A;
+    --sport-secondary: #E85A32;
+    --smouha-primary: #0A5FD4;
+    --smouha-secondary: #2E7FD4;
+    /* Surfaces */
+    --bg: var(--page-bg);
+    --bg2: var(--white);
+    --bg3: var(--white);
+    --bg4: #f0f4f8;
+    --border: #e4ecf2;
+    --border2: #dce6ef;
+    --text: var(--dark);
+    --text2: var(--mid-gray);
+    --text3: var(--light-gray);
+    --accent: var(--lime);
+    --gold: var(--lime);
+    --spinova-lime: var(--lime);
+    --spinova-lime-dim: rgba(155, 197, 61, 0.45);
+    --green: #0a8f5c;
+    --red: #d63447;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Cairo', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── SPINOVA BRAND BAR ─── */
+  .brand-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    padding: 14px 40px;
+    background: var(--blue-vdark);
+    border-bottom: 3px solid var(--lime);
+  }
+  .brand-bar-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .brand-bar .brand-logo {
+    height: 40px;
+    width: auto;
+    display: block;
+  }
+  .brand-bar .brand-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--lime);
+    font-family: 'Outfit', sans-serif;
+  }
+  .brand-bar .brand-line {
+    font-size: 12px;
+    color: #fff;
+    letter-spacing: 0.3px;
+  }
+  .brand-bar .brand-line strong {
+    color: #fff;
+    font-weight: 700;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    padding: 60px 40px 50px;
+    background: var(--blue-vdark);
+    border-bottom: 3px solid var(--lime);
+    overflow: hidden;
+    color: #fff;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 80% at 50% -20%, rgba(255,255,255,0.03) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 20px;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .team-hero { text-align: center; }
+  .team-tag {
+    display: inline-block;
+    font-family: 'Outfit', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 6px;
+    margin-bottom: 14px;
+  }
+  .team-tag.sport { background: rgba(232,52,10,0.15); color: var(--sport-secondary); border: 1px solid rgba(232,52,10,0.3); }
+  .team-tag.smouha { background: rgba(10,95,212,0.15); color: var(--smouha-secondary); border: 1px solid rgba(10,95,212,0.3); }
+  .team-name {
+    font-family: 'Cairo', sans-serif;
+    font-size: 52px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+  .team-name.sport { color: var(--sport-primary); }
+  .team-name.smouha { color: var(--smouha-primary); }
+  .team-record {
+    font-size: 12px;
+    color: rgba(255,255,255,0.75);
+    margin-top: 8px;
+    font-family: 'Cairo', sans-serif;
+  }
+  .scoreboard {
+    text-align: center;
+    padding: 0 30px;
+  }
+  .score-display {
+    font-family: 'Cairo', sans-serif;
+    font-size: 80px;
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1;
+    color: #fff;
+  }
+  .score-sep { color: rgba(255,255,255,0.45); }
+  .match-meta {
+    font-size: 11px;
+    color: rgba(255,255,255,0.7);
+    font-family: 'Outfit', sans-serif;
+    margin-top: 8px;
+    letter-spacing: 1px;
+  }
+  .winner-badge {
+    display: inline-block;
+    background: var(--lime);
+    color: var(--dark);
+    font-family: 'Cairo', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    padding: 4px 12px;
+    border-radius: 6px;
+    margin-top: 10px;
+  }
+  .tournament-label {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.65);
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ─── NAV TABS ─── */
+  .nav-tabs {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    box-shadow: 0 1px 0 rgba(13,79,115,0.06);
+  }
+  .tab-btn {
+    padding: 16px 22px;
+    background: none;
+    border: none;
+    color: var(--mid-gray);
+    font-family: 'Cairo', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--blue); }
+  .tab-btn.active { color: var(--blue-deep); border-bottom-color: var(--lime); }
+
+  /* ─── SECTIONS ─── */
+  .section { display: none; padding: 40px; max-width: 1400px; margin: 0 auto; }
+  .section.active { display: block; }
+
+  .section-title {
+    font-family: 'Cairo', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 0;
+    margin-bottom: 6px;
+    color: var(--dark);
+    border-left: 4px solid var(--lime);
+    padding-left: 14px;
+  }
+  .section-sub {
+    font-size: 13px;
+    color: var(--text3);
+    margin-bottom: 32px;
+  }
+
+  /* ─── QUARTER TIMELINE ─── */
+  .quarter-timeline {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-bottom: 40px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--border);
+  }
+  .qt-block {
+    background: var(--white);
+    padding: 20px 16px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+    position: relative;
+    box-shadow: 0 1px 0 rgba(13,79,115,0.04);
+  }
+  .qt-block:last-child { border-right: none; }
+  .qt-label {
+    font-family: 'Outfit', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--text3);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+  .qt-score {
+    font-family: 'Cairo', sans-serif;
+    font-size: 36px;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .qt-leader {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .qt-leader.sport { color: var(--sport-secondary); }
+  .qt-leader.smouha { color: var(--smouha-secondary); }
+  .qt-leader.draw { color: var(--gold); }
+  .qt-points {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 8px;
+    font-size: 11px;
+    color: var(--text3);
+  }
+  .qt-pts-s { color: var(--sport-secondary); font-weight: 600; }
+  .qt-pts-m { color: var(--smouha-secondary); font-weight: 600; }
+
+  /* ─── COMPARISON BARS ─── */
+  .comparison-grid {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+  .comp-row {
+    display: grid;
+    grid-template-columns: 1fr 120px 1fr;
+    gap: 12px;
+    align-items: center;
+    background: var(--white);
+    padding: 14px 18px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+  }
+  .comp-bar-wrap { position: relative; height: 6px; background: #e8f0f5; border-radius: 3px; }
+  .comp-bar {
+    position: absolute;
+    top: 0;
+    height: 6px;
+    border-radius: 3px;
+    transition: width 0.8s ease;
+  }
+  .comp-bar.sport-bar { right: 0; background: var(--sport-primary); }
+  .comp-bar.smouha-bar { left: 0; background: var(--smouha-primary); }
+  .comp-label {
+    text-align: center;
+    font-family: 'Cairo', sans-serif;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text3);
+  }
+  .comp-val-sport {
+    text-align: right;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 500;
+    color: var(--sport-secondary);
+    font-size: 15px;
+  }
+  .comp-val-smouha {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 500;
+    color: var(--smouha-secondary);
+    font-size: 15px;
+  }
+
+  /* ─── CARDS ─── */
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 32px; }
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .card.sport-card::before { background: var(--sport-primary); }
+  .card.smouha-card::before { background: var(--smouha-primary); }
+  .card.neutral-card::before { background: var(--gold); }
+  .card-title {
+    font-family: 'Cairo', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 10px;
+  }
+  .card-val {
+    font-family: 'Cairo', sans-serif;
+    font-size: 42px;
+    font-weight: 900;
+    line-height: 1;
+  }
+  .card-val.sport { color: var(--sport-secondary); }
+  .card-val.smouha { color: var(--smouha-secondary); }
+  .card-sub { font-size: 12px; color: var(--text3); margin-top: 4px; }
+
+  /* ─── TABLE ─── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 32px;
+    font-size: 13px;
+  }
+  .data-table th {
+    background: var(--blue-deep);
+    padding: 12px 14px;
+    text-align: left;
+    font-family: 'Cairo', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #fff;
+    border-bottom: none;
+  }
+  .data-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  .data-table tr:hover td { background: var(--blue-50); }
+  .data-table tr:last-child td { border-bottom: none; }
+  .player-num {
+    font-family: 'Cairo', sans-serif;
+    font-size: 11px;
+    color: var(--text3);
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+  }
+  .player-num.sport { background: rgba(232,52,10,0.15); color: var(--sport-secondary); }
+  .player-num.smouha { background: rgba(10,95,212,0.15); color: var(--smouha-secondary); }
+  .player-name { font-weight: 600; font-size: 14px; }
+  .player-pos {
+    font-size: 10px;
+    color: var(--text3);
+    font-family: 'Cairo', sans-serif;
+    letter-spacing: 1px;
+  }
+  .stat-num {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+  }
+  .stat-num.highlight { color: var(--gold); }
+  .foul-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin: 0 2px;
+  }
+  .foul-dot.active { background: var(--red); }
+  .foul-dot.inactive { background: var(--bg4); border: 1px solid var(--border2); }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .badge.dq { background: rgba(255,59,92,0.15); color: var(--red); border: 1px solid rgba(255,59,92,0.3); }
+  .badge.star { background: rgba(155,197,61,0.15); color: var(--lime-dark); border: 1px solid rgba(155,197,61,0.35); }
+  .badge.key { background: rgba(0,208,132,0.15); color: var(--green); border: 1px solid rgba(0,208,132,0.3); }
+  .badge.sub { background: var(--page-bg); color: var(--text3); border: 1px solid var(--border); }
+
+  /* ─── PLAYER CARDS ─── */
+  .player-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; margin-bottom: 32px; }
+  .player-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    position: relative;
+  }
+  .player-card-header {
+    padding: 20px 22px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 1px solid var(--border);
+  }
+  .player-card-header.sport { background: linear-gradient(135deg, rgba(232,52,10,0.12) 0%, transparent 60%); }
+  .player-card-header.smouha { background: linear-gradient(135deg, rgba(10,95,212,0.12) 0%, transparent 60%); }
+  .pc-num {
+    font-family: 'Cairo', sans-serif;
+    font-size: 52px;
+    font-weight: 900;
+    line-height: 1;
+    opacity: 0.18;
+    position: absolute;
+    right: 14px;
+    top: 10px;
+  }
+  .pc-num.sport { color: var(--sport-primary); }
+  .pc-num.smouha { color: var(--smouha-primary); }
+  .pc-name {
+    font-family: 'Cairo', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+  .pc-pos { font-size: 11px; color: var(--text3); margin-top: 3px; font-family: 'Cairo', sans-serif; }
+  .pc-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 16px 22px;
+    gap: 1px;
+    background: var(--border);
+  }
+  .pc-stat {
+    background: var(--blue-50);
+    padding: 12px 8px;
+    text-align: center;
+  }
+  .pc-stat-val {
+    font-family: 'Cairo', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .pc-stat-lbl {
+    font-size: 9px;
+    color: var(--text3);
+    font-family: 'Cairo', sans-serif;
+    letter-spacing: 1px;
+    margin-top: 3px;
+    text-transform: uppercase;
+  }
+  .pc-analysis {
+    padding: 16px 22px;
+    border-top: 1px solid var(--border);
+  }
+  .pc-analysis-title {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 10px;
+    font-family: 'Cairo', sans-serif;
+  }
+  .str-row { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 6px; }
+  .str-icon { font-size: 12px; flex-shrink: 0; margin-top: 1px; }
+  .str-text { font-size: 12px; color: var(--text2); line-height: 1.4; }
+  .fouls-display { display: flex; gap: 4px; margin-top: 6px; }
+
+  /* ─── KEY MOMENTS ─── */
+  .moments-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+  .moment {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 16px;
+    align-items: center;
+    background: var(--white);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--border2);
+  }
+  .moment.sport { border-left-color: var(--sport-primary); }
+  .moment.smouha { border-left-color: var(--smouha-primary); }
+  .moment.critical { border-left-color: var(--gold); }
+  .moment-time {
+    font-family: 'Cairo', sans-serif;
+    font-size: 12px;
+    color: var(--text3);
+    text-align: center;
+  }
+  .moment-score {
+    font-family: 'Cairo', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--lime-dark);
+  }
+  .moment-desc { font-size: 13px; color: var(--text2); margin-top: 2px; }
+  .moment-player { font-size: 11px; color: var(--text3); margin-top: 4px; font-family: 'Cairo', sans-serif; }
+
+  /* ─── SWOT ─── */
+  .swot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 32px; }
+  .swot-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px;
+  }
+  .swot-label {
+    font-family: 'Cairo', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .swot-label.s { color: var(--green); }
+  .swot-label.w { color: var(--red); }
+  .swot-label.o { color: var(--gold); }
+  .swot-label.t { color: var(--sport-secondary); }
+  .swot-item { display: flex; gap: 10px; margin-bottom: 10px; align-items: flex-start; }
+  .swot-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+  .s .swot-dot { background: var(--green); }
+  .w .swot-dot { background: var(--red); }
+  .o .swot-dot { background: var(--gold); }
+  .t .swot-dot { background: var(--sport-secondary); }
+  .swot-text { font-size: 13px; color: var(--text2); line-height: 1.5; }
+
+  /* ─── TEAM HEADER ─── */
+  .team-section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .team-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .team-dot.sport { background: var(--sport-primary); }
+  .team-dot.smouha { background: var(--smouha-primary); }
+  .team-section-title {
+    font-family: 'Cairo', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .team-section-sub { font-size: 12px; color: var(--text3); margin-left: auto; font-family: 'Cairo', sans-serif; }
+
+  /* ─── COACH NOTE ─── */
+  .coach-note {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--lime);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .coach-note::before {
+    content: '📋';
+    position: absolute;
+    right: 20px;
+    top: 16px;
+    font-size: 32px;
+    opacity: 0.15;
+  }
+  .coach-note-title {
+    font-family: 'Cairo', sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--blue);
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+  .coach-note p { font-size: 13px; color: var(--text2); line-height: 1.7; }
+  .coach-note p + p { margin-top: 8px; }
+  strong { color: var(--text); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 28px 40px 32px;
+    border-top: 3px solid var(--lime);
+    background: var(--blue-vdark);
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+  }
+  .footer-inner .footer-logo {
+    height: 32px;
+    width: auto;
+    opacity: 0.95;
+  }
+  .footer-brand {
+    font-family: 'Cairo', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  .footer-brand span {
+    color: var(--lime);
+  }
+  .footer-meta {
+    font-size: 12px;
+    color: #fff;
+    font-family: 'Cairo', sans-serif;
+    letter-spacing: 0.3px;
+    line-height: 1.6;
+    max-width: 560px;
+  }
+  .footer-conf {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+  }
+
+  /* ─── DIVIDER ─── */
+  .divider { height: 1px; background: var(--border); margin: 32px 0; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .brand-bar { padding: 12px 20px; justify-content: center; text-align: center; }
+    .brand-bar-left { align-items: center; width: 100%; }
+    .brand-bar .brand-logo { height: 34px; }
+    .hero { padding: 30px 20px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 16px; text-align: center; }
+    .team-name { font-size: 36px; }
+    .score-display { font-size: 60px; }
+    .section { padding: 24px 16px; }
+    .quarter-timeline { grid-template-columns: repeat(2,1fr); }
+    .swot-grid { grid-template-columns: 1fr; }
+    .nav-tabs { padding: 0 16px; }
+    .player-cards { grid-template-columns: 1fr; }
+    footer { padding: 24px 16px 28px; }
+    .footer-inner .footer-logo { height: 28px; }
+  }
+
+  /* animations */
+  .section.active .comp-bar { animation: barGrow 0.8s ease forwards; }
+  @keyframes barGrow { from { width: 0; } }
+  .card { animation: fadeUp 0.3s ease backwards; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ SPINOVA BRANDING ═══════════════════ -->
+<div class="brand-bar">
+  <div class="brand-bar-left">
+    <img class="brand-logo" src="https://spinova.app/spinova-logo.png" alt="Spinova">
+    <span class="brand-tag">Performance Analytics</span>
+  </div>
+  <div class="brand-line">Match report · <strong>Sporting vs Smouha</strong> · U16 Girls · Prepared by <strong>Spinova</strong></div>
+</div>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<div class="hero">
+  <div class="hero-grid">
+    <div class="team-hero">
+      <div class="team-tag sport">SPORTING CLUB</div>
+      <div class="team-name sport">SPORTING</div>
+      <div class="team-record">Runner-Up — 76 Points</div>
+    </div>
+    <div class="scoreboard">
+      <div class="score-display">76<span class="score-sep"> – </span>80</div>
+      <div class="match-meta">OVERTIME · U16 GIRLS BASKETBALL</div>
+      <div><span class="winner-badge">🏆 SMOUHA CHAMPION</span></div>
+    </div>
+    <div class="team-hero">
+      <div class="team-tag smouha">SMOUHA CLUB</div>
+      <div class="team-name smouha">SMOUHA</div>
+      <div class="team-record">Champions — 80 Points</div>
+    </div>
+  </div>
+  <div class="tournament-label">Alexandria Region · U16 Girls Championship · Final</div>
+</div>
+
+<!-- ═══════════════════ NAV ═══════════════════ -->
+<div class="nav-tabs">
+  <button class="tab-btn active" onclick="showTab('match')">Match Overview</button>
+  <button class="tab-btn" onclick="showTab('sporting')">Sporting Report</button>
+  <button class="tab-btn" onclick="showTab('smouha')">Smouha Report</button>
+  <button class="tab-btn" onclick="showTab('players')">Player Profiles</button>
+  <button class="tab-btn" onclick="showTab('analysis')">Deep Analysis</button>
+</div>
+
+<!-- ═══════════════════ TAB: MATCH OVERVIEW ═══════════════════ -->
+<div class="section active" id="tab-match">
+  <div class="section-title">Match Overview</div>
+  <div class="section-sub">Quarter-by-quarter breakdown · Team stats comparison · Key moments timeline</div>
+
+  <!-- Quarter Timeline -->
+  <div class="quarter-timeline">
+    <div class="qt-block">
+      <div class="qt-label">Q1</div>
+      <div class="qt-score" style="color: var(--sport-secondary)">24–23</div>
+      <div class="qt-leader sport">Sporting Lead</div>
+      <div class="qt-points"><span class="qt-pts-s">+24</span><span class="qt-pts-m">+23</span></div>
+    </div>
+    <div class="qt-block">
+      <div class="qt-label">Q2</div>
+      <div class="qt-score" style="color: var(--gold)">39–39</div>
+      <div class="qt-leader draw">Draw</div>
+      <div class="qt-points"><span class="qt-pts-s">+15</span><span class="qt-pts-m">+16</span></div>
+    </div>
+    <div class="qt-block">
+      <div class="qt-label">Q3</div>
+      <div class="qt-score" style="color: var(--sport-secondary)">56–53</div>
+      <div class="qt-leader sport">Sporting Lead</div>
+      <div class="qt-points"><span class="qt-pts-s">+17</span><span class="qt-pts-m">+14</span></div>
+    </div>
+    <div class="qt-block">
+      <div class="qt-label">Q4 + OT</div>
+      <div class="qt-score" style="color: var(--smouha-secondary)">76–80</div>
+      <div class="qt-leader smouha">Smouha Win</div>
+      <div class="qt-points"><span class="qt-pts-s">+20</span><span class="qt-pts-m">+27</span></div>
+    </div>
+  </div>
+
+  <!-- Team Stat Comparison -->
+  <div class="section-title" style="font-size:18px;margin-bottom:16px;">Team Stats Comparison</div>
+  <div class="comparison-grid">
+    <div class="comp-row">
+      <div>
+        <div class="comp-val-sport">76</div>
+        <div class="comp-bar-wrap"><div class="comp-bar sport-bar" style="width:48.7%"></div></div>
+      </div>
+      <div class="comp-label">Total Points</div>
+      <div>
+        <div class="comp-val-smouha">80</div>
+        <div class="comp-bar-wrap"><div class="comp-bar smouha-bar" style="width:51.3%"></div></div>
+      </div>
+    </div>
+    <div class="comp-row">
+      <div>
+        <div class="comp-val-sport">5</div>
+        <div class="comp-bar-wrap"><div class="comp-bar sport-bar" style="width:45.5%"></div></div>
+      </div>
+      <div class="comp-label">3-Pointers</div>
+      <div>
+        <div class="comp-val-smouha">6</div>
+        <div class="comp-bar-wrap"><div class="comp-bar smouha-bar" style="width:54.5%"></div></div>
+      </div>
+    </div>
+    <div class="comp-row">
+      <div>
+        <div class="comp-val-sport">16</div>
+        <div class="comp-bar-wrap"><div class="comp-bar sport-bar" style="width:51.6%"></div></div>
+      </div>
+      <div class="comp-label">Free Throws Made</div>
+      <div>
+        <div class="comp-val-smouha">15</div>
+        <div class="comp-bar-wrap"><div class="comp-bar smouha-bar" style="width:48.4%"></div></div>
+      </div>
+    </div>
+    <div class="comp-row">
+      <div>
+        <div class="comp-val-sport" style="color:var(--red)">24+</div>
+        <div class="comp-bar-wrap"><div class="comp-bar sport-bar" style="width:60%"></div></div>
+      </div>
+      <div class="comp-label">Total Fouls</div>
+      <div>
+        <div class="comp-val-smouha" style="color:var(--red)">16+</div>
+        <div class="comp-bar-wrap"><div class="comp-bar smouha-bar" style="width:40%"></div></div>
+      </div>
+    </div>
+    <div class="comp-row">
+      <div>
+        <div class="comp-val-sport" style="color:var(--red)">1</div>
+        <div class="comp-bar-wrap"><div class="comp-bar sport-bar" style="width:100%"></div></div>
+      </div>
+      <div class="comp-label">Disqualifications</div>
+      <div>
+        <div class="comp-val-smouha">0</div>
+        <div class="comp-bar-wrap"><div class="comp-bar smouha-bar" style="width:0%"></div></div>
+      </div>
+    </div>
+    <div class="comp-row">
+      <div>
+        <div class="comp-val-sport">7</div>
+        <div class="comp-bar-wrap"><div class="comp-bar sport-bar" style="width:50%"></div></div>
+      </div>
+      <div class="comp-label">Lead Moments</div>
+      <div>
+        <div class="comp-val-smouha">8</div>
+        <div class="comp-bar-wrap"><div class="comp-bar smouha-bar" style="width:57%"></div></div>
+      </div>
+    </div>
+    <div class="comp-row">
+      <div>
+        <div class="comp-val-sport">4</div>
+        <div class="comp-bar-wrap"><div class="comp-bar sport-bar" style="width:50%"></div></div>
+      </div>
+      <div class="comp-label">Times Tied</div>
+      <div>
+        <div class="comp-val-smouha">4</div>
+        <div class="comp-bar-wrap"><div class="comp-bar smouha-bar" style="width:50%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Key Moments -->
+  <div class="section-title" style="font-size:18px;margin-bottom:16px;">Key Moments Timeline</div>
+  <div class="moments-list">
+    <div class="moment sport">
+      <div class="moment-time">Q1 — Early<br>2:00</div>
+      <div>
+        <div class="moment-score">7–0</div>
+        <div class="moment-desc">Sporting storms to a 7-0 run — dominant start. Smouha yet to score.</div>
+        <div class="moment-player">→ Habiba Karim 5pts · Farida Sherif 2pts</div>
+      </div>
+    </div>
+    <div class="moment smouha">
+      <div class="moment-time">Q1<br>~6:00</div>
+      <div>
+        <div class="moment-score">7–4</div>
+        <div class="moment-desc">Zina Mohamed scores Smouha's first basket. Fightback begins.</div>
+        <div class="moment-player">→ Zina #99 breaks the scoring drought</div>
+      </div>
+    </div>
+    <div class="moment critical">
+      <div class="moment-time">Q1 End</div>
+      <div>
+        <div class="moment-score">24–23</div>
+        <div class="moment-desc">Close first quarter — Sporting barely holds a 1-point advantage after 4 lead changes.</div>
+      </div>
+    </div>
+    <div class="moment smouha">
+      <div class="moment-time">Q2<br>~15:11</div>
+      <div>
+        <div class="moment-score">15–11</div>
+        <div class="moment-desc">Smouha go up by 4 for the first time — momentum shift. Coach Mostafa calls timeout.</div>
+        <div class="moment-player">→ Maya Essam + Zina driving the run</div>
+      </div>
+    </div>
+    <div class="moment critical">
+      <div class="moment-time">Q2 End</div>
+      <div>
+        <div class="moment-score">39–39</div>
+        <div class="moment-desc">Farida Sherif hits a clutch 3-pointer with seconds left to force a draw going into halftime.</div>
+        <div class="moment-player">→ 🔥 Farida Sherif #30 — ice-cold under pressure</div>
+      </div>
+    </div>
+    <div class="moment sport">
+      <div class="moment-time">Q3<br>~41:30</div>
+      <div>
+        <div class="moment-score">52–45</div>
+        <div class="moment-desc">Sporting builds biggest lead of the game — 7 points. Coach Mohamed Yasser calls timeout.</div>
+        <div class="moment-player">→ Habiba + Kanzi + Jana leading the charge</div>
+      </div>
+    </div>
+    <div class="moment critical">
+      <div class="moment-time">Q4<br>~57:41</div>
+      <div>
+        <div class="moment-score">31–28 (Smouha)</div>
+        <div class="moment-desc">Farida Sherif commits her 5th foul — DISQUALIFIED. Massive blow for Sporting.</div>
+        <div class="moment-player">→ 🚨 Game-changing moment — Sporting loses key player</div>
+      </div>
+    </div>
+    <div class="moment smouha">
+      <div class="moment-time">Q4<br>~1:02:00</div>
+      <div>
+        <div class="moment-score">35–32 (Smouha)</div>
+        <div class="moment-desc">Smouha extends lead to 3. Judy Mahjoub + Fatma Ahmed scoring combination.</div>
+      </div>
+    </div>
+    <div class="moment critical">
+      <div class="moment-time">Q4<br>~1:08:58</div>
+      <div>
+        <div class="moment-score">39–39 (Draw)</div>
+        <div class="moment-desc">Farida Sherif (subbed back) hits a 3-POINTER to tie the game! Coach Mostafa's timeout play works perfectly.</div>
+        <div class="moment-player">→ 🔥🔥 DRAMA — Sporting forces overtime with 11 seconds to play!</div>
+      </div>
+    </div>
+    <div class="moment smouha">
+      <div class="moment-time">OT<br>~2:02:00</div>
+      <div>
+        <div class="moment-score">63–62 (Sport)</div>
+        <div class="moment-desc">Jala hits a huge 3-pointer. Smouha take 2pt lead 75–73 in overtime.</div>
+        <div class="moment-player">→ Jala Al-Manshawy — clutch shot under pressure</div>
+      </div>
+    </div>
+    <div class="moment sport">
+      <div class="moment-time">OT<br>~2:21:00</div>
+      <div>
+        <div class="moment-score">76–75 (Sport)</div>
+        <div class="moment-desc">HABIBA SORROW hits a 3-pointer to give Sporting the lead — 13 seconds left!</div>
+        <div class="moment-player">→ 🔥 3-pointer with 13 sec left — game goes to wire</div>
+      </div>
+    </div>
+    <div class="moment smouha">
+      <div class="moment-time">OT Final</div>
+      <div>
+        <div class="moment-score">80–76 Final</div>
+        <div class="moment-desc">Maya Essam converts free throws + Fatma Ahmed seals it. Smouha are Champions!</div>
+        <div class="moment-player">→ 🏆 Smouha U16 Regional Champions</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ TAB: SPORTING REPORT ═══════════════════ -->
+<div class="section" id="tab-sporting">
+  <div class="section-title">Sporting Club — Full Report</div>
+  <div class="section-sub">Individual performance · Foul tracking · Strengths & weaknesses</div>
+
+  <div class="coach-note">
+    <div class="coach-note-title">📋 Coach Note — Sporting</div>
+    <p>Sporting showed <strong>exceptional resilience</strong> — coming back from a 4-point deficit twice and forcing overtime with a clutch 3-pointer at the buzzer. The team's early defensive intensity (7–0 run) showed real character. However, <strong>foul management remains the #1 issue</strong>. Losing Farida Sherif to 5 fouls in Q4 completely changed the game's momentum. The team must learn to defend without fouling under pressure.</p>
+    <p>On offense, the <strong>three-point shooting was a strong weapon</strong> but efficiency needs improvement — too many attempts, not enough makes in critical moments. The assist game and ball movement were positive highlights.</p>
+  </div>
+
+  <!-- Scoring Stats -->
+  <div class="team-section-header">
+    <div class="team-dot sport"></div>
+    <div class="team-section-title">Scoring Stats</div>
+    <div class="team-section-sub">All points scored in the match</div>
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Player</th>
+        <th>PTS</th>
+        <th>2PT</th>
+        <th>3PT</th>
+        <th>FT Made/Att</th>
+        <th>Fouls</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="player-num sport">32</span></td>
+        <td>
+          <div class="player-name">Habiba Karim</div>
+          <div class="player-pos">FORWARD · STARTER</div>
+        </td>
+        <td><span class="stat-num highlight">18</span></td>
+        <td><span class="stat-num">4</span></td>
+        <td><span class="stat-num">2</span></td>
+        <td><span class="stat-num">2/3</span></td>
+        <td>
+          <div class="fouls-display">
+            <span class="foul-dot active"></span><span class="foul-dot active"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span>
+          </div>
+        </td>
+        <td><span class="badge star">TOP SCORER</span></td>
+      </tr>
+      <tr>
+        <td><span class="player-num sport">30</span></td>
+        <td>
+          <div class="player-name">Farida Sherif</div>
+          <div class="player-pos">FORWARD/CENTER · STARTER</div>
+        </td>
+        <td><span class="stat-num highlight">16</span></td>
+        <td><span class="stat-num">3</span></td>
+        <td><span class="stat-num">2</span></td>
+        <td><span class="stat-num">4/5</span></td>
+        <td>
+          <div class="fouls-display">
+            <span class="foul-dot active"></span><span class="foul-dot active"></span><span class="foul-dot active"></span><span class="foul-dot active"></span><span class="foul-dot active"></span>
+          </div>
+        </td>
+        <td><span class="badge dq">DISQUALIFIED</span></td>
+      </tr>
+      <tr>
+        <td><span class="player-num sport">5</span></td>
+        <td>
+          <div class="player-name">Jana Al-Manshawy</div>
+          <div class="player-pos">GUARD · STARTER</div>
+        </td>
+        <td><span class="stat-num">9</span></td>
+        <td><span class="stat-num">2</span></td>
+        <td><span class="stat-num">1</span></td>
+        <td><span class="stat-num">0/0</span></td>
+        <td>
+          <div class="fouls-display">
+            <span class="foul-dot active"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span>
+          </div>
+        </td>
+        <td><span class="badge key">KEY PLAYER</span></td>
+      </tr>
+      <tr>
+        <td><span class="player-num sport">13</span></td>
+        <td>
+          <div class="player-name">Kanzi Ismail</div>
+          <div class="player-pos">GUARD/FORWARD · STARTER</div>
+        </td>
+        <td><span class="stat-num">8</span></td>
+        <td><span class="stat-num">3</span></td>
+        <td><span class="stat-num">0</span></td>
+        <td><span class="stat-num">2/3</span></td>
+        <td>
+          <div class="fouls-display">
+            <span class="foul-dot active"></span><span class="foul-dot active"></span><span class="foul-dot active"></span><span class="foul-dot active"></span><span class="foul-dot inactive"></span>
+          </div>
+        </td>
+        <td><span class="badge key">4 FOULS</span></td>
+      </tr>
+      <tr>
+        <td><span class="player-num sport">10</span></td>
+        <td>
+          <div class="player-name">Rawda Osama</div>
+          <div class="player-pos">GUARD · STARTER</div>
+        </td>
+        <td><span class="stat-num">7</span></td>
+        <td><span class="stat-num">3</span></td>
+        <td><span class="stat-num">0</span></td>
+        <td><span class="stat-num">1/2</span></td>
+        <td>
+          <div class="fouls-display">
+            <span class="foul-dot active"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span>
+          </div>
+        </td>
+        <td><span class="badge key">PLAYMAKER</span></td>
+      </tr>
+      <tr>
+        <td><span class="player-num sport">—</span></td>
+        <td>
+          <div class="player-name">Farida Soheil</div>
+          <div class="player-pos">FORWARD · ROTATION</div>
+        </td>
+        <td><span class="stat-num">6</span></td>
+        <td><span class="stat-num">3</span></td>
+        <td><span class="stat-num">0</span></td>
+        <td><span class="stat-num">0/0</span></td>
+        <td>
+          <div class="fouls-display">
+            <span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span>
+          </div>
+        </td>
+        <td><span class="badge sub">SUB</span></td>
+      </tr>
+      <tr>
+        <td><span class="player-num sport">23</span></td>
+        <td>
+          <div class="player-name">Arwa Sherif</div>
+          <div class="player-pos">GUARD · STARTER</div>
+        </td>
+        <td><span class="stat-num">5</span></td>
+        <td><span class="stat-num">2</span></td>
+        <td><span class="stat-num">0</span></td>
+        <td><span class="stat-num">1/2</span></td>
+        <td>
+          <div class="fouls-display">
+            <span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span>
+          </div>
+        </td>
+        <td><span class="badge sub">ROTATION</span></td>
+      </tr>
+      <tr>
+        <td><span class="player-num sport">17</span></td>
+        <td>
+          <div class="player-name">Karma Amro</div>
+          <div class="player-pos">FORWARD · SUB</div>
+        </td>
+        <td><span class="stat-num">4</span></td>
+        <td><span class="stat-num">2</span></td>
+        <td><span class="stat-num">0</span></td>
+        <td><span class="stat-num">0/0</span></td>
+        <td>
+          <div class="fouls-display">
+            <span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span>
+          </div>
+        </td>
+        <td><span class="badge sub">SUB</span></td>
+      </tr>
+      <tr>
+        <td><span class="player-num sport">24</span></td>
+        <td>
+          <div class="player-name">Nour</div>
+          <div class="player-pos">GUARD · SUB</div>
+        </td>
+        <td><span class="stat-num">3</span></td>
+        <td><span class="stat-num">1</span></td>
+        <td><span class="stat-num">0</span></td>
+        <td><span class="stat-num">1/1</span></td>
+        <td>
+          <div class="fouls-display">
+            <span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span>
+          </div>
+        </td>
+        <td><span class="badge sub">SUB</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SWOT Sporting -->
+  <div class="team-section-header">
+    <div class="team-dot sport"></div>
+    <div class="team-section-title">Strengths & Weaknesses — Sporting</div>
+  </div>
+  <div class="swot-grid">
+    <div class="swot-card">
+      <div class="swot-label s">💪 Strengths</div>
+      <div class="s">
+        <div class="swot-item"><div class="swot-dot"></div><div class="swot-text"><strong>Explosive offense:</strong> Ability to go on big scoring runs — started with a 7-0 run and built a 7-point lead in Q3.</div></div>
+        <div class="swot-item"><div class="swot-dot"></div><div class="swot-text"><strong>3-point shooting:</strong> Multiple players capable of hitting from range — a serious offensive weapon at U16 level.</div></div>
+        <div class="swot-item"><div class="swot-dot"></div><div class="swot-text"><strong>Mental resilience:</strong> Came back from deficits multiple times. Never gave up, forced overtime with a buzzer-beater.</div></div>
+        <div class="swot-item"><div class="swot-dot"></div><div class="swot-text"><strong>Team depth:</strong> Multiple scorers across all 9 players — no one-dimensional offense.</div></div>
+        <div class="swot-item"><div class="swot-dot"></div><div class="swot-text"><strong>Habiba Karim:</strong> An elite offensive threat who can score from anywhere and create her own shot.</div></div>
+      </div>
+    </div>
+    <div class="swot-card">
+      <div class="swot-label w">⚠️ Weaknesses</div>
+      <div class="w">
+        <div class="swot-item"><div class="swot-dot"></div><div class="swot-text"><strong>Foul discipline:</strong> Critical weakness — 24+ team fouls, 1 disqualification (Farida Sherif). Foul trouble cost them the game.</div></div>
+        <div class="swot-item"><div class="swot-dot"></div><div class="swot-text"><strong>3-point efficiency:</strong> Attempted many 3-pointers but low conversion rate — many wasted possessions.</div></div>
+        <div class="swot-item"><div class="swot-dot"></div><div class="swot-text"><strong>End-of-game execution:</strong> Struggled to protect leads in clutch moments — let Smouha back multiple times.</div></div>
+        <div class="swot-item"><div class="swot-dot"></div><div class="swot-text"><strong>Ball security:</strong> Multiple traveling violations and double dribble turnovers in key moments.</div></div>
+        <div class="swot-item"><div class="swot-dot"></div><div class="swot-text"><strong>Post defense:</strong> Struggled to contain Fatma Ahmed in the paint — too many fouls defending tall players.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ TAB: SMOUHA REPORT ═══════════════════ -->
+<div class="section" id="tab-smouha">
+  <div class="section-title">Smouha Club — Full Report</div>
+  <div class="section-sub">Individual performance · Foul tracking · Strengths & weaknesses</div>
+
+  <div class="coach-note" style="border-color: rgba(10,95,212,0.3);">
+    <div class="coach-note-title" style="color:var(--smouha-secondary);">📋 Coach Note — Smouha (Champions)</div>
+    <p>Smouha showed the <strong>character of champions</strong>. Down 7-0, down 7 points in Q3, the team never panicked. The coaching staff's game plan was excellent — patient offense, smart use of screens, and disciplined foul management. <strong>Fatma Ahmed's height advantage</strong> was used perfectly in the paint and free throw line.</p>
+    <p><strong>Maya Essam was the engine</strong> — driving the offense, creating plays, scoring at crucial moments. The coaching adjustments at timeouts were consistently effective. The biggest challenge going forward: <strong>reducing 3-point attempts that don't go in</strong> and improving basket defense on fast breaks.</p>
+  </div>
+
+  <div class="team-section-header">
+    <div class="team-dot smouha"></div>
+    <div class="team-section-title">Scoring Stats</div>
+    <div class="team-section-sub">Champions — 80 total points</div>
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Player</th>
+        <th>PTS</th>
+        <th>2PT</th>
+        <th>3PT</th>
+        <th>FT Made/Att</th>
+        <th>Fouls</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="player-num smouha">5</span></td>
+        <td>
+          <div class="player-name">Maya Essam</div>
+          <div class="player-pos">GUARD · STARTER</div>
+        </td>
+        <td><span class="stat-num highlight">22</span></td>
+        <td><span class="stat-num">5</span></td>
+        <td><span class="stat-num">2</span></td>
+        <td><span class="stat-num">4/5</span></td>
+        <td>
+          <div class="fouls-display">
+            <span class="foul-dot active"></span><span class="foul-dot active"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span>
+          </div>
+        </td>
+        <td><span class="badge star">MVP</span></td>
+      </tr>
+      <tr>
+        <td><span class="player-num smouha">34</span></td>
+        <td>
+          <div class="player-name">Fatma Ahmed</div>
+          <div class="player-pos">CENTER · STARTER</div>
+        </td>
+        <td><span class="stat-num highlight">16</span></td>
+        <td><span class="stat-num">4</span></td>
+        <td><span class="stat-num">0</span></td>
+        <td><span class="stat-num">5/8</span></td>
+        <td>
+          <div class="fouls-display">
+            <span class="foul-dot active"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span>
+          </div>
+        </td>
+        <td><span class="badge key">PAINT DOMINATOR</span></td>
+      </tr>
+      <tr>
+        <td><span class="player-num smouha">99</span></td>
+        <td>
+          <div class="player-name">Zina Mohamed</div>
+          <div class="player-pos">FORWARD/CENTER · STARTER</div>
+        </td>
+        <td><span class="stat-num">12</span></td>
+        <td><span class="stat-num">4</span></td>
+        <td><span class="stat-num">1</span></td>
+        <td><span class="stat-num">1/2</span></td>
+        <td>
+          <div class="fouls-display">
+            <span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span>
+          </div>
+        </td>
+        <td><span class="badge key">KEY PLAYER</span></td>
+      </tr>
+      <tr>
+        <td><span class="player-num smouha">8</span></td>
+        <td>
+          <div class="player-name">Arwa Shady</div>
+          <div class="player-pos">GUARD · STARTER</div>
+        </td>
+        <td><span class="stat-num">8</span></td>
+        <td><span class="stat-num">3</span></td>
+        <td><span class="stat-num">0</span></td>
+        <td><span class="stat-num">2/2</span></td>
+        <td>
+          <div class="fouls-display">
+            <span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span>
+          </div>
+        </td>
+        <td><span class="badge key">PLAYMAKER</span></td>
+      </tr>
+      <tr>
+        <td><span class="player-num smouha">10</span></td>
+        <td>
+          <div class="player-name">Judy Mahjoub</div>
+          <div class="player-pos">GUARD · STARTER</div>
+        </td>
+        <td><span class="stat-num">7</span></td>
+        <td><span class="stat-num">1</span></td>
+        <td><span class="stat-num">1</span></td>
+        <td><span class="stat-num">2/3</span></td>
+        <td>
+          <div class="fouls-display">
+            <span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span>
+          </div>
+        </td>
+        <td><span class="badge key">CLUTCH 3PT</span></td>
+      </tr>
+      <tr>
+        <td><span class="player-num smouha">—</span></td>
+        <td>
+          <div class="player-name">Jala</div>
+          <div class="player-pos">GUARD · SUB</div>
+        </td>
+        <td><span class="stat-num">5</span></td>
+        <td><span class="stat-num">1</span></td>
+        <td><span class="stat-num">1</span></td>
+        <td><span class="stat-num">0/0</span></td>
+        <td>
+          <div class="fouls-display">
+            <span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span>
+          </div>
+        </td>
+        <td><span class="badge star">CLUTCH OT 3PT</span></td>
+      </tr>
+      <tr>
+        <td><span class="player-num smouha">20</span></td>
+        <td>
+          <div class="player-name">Basmala Mohamed</div>
+          <div class="player-pos">GUARD · STARTER</div>
+        </td>
+        <td><span class="stat-num">4</span></td>
+        <td><span class="stat-num">1</span></td>
+        <td><span class="stat-num">0</span></td>
+        <td><span class="stat-num">2/6</span></td>
+        <td>
+          <div class="fouls-display">
+            <span class="foul-dot active"></span><span class="foul-dot active"></span><span class="foul-dot active"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span>
+          </div>
+        </td>
+        <td><span class="badge sub">3 FOULS</span></td>
+      </tr>
+      <tr>
+        <td><span class="player-num smouha">—</span></td>
+        <td>
+          <div class="player-name">Rowan Suleiman</div>
+          <div class="player-pos">GUARD · SUB</div>
+        </td>
+        <td><span class="stat-num">4</span></td>
+        <td><span class="stat-num">1</span></td>
+        <td><span class="stat-num">0</span></td>
+        <td><span class="stat-num">2/2</span></td>
+        <td>
+          <div class="fouls-display">
+            <span class="foul-dot active"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span>
+          </div>
+        </td>
+        <td><span class="badge sub">SUB</span></td>
+      </tr>
+      <tr>
+        <td><span class="player-num smouha">11</span></td>
+        <td>
+          <div class="player-name">Malak Shouman</div>
+          <div class="player-pos">GUARD/FORWARD · SUB</div>
+        </td>
+        <td><span class="stat-num">2</span></td>
+        <td><span class="stat-num">1</span></td>
+        <td><span class="stat-num">0</span></td>
+        <td><span class="stat-num">0/0</span></td>
+        <td>
+          <div class="fouls-display">
+            <span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span>
+          </div>
+        </td>
+        <td><span class="badge sub">SUB</span></td>
+      </tr>
+      <tr>
+        <td><span class="player-num smouha">1</span></td>
+        <td>
+          <div class="player-name">Noha Rami</div>
+          <div class="player-pos">GUARD · SUB</div>
+        </td>
+        <td><span class="stat-num">3</span></td>
+        <td><span class="stat-num">0</span></td>
+        <td><span class="stat-num">1</span></td>
+        <td><span class="stat-num">0/0</span></td>
+        <td>
+          <div class="fouls-display">
+            <span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span><span class="foul-dot inactive"></span>
+          </div>
+        </td>
+        <td><span class="badge sub">1ST 3PT OFF BENCH</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SWOT Smouha -->
+  <div class="team-section-header">
+    <div class="team-dot smouha"></div>
+    <div class="team-section-title">Strengths & Weaknesses — Smouha</div>
+  </div>
+  <div class="swot-grid">
+    <div class="swot-card">
+      <div class="swot-label s">💪 Strengths</div>
+      <div class="s">
+        <div class="swot-item"><div class="swot-dot"></div><div class="swot-text"><strong>Elite guard play:</strong> Maya Essam is a complete player — scorer, creator, and leader. Best individual player in the match.</div></div>
+        <div class="swot-item"><div class="swot-dot"></div><div class="swot-text"><strong>Inside-outside balance:</strong> Fatma Ahmed in the paint + Maya/Judy from outside — very hard to defend.</div></div>
+        <div class="swot-item"><div class="swot-dot"></div><div class="swot-text"><strong>Mental toughness:</strong> Came back from 7-0, 7-point deficits. Won the game from behind — true champions.</div></div>
+        <div class="swot-item"><div class="swot-dot"></div><div class="swot-text"><strong>Foul management:</strong> Significantly fewer fouls than Sporting — disciplined defensive approach.</div></div>
+        <div class="swot-item"><div class="swot-dot"></div><div class="swot-text"><strong>Bench impact:</strong> Jala hit the key OT 3-pointer. Noha Rami scored off the bench. Depth is real.</div></div>
+        <div class="swot-item"><div class="swot-dot"></div><div class="swot-text"><strong>Timeout coaching:</strong> Coach Mohamed Yasser made excellent adjustments at critical timeouts.</div></div>
+      </div>
+    </div>
+    <div class="swot-card">
+      <div class="swot-label w">⚠️ Weaknesses</div>
+      <div class="w">
+        <div class="swot-item"><div class="swot-dot"></div><div class="swot-text"><strong>3-point efficiency:</strong> Many 3-point attempts missed — especially Zina and Arwa late in the game. Needs improvement.</div></div>
+        <div class="swot-item"><div class="swot-dot"></div><div class="swot-text"><strong>FT shooting:</strong> Basmala went 2/6 from the free throw line — a critical weakness in close games.</div></div>
+        <div class="swot-item"><div class="swot-dot"></div><div class="swot-text"><strong>Slow starts:</strong> Started 0-7 in Q1. The team consistently needs time to find their rhythm.</div></div>
+        <div class="swot-item"><div class="swot-dot"></div><div class="swot-text"><strong>Ball handling:</strong> Several traveling violations under defensive pressure — Fatma's footwork in OT was costly.</div></div>
+        <div class="swot-item"><div class="swot-dot"></div><div class="swot-text"><strong>Fast break defense:</strong> Gave up multiple easy fast break baskets, especially to Habiba Karim.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ TAB: PLAYER PROFILES ═══════════════════ -->
+<div class="section" id="tab-players">
+  <div class="section-title">Individual Player Profiles</div>
+  <div class="section-sub">Deep per-player analysis — strengths, weaknesses, and coaching recommendations</div>
+
+  <!-- Sporting -->
+  <div class="team-section-header">
+    <div class="team-dot sport"></div>
+    <div class="team-section-title">Sporting Club — Players</div>
+  </div>
+
+  <div class="player-cards">
+    <div class="player-card">
+      <div class="pc-num sport">32</div>
+      <div class="player-card-header sport">
+        <div>
+          <div class="pc-name">Habiba Karim</div>
+          <div class="pc-pos">FORWARD · #32 · STARTER</div>
+        </div>
+        <span class="badge star">TOP SCORER</span>
+      </div>
+      <div class="pc-stats">
+        <div class="pc-stat"><div class="pc-stat-val" style="color:var(--gold)">18</div><div class="pc-stat-lbl">Points</div></div>
+        <div class="pc-stat"><div class="pc-stat-val">2</div><div class="pc-stat-lbl">3-Pointers</div></div>
+        <div class="pc-stat"><div class="pc-stat-val" style="color:var(--red)">2</div><div class="pc-stat-lbl">Fouls</div></div>
+        <div class="pc-stat"><div class="pc-stat-val">2/3</div><div class="pc-stat-lbl">FT Made</div></div>
+      </div>
+      <div class="pc-analysis">
+        <div class="pc-analysis-title">Analysis</div>
+        <div class="str-row"><div class="str-icon">✅</div><div class="str-text"><strong>Elite scorer:</strong> Can attack the basket, shoot mid-range, and hit 3s. Highest scorer on Sporting.</div></div>
+        <div class="str-row"><div class="str-icon">✅</div><div class="str-text"><strong>Clutch performer:</strong> Hit the game-tying 3-pointer in the final 13 seconds of overtime — exceptional mental strength.</div></div>
+        <div class="str-row"><div class="str-icon">✅</div><div class="str-text"><strong>Defense:</strong> Multiple steals and strong defensive plays throughout the game.</div></div>
+        <div class="str-row"><div class="str-icon">⚠️</div><div class="str-text"><strong>Improve:</strong> Shot selection in non-clutch moments — sometimes forces shots when passing is better.</div></div>
+      </div>
+    </div>
+
+    <div class="player-card">
+      <div class="pc-num sport">30</div>
+      <div class="player-card-header sport">
+        <div>
+          <div class="pc-name">Farida Sherif</div>
+          <div class="pc-pos">FORWARD/CENTER · #30 · STARTER</div>
+        </div>
+        <span class="badge dq">FOULED OUT</span>
+      </div>
+      <div class="pc-stats">
+        <div class="pc-stat"><div class="pc-stat-val" style="color:var(--gold)">16</div><div class="pc-stat-lbl">Points</div></div>
+        <div class="pc-stat"><div class="pc-stat-val">2</div><div class="pc-stat-lbl">3-Pointers</div></div>
+        <div class="pc-stat"><div class="pc-stat-val" style="color:var(--red)">5</div><div class="pc-stat-lbl">Fouls</div></div>
+        <div class="pc-stat"><div class="pc-stat-val">4/5</div><div class="pc-stat-lbl">FT Made</div></div>
+      </div>
+      <div class="pc-analysis">
+        <div class="pc-analysis-title">Analysis</div>
+        <div class="str-row"><div class="str-icon">✅</div><div class="str-text"><strong>Clutch shooter:</strong> Hit the Q2 buzzer-beater 3-pointer to tie the game. Also hit a 3 in Q4 to force overtime.</div></div>
+        <div class="str-row"><div class="str-icon">✅</div><div class="str-text"><strong>FT accuracy:</strong> 4/5 from the line — reliable under pressure from the free throw spot.</div></div>
+        <div class="str-row"><div class="str-icon">🚨</div><div class="str-text"><strong>Critical weakness — Fouls:</strong> 5 personal fouls led to disqualification in Q4. This single issue likely cost Sporting the championship.</div></div>
+        <div class="str-row"><div class="str-icon">⚠️</div><div class="str-text"><strong>Coaching note:</strong> Must learn to play help defense without reaching/fouling. This is the #1 development priority.</div></div>
+      </div>
+    </div>
+
+    <div class="player-card">
+      <div class="pc-num sport">5</div>
+      <div class="player-card-header sport">
+        <div>
+          <div class="pc-name">Jana Al-Manshawy</div>
+          <div class="pc-pos">GUARD · #5 · STARTER</div>
+        </div>
+        <span class="badge key">FLOOR GENERAL</span>
+      </div>
+      <div class="pc-stats">
+        <div class="pc-stat"><div class="pc-stat-val" style="color:var(--gold)">9</div><div class="pc-stat-lbl">Points</div></div>
+        <div class="pc-stat"><div class="pc-stat-val">1</div><div class="pc-stat-lbl">3-Pointers</div></div>
+        <div class="pc-stat"><div class="pc-stat-val" style="color:var(--red)">1</div><div class="pc-stat-lbl">Fouls</div></div>
+        <div class="pc-stat"><div class="pc-stat-val">HIGH</div><div class="pc-stat-lbl">Assists</div></div>
+      </div>
+      <div class="pc-analysis">
+        <div class="pc-analysis-title">Analysis</div>
+        <div class="str-row"><div class="str-icon">✅</div><div class="str-text"><strong>Floor general:</strong> Manages game tempo, distributes the ball well to teammates, highest assist rate on team.</div></div>
+        <div class="str-row"><div class="str-icon">✅</div><div class="str-text"><strong>Ball pressure:</strong> Applied constant defensive pressure causing turnovers from Smouha guards.</div></div>
+        <div class="str-row"><div class="str-icon">⚠️</div><div class="str-text"><strong>Improve:</strong> Needs to be more decisive — sometimes holds the ball too long looking for the perfect pass.</div></div>
+      </div>
+    </div>
+
+    <div class="player-card">
+      <div class="pc-num sport">13</div>
+      <div class="player-card-header sport">
+        <div>
+          <div class="pc-name">Kanzi Ismail</div>
+          <div class="pc-pos">GUARD/FORWARD · #13 · STARTER</div>
+        </div>
+        <span class="badge sub">4 FOULS</span>
+      </div>
+      <div class="pc-stats">
+        <div class="pc-stat"><div class="pc-stat-val" style="color:var(--gold)">8</div><div class="pc-stat-lbl">Points</div></div>
+        <div class="pc-stat"><div class="pc-stat-val">0</div><div class="pc-stat-lbl">3-Pointers</div></div>
+        <div class="pc-stat"><div class="pc-stat-val" style="color:var(--red)">4</div><div class="pc-stat-lbl">Fouls</div></div>
+        <div class="pc-stat"><div class="pc-stat-val">MED</div><div class="pc-stat-lbl">Steals</div></div>
+      </div>
+      <div class="pc-analysis">
+        <div class="pc-analysis-title">Analysis</div>
+        <div class="str-row"><div class="str-icon">✅</div><div class="str-text"><strong>Screen setter:</strong> Excellent at setting screens for teammates to get open — creates offense for others.</div></div>
+        <div class="str-row"><div class="str-icon">✅</div><div class="str-text"><strong>Steals:</strong> Aggressive hands on defense — caused multiple turnovers through the match.</div></div>
+        <div class="str-row"><div class="str-icon">🚨</div><div class="str-text"><strong>Foul trouble:</strong> 4 personal fouls — was one foul away from disqualification. Same issue as Farida. Must be addressed urgently.</div></div>
+      </div>
+    </div>
+
+    <div class="player-card">
+      <div class="pc-num sport">10</div>
+      <div class="player-card-header sport">
+        <div>
+          <div class="pc-name">Rawda Osama</div>
+          <div class="pc-pos">GUARD · #10 · STARTER</div>
+        </div>
+        <span class="badge key">PLAYMAKER</span>
+      </div>
+      <div class="pc-stats">
+        <div class="pc-stat"><div class="pc-stat-val" style="color:var(--gold)">7</div><div class="pc-stat-lbl">Points</div></div>
+        <div class="pc-stat"><div class="pc-stat-val">0</div><div class="pc-stat-lbl">3-Pointers</div></div>
+        <div class="pc-stat"><div class="pc-stat-val">1</div><div class="pc-stat-lbl">Fouls</div></div>
+        <div class="pc-stat"><div class="pc-stat-val">HIGH</div><div class="pc-stat-lbl">Assists</div></div>
+      </div>
+      <div class="pc-analysis">
+        <div class="pc-analysis-title">Analysis</div>
+        <div class="str-row"><div class="str-icon">✅</div><div class="str-text"><strong>Court vision:</strong> Consistently makes the right pass under pressure — a natural playmaker who reads the game well.</div></div>
+        <div class="str-row"><div class="str-icon">✅</div><div class="str-text"><strong>Transition game:</strong> Excellent in fast break situations — pushes the pace effectively.</div></div>
+        <div class="str-row"><div class="str-icon">⚠️</div><div class="str-text"><strong>Improve:</strong> Scoring threat needs to improve — opponents don't respect her as a scorer, which limits her playmaking threat.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Smouha -->
+  <div class="team-section-header">
+    <div class="team-dot smouha"></div>
+    <div class="team-section-title">Smouha Club — Players</div>
+  </div>
+
+  <div class="player-cards">
+    <div class="player-card">
+      <div class="pc-num smouha">5</div>
+      <div class="player-card-header smouha">
+        <div>
+          <div class="pc-name">Maya Essam</div>
+          <div class="pc-pos">GUARD · #5 · STARTER</div>
+        </div>
+        <span class="badge star">MATCH MVP</span>
+      </div>
+      <div class="pc-stats">
+        <div class="pc-stat"><div class="pc-stat-val" style="color:var(--gold)">22</div><div class="pc-stat-lbl">Points</div></div>
+        <div class="pc-stat"><div class="pc-stat-val">2</div><div class="pc-stat-lbl">3-Pointers</div></div>
+        <div class="pc-stat"><div class="pc-stat-val" style="color:var(--red)">2</div><div class="pc-stat-lbl">Fouls</div></div>
+        <div class="pc-stat"><div class="pc-stat-val">4/5</div><div class="pc-stat-lbl">FT Made</div></div>
+      </div>
+      <div class="pc-analysis">
+        <div class="pc-analysis-title">Analysis</div>
+        <div class="str-row"><div class="str-icon">✅</div><div class="str-text"><strong>Complete player:</strong> Scorer, playmaker, and defensive disruptor. Best player on the court — led her team to the championship.</div></div>
+        <div class="str-row"><div class="str-icon">✅</div><div class="str-text"><strong>Shot creation:</strong> Creates her own shot off the dribble, uses fakes effectively — very hard to guard 1-on-1.</div></div>
+        <div class="str-row"><div class="str-icon">✅</div><div class="str-text"><strong>High IQ:</strong> Made smart decisions under pressure, didn't force shots in late game — mature beyond her age.</div></div>
+        <div class="str-row"><div class="str-icon">⚠️</div><div class="str-text"><strong>Missed OT opportunity:</strong> Had a clear 1-on-1 chance in OT but took a foul instead of driving — needs to trust her instincts.</div></div>
+      </div>
+    </div>
+
+    <div class="player-card">
+      <div class="pc-num smouha">34</div>
+      <div class="player-card-header smouha">
+        <div>
+          <div class="pc-name">Fatma Ahmed</div>
+          <div class="pc-pos">CENTER · #34 · STARTER</div>
+        </div>
+        <span class="badge key">PAINT DOMINATOR</span>
+      </div>
+      <div class="pc-stats">
+        <div class="pc-stat"><div class="pc-stat-val" style="color:var(--gold)">16</div><div class="pc-stat-lbl">Points</div></div>
+        <div class="pc-stat"><div class="pc-stat-val">4</div><div class="pc-stat-lbl">2-Pointers</div></div>
+        <div class="pc-stat"><div class="pc-stat-val">1</div><div class="pc-stat-lbl">Fouls</div></div>
+        <div class="pc-stat"><div class="pc-stat-val">5/8</div><div class="pc-stat-lbl">FT Made</div></div>
+      </div>
+      <div class="pc-analysis">
+        <div class="pc-analysis-title">Analysis</div>
+        <div class="str-row"><div class="str-icon">✅</div><div class="str-text"><strong>Height advantage:</strong> Exceptional use of size — draws fouls constantly, earns 3-shot FT opportunities (tall player rule).</div></div>
+        <div class="str-row"><div class="str-icon">✅</div><div class="str-text"><strong>Interior scoring:</strong> Difficult to stop inside — caused Sporting's foul trouble significantly.</div></div>
+        <div class="str-row"><div class="str-icon">⚠️</div><div class="str-text"><strong>FT shooting:</strong> 5/8 is low for a player who gets this many attempts — must improve to 75%+ from the line.</div></div>
+        <div class="str-row"><div class="str-icon">⚠️</div><div class="str-text"><strong>Footwork:</strong> Multiple traveling violations when moving in the post — needs to improve her pivot footwork.</div></div>
+      </div>
+    </div>
+
+    <div class="player-card">
+      <div class="pc-num smouha">10</div>
+      <div class="player-card-header smouha">
+        <div>
+          <div class="pc-name">Judy Mahjoub</div>
+          <div class="pc-pos">GUARD · #10 · STARTER</div>
+        </div>
+        <span class="badge star">CLUTCH 3PT</span>
+      </div>
+      <div class="pc-stats">
+        <div class="pc-stat"><div class="pc-stat-val" style="color:var(--gold)">7</div><div class="pc-stat-lbl">Points</div></div>
+        <div class="pc-stat"><div class="pc-stat-val">1</div><div class="pc-stat-lbl">3-Pointers</div></div>
+        <div class="pc-stat"><div class="pc-stat-val">0</div><div class="pc-stat-lbl">Fouls</div></div>
+        <div class="pc-stat"><div class="pc-stat-val">2/3</div><div class="pc-stat-lbl">FT Made</div></div>
+      </div>
+      <div class="pc-analysis">
+        <div class="pc-analysis-title">Analysis</div>
+        <div class="str-row"><div class="str-icon">✅</div><div class="str-text"><strong>Clutch moment:</strong> Hit the critical 3-pointer in overtime to give Smouha the lead — a defining moment of the championship.</div></div>
+        <div class="str-row"><div class="str-icon">✅</div><div class="str-text"><strong>Clean game:</strong> Zero fouls — excellent defensive discipline. Sets a great example for teammates.</div></div>
+        <div class="str-row"><div class="str-icon">⚠️</div><div class="str-text"><strong>Consistency:</strong> Needs to score more in regular game flow, not just in big moments. Expand her role.</div></div>
+      </div>
+    </div>
+
+    <div class="player-card">
+      <div class="pc-num smouha">99</div>
+      <div class="player-card-header smouha">
+        <div>
+          <div class="pc-name">Zina Mohamed</div>
+          <div class="pc-pos">FORWARD/CENTER · #99 · STARTER</div>
+        </div>
+        <span class="badge key">KEY PLAYER</span>
+      </div>
+      <div class="pc-stats">
+        <div class="pc-stat"><div class="pc-stat-val" style="color:var(--gold)">12</div><div class="pc-stat-lbl">Points</div></div>
+        <div class="pc-stat"><div class="pc-stat-val">1</div><div class="pc-stat-lbl">3-Pointers</div></div>
+        <div class="pc-stat"><div class="pc-stat-val">0</div><div class="pc-stat-lbl">Fouls</div></div>
+        <div class="pc-stat"><div class="pc-stat-val">MED</div><div class="pc-stat-lbl">Steals</div></div>
+      </div>
+      <div class="pc-analysis">
+        <div class="pc-analysis-title">Analysis</div>
+        <div class="str-row"><div class="str-icon">✅</div><div class="str-text"><strong>Versatile scorer:</strong> Can score from the post and attempted 3-pointers — stretches the defense effectively.</div></div>
+        <div class="str-row"><div class="str-icon">✅</div><div class="str-text"><strong>First scorer:</strong> Scored Smouha's first basket of the game, breaking the 0-7 run — showed confidence when it mattered.</div></div>
+        <div class="str-row"><div class="str-icon">⚠️</div><div class="str-text"><strong>3PT selection:</strong> Attempted many 3-pointers that didn't go in — needs to pick spots better.</div></div>
+      </div>
+    </div>
+
+    <div class="player-card">
+      <div class="pc-num smouha">20</div>
+      <div class="player-card-header smouha">
+        <div>
+          <div class="pc-name">Basmala Mohamed</div>
+          <div class="pc-pos">GUARD · #20 · STARTER</div>
+        </div>
+        <span class="badge sub">FT WORK NEEDED</span>
+      </div>
+      <div class="pc-stats">
+        <div class="pc-stat"><div class="pc-stat-val" style="color:var(--gold)">4</div><div class="pc-stat-lbl">Points</div></div>
+        <div class="pc-stat"><div class="pc-stat-val">3</div><div class="pc-stat-lbl">Fouls</div></div>
+        <div class="pc-stat"><div class="pc-stat-val" style="color:var(--red)">2/6</div><div class="pc-stat-lbl">FT (33%!)</div></div>
+        <div class="pc-stat"><div class="pc-stat-val">MED</div><div class="pc-stat-lbl">Assists</div></div>
+      </div>
+      <div class="pc-analysis">
+        <div class="pc-analysis-title">Analysis</div>
+        <div class="str-row"><div class="str-icon">✅</div><div class="str-text"><strong>Ball movement:</strong> Good at moving the ball to open players — keeps the offense flowing.</div></div>
+        <div class="str-row"><div class="str-icon">🚨</div><div class="str-text"><strong>Free throw crisis:</strong> 2/6 = 33% from the line. In a game decided by 4 points, those 4 missed FTs could have changed everything. Top training priority.</div></div>
+        <div class="str-row"><div class="str-icon">⚠️</div><div class="str-text"><strong>Foul trouble:</strong> 3 fouls limit her minutes and effectiveness. Defensive technique needs work.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ TAB: DEEP ANALYSIS ═══════════════════ -->
+<div class="section" id="tab-analysis">
+  <div class="section-title">Deep Analysis & Coaching Insights</div>
+  <div class="section-sub">Tactical breakdown · Turning points · Training recommendations</div>
+
+  <!-- Game Narrative -->
+  <div class="cards-grid">
+    <div class="card neutral-card">
+      <div class="card-title">Decisive Factor</div>
+      <div class="card-val" style="font-size:28px;color:var(--red)">FOULS</div>
+      <div class="card-sub">Sporting's 24+ team fouls vs Smouha's 16+ was the key tactical difference. Farida Sherif's disqualification in Q4 turned the game.</div>
+    </div>
+    <div class="card sport-card">
+      <div class="card-title">Sporting's Best Moment</div>
+      <div class="card-val sport" style="font-size:28px;">7–0 RUN</div>
+      <div class="card-sub">Opening run showed elite defensive intensity and offensive rhythm. If replicated for a full quarter, result could have been different.</div>
+    </div>
+    <div class="card smouha-card">
+      <div class="card-title">Smouha's Best Moment</div>
+      <div class="card-val smouha" style="font-size:28px;">Q4 COMEBACK</div>
+      <div class="card-sub">Down 3 points with 2 minutes left, Smouha won the game. That's championship DNA — composure under maximum pressure.</div>
+    </div>
+  </div>
+
+  <!-- Turning Points -->
+  <div class="section-title" style="font-size:18px;margin:24px 0 16px;">5 Turning Points That Decided the Game</div>
+  <div class="moments-list">
+    <div class="moment critical">
+      <div class="moment-time">#1<br>TURNING POINT</div>
+      <div>
+        <div class="moment-score">Farida Sherif Fouled Out — Q4</div>
+        <div class="moment-desc">The single most important moment. Sporting's best scorer (16pts, 2x clutch 3-pointers) fouled out in Q4 when the game was winnable. Smouha immediately seized the momentum. Sporting lost their most important player due to preventable fouls.</div>
+        <div class="moment-player">📌 Lesson: Foul discipline in the 4th quarter is as important as scoring.</div>
+      </div>
+    </div>
+    <div class="moment critical">
+      <div class="moment-time">#2<br>TURNING POINT</div>
+      <div>
+        <div class="moment-score">Basmala's Missed FTs in Clutch</div>
+        <div class="moment-desc">In a game decided by 4 points, Basmala's 2/6 free throw shooting was potentially match-deciding. Those 4 missed points alone could have changed the result. Free throw shooting must be treated as a priority training topic.</div>
+        <div class="moment-player">📌 Lesson: Free throws win and lose championships — they must be practiced daily.</div>
+      </div>
+    </div>
+    <div class="moment sport">
+      <div class="moment-time">#3<br>TURNING POINT</div>
+      <div>
+        <div class="moment-score">Farida's Q2 Buzzer Beater</div>
+        <div class="moment-desc">Farida Sherif tied the game at halftime with a 3-pointer in the final seconds. This gave Sporting a massive psychological boost going into Q3, where they built their biggest lead. Coach Mostafa's timeout management was perfect here.</div>
+        <div class="moment-player">📌 Lesson: Coaching timeouts before buzzer plays are high-value game management.</div>
+      </div>
+    </div>
+    <div class="moment smouha">
+      <div class="moment-time">#4<br>TURNING POINT</div>
+      <div>
+        <div class="moment-score">Judy's OT 3-Pointer</div>
+        <div class="moment-desc">After Smouha's timeout in overtime, Coach Yasser drew up a play. Judy Mahjoub hit the resulting 3-pointer to give Smouha the lead they never surrendered. This shows the value of having multiple 3-point threats — defense cannot focus on just one player.</div>
+        <div class="moment-player">📌 Lesson: Develop multiple clutch shooters — if the defense covers one, another must step up.</div>
+      </div>
+    </div>
+    <div class="moment critical">
+      <div class="moment-time">#5<br>TURNING POINT</div>
+      <div>
+        <div class="moment-score">Habiba's 13-Second 3-Pointer</div>
+        <div class="moment-desc">With 13 seconds left and Sporting down by 2, Habiba Sorrow hit a 3-pointer to make it 76-75 Sporting. This forced Smouha into their final timeout and nearly won the game. An extraordinary individual performance under maximum pressure.</div>
+        <div class="moment-player">📌 Lesson: You need at least one player who can create their own shot in the final seconds.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Training Recommendations -->
+  <div class="section-title" style="font-size:18px;margin:24px 0 16px;">Training Recommendations</div>
+  <div class="swot-grid">
+    <div class="swot-card">
+      <div class="swot-label" style="color:var(--sport-secondary)">⚽ For Sporting — Priority Training</div>
+      <div class="o">
+        <div class="swot-item"><div class="swot-dot" style="background:var(--sport-primary)"></div><div class="swot-text"><strong>Foul management sessions:</strong> Drill defensive footwork to avoid reaching fouls. Simulate game pressure. Set a "foul budget" per quarter in practice.</div></div>
+        <div class="swot-item"><div class="swot-dot" style="background:var(--sport-primary)"></div><div class="swot-text"><strong>Free throw pressure drills:</strong> Practice FTs after running — replicate game fatigue. Target 75%+ team shooting.</div></div>
+        <div class="swot-item"><div class="swot-dot" style="background:var(--sport-primary)"></div><div class="swot-text"><strong>Late-game execution:</strong> Practice set plays for the final 2 minutes — the team needs structured plays, not freelancing, under pressure.</div></div>
+        <div class="swot-item"><div class="swot-dot" style="background:var(--sport-primary)"></div><div class="swot-text"><strong>3-point efficiency:</strong> Track 3PT% in practice. Set a minimum of 35% before players can freely attempt 3s in games.</div></div>
+        <div class="swot-item"><div class="swot-dot" style="background:var(--sport-primary)"></div><div class="swot-text"><strong>Backup to Farida:</strong> Develop a second high-post scorer since losing Farida to fouls was critical. Arwa Sherif or Karma could fill this role.</div></div>
+      </div>
+    </div>
+    <div class="swot-card">
+      <div class="swot-label" style="color:var(--smouha-secondary)">🏆 For Smouha — Improvement Areas</div>
+      <div class="o">
+        <div class="swot-item"><div class="swot-dot" style="background:var(--smouha-primary)"></div><div class="swot-text"><strong>Basmala's free throws:</strong> Dedicated daily FT practice. The 33% FT rate must reach 70%+ before next tournament. Critical weakness for a starting player.</div></div>
+        <div class="swot-item"><div class="swot-dot" style="background:var(--smouha-primary)"></div><div class="swot-text"><strong>Slow starts:</strong> Work on team "activation" routines — Smouha consistently starts slow. A 0-7 run at this level could be fatal against a stronger opponent.</div></div>
+        <div class="swot-item"><div class="swot-dot" style="background:var(--smouha-primary)"></div><div class="swot-text"><strong>Fatma Ahmed's footwork:</strong> Post moves and pivot footwork to eliminate traveling violations. Her size is an asset that's being wasted by technical mistakes.</div></div>
+        <div class="swot-item"><div class="swot-dot" style="background:var(--smouha-primary)"></div><div class="swot-text"><strong>3-point shot selection:</strong> Create a "3-point criteria" — only shoot when open (defender 2+ steps away). Avoid contested long-range shots.</div></div>
+        <div class="swot-item"><div class="swot-dot" style="background:var(--smouha-primary)"></div><div class="swot-text"><strong>Maya Essam's rest management:</strong> The team is too dependent on Maya. Develop Judy, Zina, and Jala to reduce pressure on the main playmaker.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Final Word -->
+  <div class="coach-note" style="margin-top:16px;">
+    <div class="coach-note-title">🎯 Final Assessment</div>
+    <p>This was a <strong>championship-level basketball match</strong> between two well-coached U16 teams. The final result was decided by <strong>small margins</strong> — one disqualification, 4 missed free throws, one 3-pointer in 13 seconds. Both teams showed character, tactical awareness, and genuine competitive spirit.</p>
+    <p><strong>Smouha</strong> deserve the championship — their composure in the fourth quarter and overtime was outstanding. <strong>Sporting</strong> should hold their heads high — they played excellent basketball, their coach made brilliant adjustments, and they pushed the champions to overtime. The gap between these teams is minimal, and with better foul discipline, Sporting could easily win a rematch.</p>
+    <p>Both coaching staffs showed strong tactical intelligence. <strong>Coach Mostafa Fikri (Sporting)</strong> made an exceptional timeout play that produced the tying 3-pointer. <strong>Coach Mohamed Yasser (Smouha)</strong> managed fouls brilliantly and had the better late-game rotation.</p>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <img class="footer-logo" src="https://spinova.app/spinova-logo.png" alt="Spinova">
+    <div class="footer-brand"><span>Spinova</span> · Performance Analytics</div>
+    <p class="footer-meta">Basketball analytics report · Sporting Club vs Smouha · U16 Girls · Alexandria Regional Championship Final · Derived from match commentary &amp; scouting notes</p>
+    <div class="footer-conf">Confidential · Internal coaching use</div>
+  </div>
+</footer>
+
+<script>
+  function showTab(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    event.currentTarget.classList.add('active');
+  }
+</script>
+</body>
+</html>

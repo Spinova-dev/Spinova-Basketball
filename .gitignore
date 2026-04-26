@@ -5,3 +5,10 @@ frontend-next app/.data/
 frontend-next app/generated/
 frontend-next app/public/generated/
 frontend-next app/*.log
+frontend/node_modules/
+frontend/.next/
+frontend/.env.local
+frontend/.data/
+frontend/generated/
+frontend/public/generated/
+frontend/*.log

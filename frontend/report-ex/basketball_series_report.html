@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Series Report — Sporting vs Smouha | 2-Match Combined Analytics | Spinova</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sp:#E8340A;--sp2:#FF6B4A;--sm:#0A5FD4;--sm2:#4A94FF;
+  --bg:#0B0D12;--bg2:#111318;--bg3:#181C24;--bg4:#1E2330;
+  --brd:rgba(255,255,255,0.07);--brd2:rgba(255,255,255,0.13);
+  --tx:#F0F2F7;--tx2:#8B92A8;--tx3:#5A6278;
+  --gold:#FFB800;--green:#00D084;--red:#FF3B5C;--purple:#9B6DFF;--teal:#00C2B8;
+  --r:12px;--rs:8px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--tx);font-family:'Barlow',sans-serif;font-size:14px;line-height:1.6;overflow-x:hidden;}
+
+/* ── HERO ── */
+.hero{padding:50px 40px 42px;background:var(--bg2);border-bottom:1px solid var(--brd);position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 50% -10%,rgba(255,255,255,0.025),transparent 65%);pointer-events:none;}
+.hero-inner{max-width:1200px;margin:0 auto;}
+.series-badge{text-align:center;margin-bottom:24px;}
+.series-badge span{display:inline-block;background:linear-gradient(90deg,rgba(232,52,10,0.2),rgba(10,95,212,0.2));border:1px solid var(--brd2);border-radius:3px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;padding:6px 18px;color:var(--tx2);}
+.hero-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:24px;align-items:center;}
+.team-blk{text-align:center;}
+.team-tag{display:inline-block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;padding:4px 11px;border-radius:2px;margin-bottom:12px;}
+.team-tag.sp{background:rgba(232,52,10,0.14);color:var(--sp2);border:1px solid rgba(232,52,10,0.28);}
+.team-tag.sm{background:rgba(10,95,212,0.14);color:var(--sm2);border:1px solid rgba(10,95,212,0.28);}
+.team-name{font-family:'Barlow Condensed',sans-serif;font-size:52px;font-weight:900;letter-spacing:-1px;line-height:1;}
+.team-name.sp{color:var(--sp);}
+.team-name.sm{color:var(--sm);}
+.team-sub{font-size:12px;color:var(--tx3);margin-top:6px;font-family:'DM Mono',monospace;}
+.center-blk{text-align:center;}
+.big-score{font-family:'Barlow Condensed',sans-serif;font-size:72px;font-weight:900;letter-spacing:-3px;line-height:1;}
+.score-sep{color:var(--tx3);}
+.center-meta{font-size:11px;color:var(--tx3);font-family:'DM Mono',monospace;margin-top:8px;letter-spacing:1px;}
+.winner-pill{display:inline-block;background:var(--sm);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;padding:4px 14px;border-radius:2px;margin-top:10px;}
+.match-scores{display:flex;justify-content:center;gap:16px;margin-top:14px;flex-wrap:wrap;}
+.ms{background:var(--bg3);border:1px solid var(--brd2);border-radius:6px;padding:6px 14px;font-size:12px;font-family:'DM Mono',monospace;color:var(--tx2);}
+.ms span{color:var(--tx);}
+
+/* ── STAT ROW SUMMARY ── */
+.stat-strip{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--brd);border-top:1px solid var(--brd);}
+.stat-strip-item{background:var(--bg2);padding:14px 10px;text-align:center;}
+.ss-val{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:700;line-height:1;}
+.ss-lbl{font-size:10px;color:var(--tx3);font-family:'DM Mono',monospace;letter-spacing:1px;margin-top:3px;text-transform:uppercase;}
+.ss-sub{font-size:10px;color:var(--tx3);margin-top:2px;}
+
+/* ── NAV ── */
+.nav-tabs{position:sticky;top:0;z-index:100;background:var(--bg2);border-bottom:1px solid var(--brd);padding:0 40px;display:flex;gap:4px;overflow-x:auto;}
+.tab-btn{padding:15px 18px;background:none;border:none;color:var(--tx3);font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;}
+.tab-btn:hover{color:var(--tx);}
+.tab-btn.active{color:var(--tx);border-bottom-color:var(--gold);}
+
+/* ── SECTIONS ── */
+.section{display:none;padding:36px 40px;max-width:1400px;margin:0 auto;}
+.section.active{display:block;}
+.sec-title{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;letter-spacing:1px;margin-bottom:5px;}
+.sec-sub{font-size:13px;color:var(--tx3);margin-bottom:28px;}
+
+/* ── QUARTER FLOW CHART ── */
+.qflow{display:grid;grid-template-columns:repeat(8,1fr);gap:2px;margin-bottom:32px;border-radius:var(--r);overflow:hidden;}
+.qf-block{background:var(--bg3);padding:16px 10px;text-align:center;}
+.qf-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--tx3);margin-bottom:10px;text-transform:uppercase;}
+.qf-score{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:900;line-height:1;margin-bottom:6px;}
+.qf-pts{display:flex;justify-content:center;gap:8px;font-size:11px;}
+.qfs{color:var(--sp2);font-weight:600;}
+.qfm{color:var(--sm2);font-weight:600;}
+.qf-ldr{font-size:10px;margin-top:5px;font-weight:600;letter-spacing:1px;}
+.ldr-sp{color:var(--sp2);}
+.ldr-sm{color:var(--sm2);}
+.ldr-draw{color:var(--gold);}
+
+/* ── COMPARISON ── */
+.comp-grid{display:grid;gap:9px;margin-bottom:32px;}
+.comp-row{display:grid;grid-template-columns:1fr 140px 1fr;gap:12px;align-items:center;background:var(--bg3);padding:12px 16px;border-radius:var(--rs);}
+.bar-wrap{position:relative;height:6px;background:var(--bg4);border-radius:3px;}
+.bar{position:absolute;top:0;height:6px;border-radius:3px;}
+.bar-sp{right:0;background:var(--sp);}
+.bar-sm{left:0;background:var(--sm);}
+.comp-lbl{text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--tx3);}
+.cv-sp{text-align:right;font-family:'DM Mono',monospace;font-weight:500;color:var(--sp2);font-size:15px;}
+.cv-sm{font-family:'DM Mono',monospace;font-weight:500;color:var(--sm2);font-size:15px;}
+
+/* ── Q-AVG CARDS ── */
+.q-avg-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:32px;}
+.q-avg-card{background:var(--bg3);border:1px solid var(--brd);border-radius:var(--r);padding:16px;text-align:center;}
+.qa-lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--tx3);text-transform:uppercase;margin-bottom:10px;}
+.qa-scores{display:flex;justify-content:center;gap:10px;align-items:baseline;}
+.qa-val-sp{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:700;color:var(--sp2);}
+.qa-val-sm{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:700;color:var(--sm2);}
+.qa-sep{font-size:18px;color:var(--tx3);}
+.qa-edge{font-size:11px;font-weight:600;margin-top:6px;letter-spacing:1px;}
+
+/* ── PLAYER TABLE ── */
+.ptable{width:100%;border-collapse:collapse;margin-bottom:28px;font-size:13px;}
+.ptable th{background:var(--bg3);padding:10px 12px;text-align:left;font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--tx3);border-bottom:1px solid var(--brd2);}
+.ptable th.r{text-align:right;}
+.ptable td{padding:10px 12px;border-bottom:1px solid var(--brd);vertical-align:middle;}
+.ptable td.r{text-align:right;}
+.ptable tr:hover td{background:rgba(255,255,255,0.018);}
+.ptable tr:last-child td{border-bottom:none;}
+.pnum{font-family:'DM Mono',monospace;font-size:11px;width:32px;height:32px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-weight:500;}
+.pnum.sp{background:rgba(232,52,10,0.15);color:var(--sp2);}
+.pnum.sm{background:rgba(10,95,212,0.15);color:var(--sm2);}
+.pname{font-weight:600;font-size:14px;}
+.ppos{font-size:10px;color:var(--tx3);font-family:'DM Mono',monospace;}
+.sn{font-family:'DM Mono',monospace;font-weight:500;font-size:14px;}
+.sn.gold{color:var(--gold);}
+.sn.red{color:var(--red);}
+.sn.green{color:var(--green);}
+.sn.purple{color:var(--purple);}
+.trend-up{color:var(--green);font-size:11px;font-family:'DM Mono',monospace;}
+.trend-dn{color:var(--red);font-size:11px;font-family:'DM Mono',monospace;}
+.trend-eq{color:var(--tx3);font-size:11px;font-family:'DM Mono',monospace;}
+.fdots{display:flex;gap:2px;}
+.fd-on{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--red);}
+.fd-off{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--bg4);border:1px solid var(--brd2);}
+.badge{display:inline-block;padding:2px 7px;border-radius:3px;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;}
+.b-star{background:rgba(255,184,0,.15);color:var(--gold);border:1px solid rgba(255,184,0,.3);}
+.b-key{background:rgba(0,208,132,.15);color:var(--green);border:1px solid rgba(0,208,132,.3);}
+.b-warn{background:rgba(255,59,92,.12);color:#FF7A94;border:1px solid rgba(255,59,92,.2);}
+.b-dq{background:rgba(255,59,92,.15);color:var(--red);border:1px solid rgba(255,59,92,.3);}
+.b-sub{background:rgba(255,255,255,.05);color:var(--tx3);border:1px solid var(--brd);}
+.b-up{background:rgba(0,208,132,.12);color:var(--green);border:1px solid rgba(0,208,132,.25);}
+
+/* ── PLAYER PROFILE CARDS ── */
+.pcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;margin-bottom:28px;}
+.pcard{background:var(--bg3);border:1px solid var(--brd);border-radius:var(--r);overflow:hidden;}
+.pcard-hdr{padding:18px 20px 14px;border-bottom:1px solid var(--brd);position:relative;}
+.pcard-hdr.sp{background:linear-gradient(135deg,rgba(232,52,10,.1),transparent 60%);}
+.pcard-hdr.sm{background:linear-gradient(135deg,rgba(10,95,212,.1),transparent 60%);}
+.pcard-bg{position:absolute;right:14px;top:8px;font-family:'Barlow Condensed',sans-serif;font-size:52px;font-weight:900;line-height:1;opacity:.14;}
+.pcard-bg.sp{color:var(--sp);}
+.pcard-bg.sm{color:var(--sm);}
+.pcard-name{font-family:'Barlow Condensed',sans-serif;font-size:19px;font-weight:700;line-height:1.1;}
+.pcard-pos{font-size:11px;color:var(--tx3);margin-top:3px;font-family:'DM Mono',monospace;}
+.pcard-stats{display:grid;grid-template-columns:repeat(4,1fr);background:var(--brd);gap:1px;}
+.pstat{background:var(--bg3);padding:11px 6px;text-align:center;}
+.pstat-val{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:700;line-height:1;}
+.pstat-lbl{font-size:9px;color:var(--tx3);font-family:'DM Mono',monospace;margin-top:3px;text-transform:uppercase;letter-spacing:1px;}
+.pcard-trend{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--brd);}
+.pt-cell{background:var(--bg3);padding:9px 12px;text-align:center;}
+.pt-lbl{font-size:9px;color:var(--tx3);font-family:'DM Mono',monospace;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;}
+.pt-val{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;}
+.pcard-notes{padding:14px 20px;border-top:1px solid var(--brd);}
+.note-ttl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--tx3);margin-bottom:9px;font-family:'DM Mono',monospace;}
+.note-row{display:flex;gap:7px;margin-bottom:6px;align-items:flex-start;}
+.note-icon{font-size:12px;flex-shrink:0;margin-top:1px;}
+.note-txt{font-size:12px;color:var(--tx2);line-height:1.4;}
+
+/* ── PATTERNS ── */
+.pattern-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:28px;}
+.pattern-card{background:var(--bg3);border:1px solid var(--brd);border-radius:var(--r);padding:20px;position:relative;overflow:hidden;}
+.pattern-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.pc-sp::before{background:var(--sp);}
+.pc-sm::before{background:var(--sm);}
+.pc-gold::before{background:var(--gold);}
+.pc-purple::before{background:var(--purple);}
+.ptitle{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--tx3);margin-bottom:10px;}
+.pbig{font-family:'Barlow Condensed',sans-serif;font-size:34px;font-weight:700;line-height:1;}
+.psub{font-size:12px;color:var(--tx3);margin-top:4px;line-height:1.5;}
+
+/* ── COACH BOX ── */
+.coach-box{background:linear-gradient(135deg,var(--bg3),var(--bg4));border:1px solid var(--brd2);border-radius:var(--r);padding:22px;margin-bottom:28px;position:relative;overflow:hidden;}
+.coach-box::before{content:'📋';position:absolute;right:18px;top:14px;font-size:28px;opacity:.1;}
+.coach-title{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.coach-box p{font-size:13px;color:var(--tx2);line-height:1.75;}
+.coach-box p+p{margin-top:8px;}
+
+/* ── TRAINING TABLE ── */
+.train-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px;}
+.train-card{background:var(--bg3);border:1px solid var(--brd);border-radius:var(--r);padding:20px;}
+.train-lbl{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--brd);}
+.train-item{display:flex;gap:10px;margin-bottom:10px;align-items:flex-start;}
+.train-num{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.tn-sp{background:rgba(232,52,10,.25);color:var(--sp2);}
+.tn-sm{background:rgba(10,95,212,.25);color:var(--sm2);}
+.train-txt{font-size:13px;color:var(--tx2);line-height:1.5;}
+
+/* ── SECTION HEADER ── */
+.sec-hdr{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--brd);}
+.sec-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.sec-hdr-title{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;}
+.sec-hdr-sub{font-size:11px;color:var(--tx3);margin-left:auto;font-family:'DM Mono',monospace;}
+
+.divider{height:1px;background:var(--brd);margin:28px 0;}
+footer{padding:26px 40px;border-top:1px solid var(--brd);text-align:center;font-size:11px;color:var(--tx3);font-family:'DM Mono',monospace;letter-spacing:1px;}
+
+/* ── FT TREND ── */
+.ft-compare{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px;}
+.ftc-card{background:var(--bg3);border:1px solid var(--brd);border-radius:var(--r);padding:16px;}
+.ftc-title{font-size:11px;color:var(--tx3);font-family:'DM Mono',monospace;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;}
+.ftc-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.ftc-name{font-size:13px;}
+.ftc-bar-wrap{flex:1;height:5px;background:var(--bg4);border-radius:3px;margin:0 10px;}
+.ftc-bar{height:5px;border-radius:3px;}
+.ftc-val{font-family:'DM Mono',monospace;font-size:12px;min-width:36px;text-align:right;}
+
+@media(max-width:768px){
+  .hero{padding:28px 16px;}
+  .hero-grid{grid-template-columns:1fr;gap:14px;text-align:center;}
+  .team-name{font-size:36px;}
+  .big-score{font-size:52px;}
+  .section{padding:20px 14px;}
+  .qflow{grid-template-columns:repeat(4,1fr);}
+  .q-avg-grid{grid-template-columns:repeat(2,1fr);}
+  .train-grid{grid-template-columns:1fr;}
+  .ft-compare{grid-template-columns:1fr;}
+  .stat-strip{grid-template-columns:repeat(3,1fr);}
+  .nav-tabs{padding:0 14px;}
+  .pcards{grid-template-columns:1fr;}
+}
+.card{animation:fadeUp .3s ease backwards;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+/* ===== Spinova branding overrides ===== */
+:root{
+  --blue:#2E8BC0; --blue-dark:#1a6a9a; --blue-deep:#0d4f73; --blue-vdark:#1f2d40; --blue-50:#e8f4fa;
+  --lime:#9BC53D; --lime-dark:#7da32e; --dark:#1a2332; --mid-gray:#526378; --light-gray:#8896a7;
+  --sp:#E8340A; --sp2:#E85A32; --sm:#0A5FD4; --sm2:#2E7FD4;
+  --bg:#f5f7fa; --bg2:#fff; --bg3:#fff; --bg4:#f0f4f8;
+  --brd:#e4ecf2; --brd2:#dce6ef; --tx:var(--dark); --tx2:var(--mid-gray); --tx3:var(--light-gray);
+  --gold:var(--lime); --green:#0a8f5c; --red:#d63447; --purple:#5c6bc0; --teal:#00C2B8;
+}
+body{background:var(--bg);color:var(--tx);font-family:'Cairo',sans-serif;}
+.brand-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px 20px;padding:14px 40px;background:var(--blue-vdark);border-bottom:3px solid var(--lime);}
+.brand-bar-left{display:flex;flex-direction:column;align-items:flex-start;gap:6px;}
+.brand-logo{height:40px;width:auto;display:block;}
+.brand-tag{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--lime);font-family:'Outfit',sans-serif;}
+.brand-line{font-size:12px;color:#fff;letter-spacing:.3px;}
+.brand-line strong{color:#fff;font-weight:700;}
+.hero{background:var(--blue-vdark);border-bottom:3px solid var(--lime);color:#fff;}
+.series-badge span{background:rgba(255,255,255,.1);border:1px solid rgba(155,197,61,.45);font-family:'Outfit',sans-serif;color:var(--lime);border-radius:6px;}
+.team-tag{font-family:'Outfit',sans-serif;border-radius:6px;letter-spacing:2px;}
+.team-name,.big-score,.ss-val,.sec-title,.pcard-name,.pbig,.train-lbl{font-family:'Cairo',sans-serif;}
+.team-sub,.center-meta,.ms,.qf-label,.qa-lbl,.ppos,.pt-lbl,.note-ttl,.sec-hdr-sub{font-family:'Outfit',sans-serif;}
+.team-sub,.center-meta,.qf-label,.ss-lbl,.ss-sub,.sec-sub,.ppos,.pt-lbl,.note-ttl,.sec-hdr-sub,.psub{color:rgba(255,255,255,.75);}
+.winner-pill{background:var(--lime);color:var(--dark);font-family:'Cairo',sans-serif;border-radius:6px;}
+.match-scores .ms{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);}
+.match-scores .ms span{color:#fff;}
+.stat-strip{background:var(--brd);border-top:1px solid var(--brd);}
+.stat-strip-item,.qf-block,.q-avg-card,.comp-row,.ptable th,.ptable td,.pcard,.pattern-card,.coach-box,.train-card,.ftc-card{background:var(--bg3);border-color:var(--brd);}
+.nav-tabs{background:#fff;border-bottom:1px solid var(--brd);box-shadow:0 1px 0 rgba(13,79,115,.06);}
+.tab-btn{font-family:'Cairo',sans-serif;color:var(--mid-gray);border-bottom:3px solid transparent;}
+.tab-btn:hover{color:var(--blue);}
+.tab-btn.active{color:var(--blue-deep);border-bottom-color:var(--lime);}
+.section{padding:40px;}
+.sec-title{color:var(--dark);border-left:4px solid var(--lime);padding-left:14px;letter-spacing:0;font-weight:800;}
+.sec-sub{color:var(--light-gray);}
+.ptable th{background:var(--blue-deep);color:#fff;letter-spacing:1px;}
+.ptable tr:hover td{background:var(--blue-50);}
+.pnum{font-family:'Cairo',sans-serif;}
+.cv-sp,.cv-sm,.sn,.trend-up,.trend-dn,.trend-eq{font-family:'Cairo',sans-serif;}
+.coach-box{background:#fff;border:1px solid var(--brd);border-left:4px solid var(--lime);}
+.coach-title{font-family:'Cairo',sans-serif;color:var(--blue);font-weight:800;}
+.coach-box p,.train-txt,.note-txt{color:var(--tx2);}
+.pattern-card::before{height:3px;}
+footer{padding:28px 40px 32px;border-top:3px solid var(--lime);background:var(--blue-vdark);}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;}
+.footer-logo{height:32px;width:auto;opacity:.95;}
+.footer-brand{font-family:'Cairo',sans-serif;font-size:15px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#fff;}
+.footer-brand span{color:var(--lime);}
+.footer-meta{font-size:12px;color:#fff;font-family:'Cairo',sans-serif;letter-spacing:.3px;line-height:1.6;max-width:700px;}
+.footer-conf{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.75);}
+@media(max-width:768px){
+  .brand-bar{padding:12px 20px;justify-content:center;text-align:center;}
+  .brand-bar-left{align-items:center;width:100%;}
+  .brand-logo{height:34px;}
+  .section{padding:20px 14px;}
+  footer{padding:24px 16px 28px;}
+  .footer-logo{height:28px;}
+}
+</style>
+</head>
+<body>
+
+<!-- SPINOVA BRANDING -->
+<div class="brand-bar">
+  <div class="brand-bar-left">
+    <img class="brand-logo" src="https://spinova.app/spinova-logo.png" alt="Spinova">
+    <span class="brand-tag">Performance Analytics</span>
+  </div>
+  <div class="brand-line">Basketball series report · <strong>Sporting vs Smouha</strong> · U16 Girls · Prepared by <strong>Spinova</strong></div>
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="series-badge"><span>2-Match Series · Combined Analytics Report · U16 Girls Basketball</span></div>
+    <div class="hero-grid">
+      <div class="team-blk">
+        <div class="team-tag sp">Sporting Club</div>
+        <div class="team-name sp">SPORTING</div>
+        <div class="team-sub">139 series points · 0 wins</div>
+      </div>
+      <div class="center-blk">
+        <div class="big-score">139<span class="score-sep"> – </span>150</div>
+        <div class="center-meta">2 MATCHES · FULL SERIES TOTAL</div>
+        <div><span class="winner-pill">🏆 SMOUHA — SERIES 2-0</span></div>
+        <div class="match-scores">
+          <div class="ms">Match 1: <span>76 – 80 OT</span></div>
+          <div class="ms">Match 2: <span>63 – 70</span></div>
+        </div>
+      </div>
+      <div class="team-blk">
+        <div class="team-tag sm">Smouha Club</div>
+        <div class="team-name sm">SMOUHA</div>
+        <div class="team-sub">150 series points · 2 wins</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STAT STRIP -->
+<div class="stat-strip">
+  <div class="stat-strip-item">
+    <div class="ss-val" style="color:var(--gold)">11</div>
+    <div class="ss-lbl">Point margin</div>
+    <div class="ss-sub">150 vs 139</div>
+  </div>
+  <div class="stat-strip-item">
+    <div class="ss-val" style="color:var(--purple)">9 – 9</div>
+    <div class="ss-lbl">3-Pointers</div>
+    <div class="ss-sub">Equal across series</div>
+  </div>
+  <div class="stat-strip-item">
+    <div class="ss-val" style="color:var(--red)">44+ vs 34+</div>
+    <div class="ss-lbl">Team fouls</div>
+    <div class="ss-sub">Sporting more aggressive</div>
+  </div>
+  <div class="stat-strip-item">
+    <div class="ss-val" style="color:var(--green)">8 vs 6</div>
+    <div class="ss-lbl">Series steals</div>
+    <div class="ss-sub">Sporting leads</div>
+  </div>
+  <div class="stat-strip-item">
+    <div class="ss-val" style="color:var(--red)">1 each</div>
+    <div class="ss-lbl">Disqualifications</div>
+    <div class="ss-sub">1 player DQ'd per match</div>
+  </div>
+  <div class="stat-strip-item">
+    <div class="ss-val" style="color:var(--sm2)">25.0</div>
+    <div class="ss-lbl">Smouha avg Q4</div>
+    <div class="ss-sub">vs Sporting's 18.0</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav-tabs">
+  <button class="tab-btn active" onclick="show('overview',this)">Series Overview</button>
+  <button class="tab-btn" onclick="show('scoring',this)">Scoring Stats</button>
+  <button class="tab-btn" onclick="show('sporting',this)">Sporting Full</button>
+  <button class="tab-btn" onclick="show('smouha',this)">Smouha Full</button>
+  <button class="tab-btn" onclick="show('players',this)">Player Profiles</button>
+  <button class="tab-btn" onclick="show('patterns',this)">Patterns & Trends</button>
+  <button class="tab-btn" onclick="show('training',this)">Training Plan</button>
+</div>
+
+<!-- ══════════════════════════════════════
+     TAB: SERIES OVERVIEW
+════════════════════════════════════════ -->
+<div class="section active" id="tab-overview">
+  <div class="sec-title">Series Overview</div>
+  <div class="sec-sub">Full 8-quarter breakdown · Combined team comparison · Quarter scoring averages</div>
+
+  <!-- 8 QUARTER FLOW -->
+  <div style="margin-bottom:8px;font-family:'DM Mono',monospace;font-size:10px;color:var(--tx3);letter-spacing:2px;text-transform:uppercase;">All 8 quarters — cumulative score at end of each</div>
+  <div class="qflow">
+    <div class="qf-block">
+      <div class="qf-label">M1 · Q1</div>
+      <div class="qf-score" style="color:var(--sp2)">24–23</div>
+      <div class="qf-pts"><span class="qfs">+24</span><span class="qfm">+23</span></div>
+      <div class="qf-ldr ldr-sp">SPORT +1</div>
+    </div>
+    <div class="qf-block">
+      <div class="qf-label">M1 · Q2</div>
+      <div class="qf-score" style="color:var(--gold)">39–39</div>
+      <div class="qf-pts"><span class="qfs">+15</span><span class="qfm">+16</span></div>
+      <div class="qf-ldr ldr-draw">DRAW</div>
+    </div>
+    <div class="qf-block">
+      <div class="qf-label">M1 · Q3</div>
+      <div class="qf-score" style="color:var(--sp2)">56–53</div>
+      <div class="qf-pts"><span class="qfs">+17</span><span class="qfm">+14</span></div>
+      <div class="qf-ldr ldr-sp">SPORT +3</div>
+    </div>
+    <div class="qf-block">
+      <div class="qf-label">M1 · Q4+OT</div>
+      <div class="qf-score" style="color:var(--sm2)">76–80</div>
+      <div class="qf-pts"><span class="qfs">+20</span><span class="qfm">+27</span></div>
+      <div class="qf-ldr ldr-sm">SMOUHA +4</div>
+    </div>
+    <div class="qf-block">
+      <div class="qf-label">M2 · Q1</div>
+      <div class="qf-score" style="color:var(--sp2)">23–19</div>
+      <div class="qf-pts"><span class="qfs">+23</span><span class="qfm">+19</span></div>
+      <div class="qf-ldr ldr-sp">SPORT +4</div>
+    </div>
+    <div class="qf-block">
+      <div class="qf-label">M2 · Q2</div>
+      <div class="qf-score" style="color:var(--sp2)">43–36</div>
+      <div class="qf-pts"><span class="qfs">+20</span><span class="qfm">+17</span></div>
+      <div class="qf-ldr ldr-sp">SPORT +7</div>
+    </div>
+    <div class="qf-block">
+      <div class="qf-label">M2 · Q3</div>
+      <div class="qf-score" style="color:var(--gold)">47–47</div>
+      <div class="qf-pts"><span class="qfs">+4</span><span class="qfm">+11</span></div>
+      <div class="qf-ldr ldr-draw">DRAW</div>
+    </div>
+    <div class="qf-block">
+      <div class="qf-label">M2 · Q4</div>
+      <div class="qf-score" style="color:var(--sm2)">63–70</div>
+      <div class="qf-pts"><span class="qfs">+16</span><span class="qfm">+23</span></div>
+      <div class="qf-ldr ldr-sm">SMOUHA +7</div>
+    </div>
+  </div>
+
+  <!-- QUARTER AVERAGES -->
+  <div style="margin-bottom:10px;font-family:'DM Mono',monospace;font-size:10px;color:var(--tx3);letter-spacing:2px;text-transform:uppercase;">Average points per quarter across both matches</div>
+  <div class="q-avg-grid">
+    <div class="q-avg-card">
+      <div class="qa-lbl">Q1 Average</div>
+      <div class="qa-scores">
+        <div class="qa-val-sp">23.5</div><div class="qa-sep">–</div><div class="qa-val-sm">21.0</div>
+      </div>
+      <div class="qa-edge ldr-sp">Sporting edge +2.5</div>
+    </div>
+    <div class="q-avg-card">
+      <div class="qa-lbl">Q2 Average</div>
+      <div class="qa-scores">
+        <div class="qa-val-sp">17.5</div><div class="qa-sep">–</div><div class="qa-val-sm">16.5</div>
+      </div>
+      <div class="qa-edge ldr-sp">Sporting edge +1.0</div>
+    </div>
+    <div class="q-avg-card">
+      <div class="qa-lbl">Q3 Average</div>
+      <div class="qa-scores">
+        <div class="qa-val-sp" style="color:var(--red)">10.5</div><div class="qa-sep">–</div><div class="qa-val-sm">12.5</div>
+      </div>
+      <div class="qa-edge ldr-sm">Smouha edge +2.0</div>
+    </div>
+    <div class="q-avg-card">
+      <div class="qa-lbl">Q4 Average</div>
+      <div class="qa-scores">
+        <div class="qa-val-sp" style="color:var(--red)">18.0</div><div class="qa-sep">–</div><div class="qa-val-sm" style="color:var(--gold)">25.0</div>
+      </div>
+      <div class="qa-edge ldr-sm" style="color:var(--gold)">Smouha dominates +7.0</div>
+    </div>
+  </div>
+
+  <!-- TEAM COMPARISON -->
+  <div class="sec-hdr"><div class="sec-dot" style="background:var(--gold)"></div><div class="sec-hdr-title">Combined Team Stats</div><div class="sec-hdr-sub">Both matches combined</div></div>
+  <div class="comp-grid">
+    <div class="comp-row"><div><div class="cv-sp">139</div><div class="bar-wrap"><div class="bar bar-sp" style="width:48.1%"></div></div></div><div class="comp-lbl">Total Points</div><div><div class="cv-sm">150</div><div class="bar-wrap"><div class="bar bar-sm" style="width:51.9%"></div></div></div></div>
+    <div class="comp-row"><div><div class="cv-sp">9</div><div class="bar-wrap"><div class="bar bar-sp" style="width:50%"></div></div></div><div class="comp-lbl">3-Pointers Made</div><div><div class="cv-sm">9</div><div class="bar-wrap"><div class="bar bar-sm" style="width:50%"></div></div></div></div>
+    <div class="comp-row"><div><div class="cv-sp">~24</div><div class="bar-wrap"><div class="bar bar-sp" style="width:47%"></div></div></div><div class="comp-lbl">Free Throws Made</div><div><div class="cv-sm">~27</div><div class="bar-wrap"><div class="bar bar-sm" style="width:53%"></div></div></div></div>
+    <div class="comp-row"><div><div class="cv-sp" style="color:var(--red)">~65%</div><div class="bar-wrap"><div class="bar bar-sp" style="width:52%"></div></div></div><div class="comp-lbl">FT Percentage</div><div><div class="cv-sm" style="color:var(--red)">~61%</div><div class="bar-wrap"><div class="bar bar-sm" style="width:48%"></div></div></div></div>
+    <div class="comp-row"><div><div class="cv-sp" style="color:var(--red)">44+</div><div class="bar-wrap"><div class="bar bar-sp" style="width:56%"></div></div></div><div class="comp-lbl">Total Fouls</div><div><div class="cv-sm" style="color:var(--red)">34+</div><div class="bar-wrap"><div class="bar bar-sm" style="width:44%"></div></div></div></div>
+    <div class="comp-row"><div><div class="cv-sp" style="color:var(--red)">1</div><div class="bar-wrap"><div class="bar bar-sp" style="width:100%"></div></div></div><div class="comp-lbl">Disqualifications</div><div><div class="cv-sm" style="color:var(--red)">1</div><div class="bar-wrap"><div class="bar bar-sm" style="width:100%"></div></div></div></div>
+    <div class="comp-row"><div><div class="cv-sp" style="color:var(--green)">8</div><div class="bar-wrap"><div class="bar bar-sp" style="width:57%"></div></div></div><div class="comp-lbl">Total Steals</div><div><div class="cv-sm" style="color:var(--green)">6</div><div class="bar-wrap"><div class="bar bar-sm" style="width:43%"></div></div></div></div>
+    <div class="comp-row"><div><div class="cv-sp">8</div><div class="bar-wrap"><div class="bar bar-sp" style="width:47%"></div></div></div><div class="comp-lbl">Tracked Turnovers</div><div><div class="cv-sm">9</div><div class="bar-wrap"><div class="bar bar-sm" style="width:53%"></div></div></div></div>
+    <div class="comp-row"><div><div class="cv-sp">7</div><div class="bar-wrap"><div class="bar bar-sp" style="width:44%"></div></div></div><div class="comp-lbl">Fast Break Points</div><div><div class="cv-sm">9</div><div class="bar-wrap"><div class="bar bar-sm" style="width:56%"></div></div></div></div>
+    <div class="comp-row"><div><div class="cv-sp">3</div><div class="bar-wrap"><div class="bar bar-sp" style="width:50%"></div></div></div><div class="comp-lbl">Timeouts Called</div><div><div class="cv-sm">3</div><div class="bar-wrap"><div class="bar bar-sm" style="width:50%"></div></div></div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     TAB: SCORING STATS
+════════════════════════════════════════ -->
+<div class="section" id="tab-scoring">
+  <div class="sec-title">Combined Scoring Stats</div>
+  <div class="sec-sub">Every player — both matches combined — with match-by-match breakdown and trend</div>
+
+  <div class="sec-hdr"><div class="sec-dot" style="background:var(--sp)"></div><div class="sec-hdr-title">Sporting — All Players</div><div class="sec-hdr-sub">139 total series points</div></div>
+  <table class="ptable">
+    <thead>
+      <tr>
+        <th>#</th><th>Player</th>
+        <th class="r">M1</th><th class="r">M2</th><th class="r">TOTAL</th>
+        <th class="r">2PT</th><th class="r">3PT</th><th class="r">FT M/A</th>
+        <th class="r">Steals</th><th>Fouls</th><th class="r">Trend</th><th>Note</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="pnum sp">30</span></td>
+        <td><div class="pname">Farida Sherif</div><div class="ppos">FORWARD · STARTER</div></td>
+        <td class="r"><span class="sn">16</span></td><td class="r"><span class="sn">19</span></td>
+        <td class="r"><span class="sn gold">35</span></td>
+        <td class="r"><span class="sn">6</span></td><td class="r"><span class="sn purple">5</span></td>
+        <td class="r"><span class="sn">6/7</span></td>
+        <td class="r"><span class="sn green">2</span></td>
+        <td><div class="fdots"><span class="fd-on"></span><span class="fd-on"></span><span class="fd-on"></span><span class="fd-on"></span><span class="fd-on"></span><span style="font-size:10px;color:var(--red);margin-left:3px;">DQ M1</span></div></td>
+        <td class="r"><span class="trend-up">↑ +3</span></td>
+        <td><span class="b-star">SERIES TOP</span></td>
+      </tr>
+      <tr>
+        <td><span class="pnum sp">32</span></td>
+        <td><div class="pname">Habiba Sorrow</div><div class="ppos">FORWARD · STARTER</div></td>
+        <td class="r"><span class="sn">18</span></td><td class="r"><span class="sn">12</span></td>
+        <td class="r"><span class="sn gold">30</span></td>
+        <td class="r"><span class="sn">9</span></td><td class="r"><span class="sn">2</span></td>
+        <td class="r"><span class="sn red">2/7 (29%)</span></td>
+        <td class="r"><span class="sn green">6</span></td>
+        <td><div class="fdots"><span class="fd-on"></span><span class="fd-on"></span><span class="fd-on"></span><span class="fd-on"></span><span class="fd-on"></span><span class="fd-on"></span></div></td>
+        <td class="r"><span class="trend-dn">↓ -6</span></td>
+        <td><span class="b-warn">FT CRISIS</span></td>
+      </tr>
+      <tr>
+        <td><span class="pnum sp">10</span></td>
+        <td><div class="pname">Rawda Osama</div><div class="ppos">GUARD · STARTER</div></td>
+        <td class="r"><span class="sn">7</span></td><td class="r"><span class="sn">10</span></td>
+        <td class="r"><span class="sn gold">17</span></td>
+        <td class="r"><span class="sn">5</span></td><td class="r"><span class="sn">1</span></td>
+        <td class="r"><span class="sn">2/3</span></td>
+        <td class="r"><span class="sn green">1</span></td>
+        <td><div class="fdots"><span class="fd-on"></span><span class="fd-on"></span><span class="fd-off"></span><span class="fd-off"></span><span class="fd-off"></span></div></td>
+        <td class="r"><span class="trend-up">↑ +3</span></td>
+        <td><span class="b-key">IMPROVING</span></td>
+      </tr>
+      <tr>
+        <td><span class="pnum sp">17</span></td>
+        <td><div class="pname">Karma Mohamed</div><div class="ppos">FORWARD · ROTATION</div></td>
+        <td class="r"><span class="sn">4</span></td><td class="r"><span class="sn">9</span></td>
+        <td class="r"><span class="sn gold">13</span></td>
+        <td class="r"><span class="sn">5</span></td><td class="r"><span class="sn">0</span></td>
+        <td class="r"><span class="sn">1/2</span></td>
+        <td class="r"><span class="sn green">1</span></td>
+        <td><div class="fdots"><span class="fd-on"></span><span class="fd-on"></span><span class="fd-on"></span><span class="fd-off"></span><span class="fd-off"></span></div></td>
+        <td class="r"><span class="trend-up">↑ +5</span></td>
+        <td><span class="b-up">BREAKOUT M2</span></td>
+      </tr>
+      <tr>
+        <td><span class="pnum sp">5</span></td>
+        <td><div class="pname">Jana Al-Manshawy</div><div class="ppos">GUARD · STARTER M1</div></td>
+        <td class="r"><span class="sn">9</span></td><td class="r"><span class="sn">~1</span></td>
+        <td class="r"><span class="sn gold">~10</span></td>
+        <td class="r"><span class="sn">2</span></td><td class="r"><span class="sn">1</span></td>
+        <td class="r"><span class="sn">0/0</span></td>
+        <td class="r"><span class="sn">0</span></td>
+        <td><div class="fdots"><span class="fd-on"></span><span class="fd-off"></span><span class="fd-off"></span><span class="fd-off"></span><span class="fd-off"></span></div></td>
+        <td class="r"><span class="trend-dn">↓ M2 mins</span></td>
+        <td><span class="b-sub">M1 STARTER</span></td>
+      </tr>
+      <tr>
+        <td><span class="pnum sp">13</span></td>
+        <td><div class="pname">Kanzi Ismail</div><div class="ppos">GUARD · STARTER</div></td>
+        <td class="r"><span class="sn">8</span></td><td class="r"><span class="sn">2</span></td>
+        <td class="r"><span class="sn gold">10</span></td>
+        <td class="r"><span class="sn">4</span></td><td class="r"><span class="sn">0</span></td>
+        <td class="r"><span class="sn">2/3</span></td>
+        <td class="r"><span class="sn">0</span></td>
+        <td><div class="fdots"><span class="fd-on"></span><span class="fd-on"></span><span class="fd-on"></span><span class="fd-on"></span><span class="fd-on"></span><span class="fd-on"></span></div></td>
+        <td class="r"><span class="trend-dn">↓ Sat Q2</span></td>
+        <td><span class="b-warn">6 SRS FOULS</span></td>
+      </tr>
+      <tr>
+        <td><span class="pnum sp">24</span></td>
+        <td><div class="pname">Nour</div><div class="ppos">GUARD · SUB</div></td>
+        <td class="r"><span class="sn">3</span></td><td class="r"><span class="sn">7</span></td>
+        <td class="r"><span class="sn gold">10</span></td>
+        <td class="r"><span class="sn">3</span></td><td class="r"><span class="sn">0</span></td>
+        <td class="r"><span class="sn">2/3</span></td>
+        <td class="r"><span class="sn">0</span></td>
+        <td><div class="fdots"><span class="fd-off"></span><span class="fd-off"></span><span class="fd-off"></span><span class="fd-off"></span><span class="fd-off"></span></div></td>
+        <td class="r"><span class="trend-up">↑ +4</span></td>
+        <td><span class="b-up">MOST IMPROVED</span></td>
+      </tr>
+      <tr>
+        <td><span class="pnum sp">23</span></td>
+        <td><div class="pname">Arwa Sherif</div><div class="ppos">GUARD · ROTATION</div></td>
+        <td class="r"><span class="sn">5</span></td><td class="r"><span class="sn">4</span></td>
+        <td class="r"><span class="sn gold">9</span></td>
+        <td class="r"><span class="sn">4</span></td><td class="r"><span class="sn">0</span></td>
+        <td class="r"><span class="sn">1/2</span></td>
+        <td class="r"><span class="sn">0</span></td>
+        <td><div class="fdots"><span class="fd-on"></span><span class="fd-off"></span><span class="fd-off"></span><span class="fd-off"></span><span class="fd-off"></span></div></td>
+        <td class="r"><span class="trend-eq">→ -1</span></td>
+        <td><span class="b-sub">STEADY</span></td>
+      </tr>
+      <tr>
+        <td><span class="pnum sp">—</span></td>
+        <td><div class="pname">Farida Soheil</div><div class="ppos">FORWARD · SUB</div></td>
+        <td class="r"><span class="sn">6</span></td><td class="r"><span class="sn">0</span></td>
+        <td class="r"><span class="sn gold">6</span></td>
+        <td class="r"><span class="sn">3</span></td><td class="r"><span class="sn">0</span></td>
+        <td class="r"><span class="sn">0/0</span></td>
+        <td class="r"><span class="sn green">1</span></td>
+        <td><div class="fdots"><span class="fd-off"></span><span class="fd-off"></span><span class="fd-off"></span><span class="fd-off"></span><span class="fd-off"></span></div></td>
+        <td class="r"><span class="trend-dn">↓ No M2 pts</span></td>
+        <td><span class="b-sub">ROTATION</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="sec-hdr"><div class="sec-dot" style="background:var(--sm)"></div><div class="sec-hdr-title">Smouha — All Players</div><div class="sec-hdr-sub">150 total series points</div></div>
+  <table class="ptable">
+    <thead>
+      <tr>
+        <th>#</th><th>Player</th>
+        <th class="r">M1</th><th class="r">M2</th><th class="r">TOTAL</th>
+        <th class="r">2PT</th><th class="r">3PT</th><th class="r">FT M/A</th>
+        <th class="r">Fouls</th><th class="r">Trend</th><th>Note</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="pnum sm">5</span></td>
+        <td><div class="pname">Maya Essam</div><div class="ppos">GUARD · STARTER</div></td>
+        <td class="r"><span class="sn">22</span></td><td class="r"><span class="sn">14</span></td>
+        <td class="r"><span class="sn gold">36</span></td>
+        <td class="r"><span class="sn">11</span></td><td class="r"><span class="sn">2</span></td>
+        <td class="r"><span class="sn green">6/8 (75%)</span></td>
+        <td class="r"><span class="sn">3</span></td>
+        <td class="r"><span class="trend-eq">→ Consistent</span></td>
+        <td><span class="b-star">SERIES MVP</span></td>
+      </tr>
+      <tr>
+        <td><span class="pnum sm">34</span></td>
+        <td><div class="pname">Fatma Ahmed</div><div class="ppos">CENTER · STARTER</div></td>
+        <td class="r"><span class="sn">16</span></td><td class="r"><span class="sn">20</span></td>
+        <td class="r"><span class="sn gold">36</span></td>
+        <td class="r"><span class="sn">8</span></td><td class="r"><span class="sn purple">2</span></td>
+        <td class="r"><span class="sn">9/15 (60%)</span></td>
+        <td class="r"><span class="sn">2</span></td>
+        <td class="r"><span class="trend-up">↑ +4 pts</span></td>
+        <td><span class="b-up">GAME CHANGER</span></td>
+      </tr>
+      <tr>
+        <td><span class="pnum sm">20</span></td>
+        <td><div class="pname">Basmala Mohamed</div><div class="ppos">GUARD · STARTER</div></td>
+        <td class="r"><span class="sn">4</span></td><td class="r"><span class="sn">12</span></td>
+        <td class="r"><span class="sn gold">16</span></td>
+        <td class="r"><span class="sn">2</span></td><td class="r"><span class="sn purple">2</span></td>
+        <td class="r"><span class="sn red">3/10 (30%)</span></td>
+        <td class="r"><span class="sn red">8 (DQ M2)</span></td>
+        <td class="r"><span class="trend-up">↑ +8 pts</span></td>
+        <td><span class="b-dq">FT + FOUL RISK</span></td>
+      </tr>
+      <tr>
+        <td><span class="pnum sm">99</span></td>
+        <td><div class="pname">Zina Mohamed</div><div class="ppos">FORWARD · ROTATION</div></td>
+        <td class="r"><span class="sn">12</span></td><td class="r"><span class="sn">4</span></td>
+        <td class="r"><span class="sn gold">16</span></td>
+        <td class="r"><span class="sn">5</span></td><td class="r"><span class="sn">1</span></td>
+        <td class="r"><span class="sn">1/2</span></td>
+        <td class="r"><span class="sn">0</span></td>
+        <td class="r"><span class="trend-dn">↓ -8 pts</span></td>
+        <td><span class="b-sub">FADE M2</span></td>
+      </tr>
+      <tr>
+        <td><span class="pnum sm">8</span></td>
+        <td><div class="pname">Arwa Shady</div><div class="ppos">GUARD · ROTATION</div></td>
+        <td class="r"><span class="sn">8</span></td><td class="r"><span class="sn">4</span></td>
+        <td class="r"><span class="sn gold">12</span></td>
+        <td class="r"><span class="sn">5</span></td><td class="r"><span class="sn">0</span></td>
+        <td class="r"><span class="sn green">2/2 (100%)</span></td>
+        <td class="r"><span class="sn">4</span></td>
+        <td class="r"><span class="trend-dn">↓ -4 pts</span></td>
+        <td><span class="b-sub">STEADY</span></td>
+      </tr>
+      <tr>
+        <td><span class="pnum sm">1</span></td>
+        <td><div class="pname">Noha Rami</div><div class="ppos">GUARD · STARTER</div></td>
+        <td class="r"><span class="sn">3</span></td><td class="r"><span class="sn">8</span></td>
+        <td class="r"><span class="sn gold">11</span></td>
+        <td class="r"><span class="sn">3</span></td><td class="r"><span class="sn">1</span></td>
+        <td class="r"><span class="sn">2/4</span></td>
+        <td class="r"><span class="sn">1</span></td>
+        <td class="r"><span class="trend-up">↑ +5 pts</span></td>
+        <td><span class="b-up">MOST IMPROVED</span></td>
+      </tr>
+      <tr>
+        <td><span class="pnum sm">10</span></td>
+        <td><div class="pname">Judy Mahjoub</div><div class="ppos">GUARD · ROTATION</div></td>
+        <td class="r"><span class="sn">7</span></td><td class="r"><span class="sn">~1</span></td>
+        <td class="r"><span class="sn gold">~8</span></td>
+        <td class="r"><span class="sn">1</span></td><td class="r"><span class="sn">1</span></td>
+        <td class="r"><span class="sn green">2/3 (67%)</span></td>
+        <td class="r"><span class="sn">0</span></td>
+        <td class="r"><span class="trend-dn">↓ Less M2</span></td>
+        <td><span class="b-key">0 FOULS</span></td>
+      </tr>
+      <tr>
+        <td><span class="pnum sm">—</span></td>
+        <td><div class="pname">Rowan Suleiman</div><div class="ppos">GUARD · STARTER M1</div></td>
+        <td class="r"><span class="sn">4</span></td><td class="r"><span class="sn">6</span></td>
+        <td class="r"><span class="sn gold">10</span></td>
+        <td class="r"><span class="sn">4</span></td><td class="r"><span class="sn">0</span></td>
+        <td class="r"><span class="sn green">2/2 (100%)</span></td>
+        <td class="r"><span class="sn">2</span></td>
+        <td class="r"><span class="trend-up">↑ +2 pts</span></td>
+        <td><span class="b-up">IMPROVING</span></td>
+      </tr>
+      <tr>
+        <td><span class="pnum sm">—</span></td>
+        <td><div class="pname">Jala Al-Abbasi</div><div class="ppos">GUARD · SUB</div></td>
+        <td class="r"><span class="sn">5</span></td><td class="r"><span class="sn">0</span></td>
+        <td class="r"><span class="sn gold">5</span></td>
+        <td class="r"><span class="sn">1</span></td><td class="r"><span class="sn">1</span></td>
+        <td class="r"><span class="sn">0/0</span></td>
+        <td class="r"><span class="sn">0</span></td>
+        <td class="r"><span class="trend-dn">↓ 0 M2 pts</span></td>
+        <td><span class="b-sub">OT HERO M1</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ══════════════════════════════════════
+     TAB: SPORTING FULL
+════════════════════════════════════════ -->
+<div class="section" id="tab-sporting">
+  <div class="sec-title">Sporting Club — Series Report</div>
+  <div class="sec-sub">Full 2-match combined analysis · Strengths · Weaknesses · Individual deep dives</div>
+
+  <div class="coach-box">
+    <div class="coach-title">📋 Series Assessment — Sporting (Coach Mustafa Fikri)</div>
+    <p>Sporting are a <strong>tactically advanced team that consistently loses its tactical advantage through fouls</strong>. The pattern across both matches is identical: strong Q1, strong Q2, foul-reduced rotation in Q3, inability to close in Q4. This is not a talent problem — it's a structural discipline problem.</p>
+    <p>The numbers tell the story clearly. <strong>Sporting led at halftime in BOTH matches</strong> — up 1 in M1, up 7 in M2. They outscored Smouha in Q1 and Q2 across the series (23.5 vs 21.0 and 17.5 vs 16.5 averages). <strong>But in Q4, Smouha outscored them 25.0 to 18.0</strong> — a 7-point per quarter gap that directly explains both losses.</p>
+    <p><strong>The fix is clear and achievable:</strong> reduce team fouls from 22+ per match to under 15, keep Habiba and Kanzi on the court for full Q3/Q4, and solve Habiba's 29% free throw rate. Do those three things and Sporting win the next series.</p>
+  </div>
+
+  <div class="train-grid">
+    <div class="train-card">
+      <div class="train-lbl" style="color:var(--green)">💪 Confirmed Strengths</div>
+      <div class="train-item"><div class="train-num tn-sp">1</div><div class="train-txt"><strong>Farida Sherif — Elite Series Performer:</strong> 35 points across 2 matches, 5 three-pointers, 86% FT. Sporting's most complete player. Build the offense around getting her open.</div></div>
+      <div class="train-item"><div class="train-num tn-sp">2</div><div class="train-txt"><strong>3-Point System Works:</strong> 9 three-pointers across the series (equal to Smouha despite a smaller roster contribution). The double-screen plays for Farida and Rawda are genuine weapons.</div></div>
+      <div class="train-item"><div class="train-num tn-sp">3</div><div class="train-txt"><strong>Team Steals — Series Leaders:</strong> 8 steals to Smouha's 6. Habiba's 6 steals alone make her the best defensive player in the series. High-pressure defense is a real strength.</div></div>
+      <div class="train-item"><div class="train-num tn-sp">4</div><div class="train-txt"><strong>First-Half Dominance:</strong> Won Q1 average (23.5 vs 21.0) and Q2 average (17.5 vs 16.5). The team plays their best basketball in the first half — this needs to extend to Q3/Q4.</div></div>
+      <div class="train-item"><div class="train-num tn-sp">5</div><div class="train-txt"><strong>Clutch Individual Moments:</strong> Farida's Q2 buzzer-beater in M1, Habiba's 13-second 3PT in M1 OT, Farida's M2 3PTs. This team can produce extraordinary moments.</div></div>
+    </div>
+    <div class="train-card">
+      <div class="train-lbl" style="color:var(--red)">⚠️ Confirmed Weaknesses</div>
+      <div class="train-item"><div class="train-num tn-sp">1</div><div class="train-txt"><strong>Foul Epidemic — Both Matches:</strong> 44+ fouls across 2 games = 22+ per match average. Farida DQ in M1, Kanzi sat all Q2 in M2. Same 3 players (Habiba, Kanzi, Farida) causing the same problem each time.</div></div>
+      <div class="train-item"><div class="train-num tn-sp">2</div><div class="train-txt"><strong>Q3 Collapse Pattern:</strong> M1 Q3: 17pts (fine), M2 Q3: 4pts (crisis). When key players sit for fouls, the bench cannot score. Q3 average: 10.5 pts vs Smouha's 12.5.</div></div>
+      <div class="train-item"><div class="train-num tn-sp">3</div><div class="train-txt"><strong>Habiba's FT Shooting — 29% Series:</strong> Made 2 of 7 free throws. In games decided by 4 and 7 points, those 5 missed FTs are directly responsible for at least part of both losses.</div></div>
+      <div class="train-item"><div class="train-num tn-sp">4</div><div class="train-txt"><strong>No Answer for Fatma Ahmed:</strong> Both matches — Fatma scored freely. Sporting needs either a zone defense or a player who can match her height without fouling.</div></div>
+      <div class="train-item"><div class="train-num tn-sp">5</div><div class="train-txt"><strong>Q4 Scoring Gap:</strong> 18.0 avg Q4 vs Smouha's 25.0 — 7 points per quarter difference. This is a fitness and rotation depth issue directly caused by foul-reduced bench time in Q3.</div></div>
+    </div>
+  </div>
+
+  <!-- FT Analysis -->
+  <div class="sec-hdr"><div class="sec-dot" style="background:var(--red)"></div><div class="sec-hdr-title">Free Throw Analysis — Sporting</div><div class="sec-hdr-sub">Series-long FT crisis detail</div></div>
+  <div class="ft-compare">
+    <div class="ftc-card">
+      <div class="ftc-title">FT Made/Attempted per player — Series</div>
+      <div class="ftc-row"><div class="ftc-name">Farida Sherif</div><div class="ftc-bar-wrap"><div class="ftc-bar" style="width:86%;background:var(--green)"></div></div><div class="ftc-val" style="color:var(--green)">6/7 (86%)</div></div>
+      <div class="ftc-row"><div class="ftc-name">Arwa Sherif</div><div class="ftc-bar-wrap"><div class="ftc-bar" style="width:50%;background:var(--gold)"></div></div><div class="ftc-val" style="color:var(--gold)">1/2 (50%)</div></div>
+      <div class="ftc-row"><div class="ftc-name">Nour</div><div class="ftc-bar-wrap"><div class="ftc-bar" style="width:67%;background:var(--gold)"></div></div><div class="ftc-val" style="color:var(--gold)">2/3 (67%)</div></div>
+      <div class="ftc-row"><div class="ftc-name">Kanzi Ismail</div><div class="ftc-bar-wrap"><div class="ftc-bar" style="width:67%;background:var(--gold)"></div></div><div class="ftc-val" style="color:var(--gold)">2/3 (67%)</div></div>
+      <div class="ftc-row"><div class="ftc-name">Rawda Osama</div><div class="ftc-bar-wrap"><div class="ftc-bar" style="width:67%;background:var(--gold)"></div></div><div class="ftc-val" style="color:var(--gold)">2/3 (67%)</div></div>
+      <div class="ftc-row"><div class="ftc-name">Karma Mohamed</div><div class="ftc-bar-wrap"><div class="ftc-bar" style="width:50%;background:var(--gold)"></div></div><div class="ftc-val" style="color:var(--gold)">1/2 (50%)</div></div>
+      <div class="ftc-row"><div class="ftc-name">Habiba Sorrow</div><div class="ftc-bar-wrap"><div class="ftc-bar" style="width:29%;background:var(--red)"></div></div><div class="ftc-val" style="color:var(--red)">2/7 (29%)</div></div>
+    </div>
+    <div class="ftc-card">
+      <div class="ftc-title">FT Made/Attempted per player — Series</div>
+      <div class="ftc-row"><div class="ftc-name">Arwa Shady</div><div class="ftc-bar-wrap"><div class="ftc-bar" style="width:100%;background:var(--green)"></div></div><div class="ftc-val" style="color:var(--green)">2/2 (100%)</div></div>
+      <div class="ftc-row"><div class="ftc-name">Rowan Suleiman</div><div class="ftc-bar-wrap"><div class="ftc-bar" style="width:100%;background:var(--green)"></div></div><div class="ftc-val" style="color:var(--green)">2/2 (100%)</div></div>
+      <div class="ftc-row"><div class="ftc-name">Maya Essam</div><div class="ftc-bar-wrap"><div class="ftc-bar" style="width:75%;background:var(--green)"></div></div><div class="ftc-val" style="color:var(--green)">6/8 (75%)</div></div>
+      <div class="ftc-row"><div class="ftc-name">Judy Mahjoub</div><div class="ftc-bar-wrap"><div class="ftc-bar" style="width:67%;background:var(--gold)"></div></div><div class="ftc-val" style="color:var(--gold)">2/3 (67%)</div></div>
+      <div class="ftc-row"><div class="ftc-name">Fatma Ahmed</div><div class="ftc-bar-wrap"><div class="ftc-bar" style="width:60%;background:var(--gold)"></div></div><div class="ftc-val" style="color:var(--gold)">9/15 (60%)</div></div>
+      <div class="ftc-row"><div class="ftc-name">Noha Rami</div><div class="ftc-bar-wrap"><div class="ftc-bar" style="width:50%;background:var(--gold)"></div></div><div class="ftc-val" style="color:var(--gold)">2/4 (50%)</div></div>
+      <div class="ftc-row"><div class="ftc-name">Basmala Mohamed</div><div class="ftc-bar-wrap"><div class="ftc-bar" style="width:30%;background:var(--red)"></div></div><div class="ftc-val" style="color:var(--red)">3/10 (30%)</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     TAB: SMOUHA FULL
+════════════════════════════════════════ -->
+<div class="section" id="tab-smouha">
+  <div class="sec-title">Smouha Club — Series Report</div>
+  <div class="sec-sub">Full 2-match combined analysis · What made them champions · Vulnerabilities going forward</div>
+
+  <div class="coach-box" style="border-color:rgba(10,95,212,0.3);">
+    <div class="coach-title" style="color:var(--sm2);">📋 Series Assessment — Smouha (Coach Mohamed Yasser) — CHAMPIONS</div>
+    <p>Smouha are the deserved champions — but the data reveals they are a team that <strong>wins through resilience and coaching adaptation, not through first-half dominance</strong>. They trailed in every single quarter in Q1 and Q2 across both matches. The fact they won both games from behind is a testament to extraordinary mental toughness.</p>
+    <p>The championship-defining asset is <strong>Fatma Ahmed's evolution</strong>. In Match 1 she had no 3-point shot. In Match 2 she hit 2 three-pointers. A center who can score in the paint AND from range at U16 level is exceptionally difficult to defend. Coach Yasser's decision to bring her back specifically for Q3 in M2 — knowing Sporting's interior defenders were in foul trouble — was the best coaching decision of the series.</p>
+    <p><strong>The risk going forward:</strong> Basmala is in serious foul and FT trouble (30% from the line, DQ in M2). Against a team with deeper bench depth, losing your starting guard in Q4 could be fatal. This must be the top off-season priority.</p>
+  </div>
+
+  <div class="train-grid">
+    <div class="train-card">
+      <div class="train-lbl" style="color:var(--green)">💪 Confirmed Strengths</div>
+      <div class="train-item"><div class="train-num tn-sm">1</div><div class="train-txt"><strong>Comeback Championship DNA:</strong> Trailed in Q1 both matches, trailed at halftime in M2 — won both. This is the rarest quality in basketball: genuine belief when losing.</div></div>
+      <div class="train-item"><div class="train-num tn-sm">2</div><div class="train-txt"><strong>Maya Essam — Iron Consistency:</strong> 36 total points, 75% FT, only 3 fouls in 2 matches. Never dominated by any individual matchup. The series' most reliable performer.</div></div>
+      <div class="train-item"><div class="train-num tn-sm">3</div><div class="train-txt"><strong>Q4 Dominance:</strong> Averaged 25.0 points in Q4 vs Sporting's 18.0. Closing games is a skill — Smouha have it. Late-game poise and execution are elite for this age group.</div></div>
+      <div class="train-item"><div class="train-num tn-sm">4</div><div class="train-txt"><strong>Fatma Ahmed's Expanding Game:</strong> Added 3-point shooting in M2 — went from 0 to 2 three-pointers. A center who can score everywhere is a mismatch problem that has no easy solution at U16 level.</div></div>
+      <div class="train-item"><div class="train-num tn-sm">5</div><div class="train-txt"><strong>Coaching Intelligence:</strong> Both coaching adaptations worked perfectly — Fatma back in Q3 in M2, and using Jala for the OT 3PT in M1. Off-the-bench solutions when needed.</div></div>
+    </div>
+    <div class="train-card">
+      <div class="train-lbl" style="color:var(--red)">⚠️ Confirmed Weaknesses</div>
+      <div class="train-item"><div class="train-num tn-sm">1</div><div class="train-txt"><strong>Basmala's Free Throws — 30% Series:</strong> The biggest weakness on the champion team. 3 of 10 from the line across 2 matches. In a tighter series this would cost Smouha a game.</div></div>
+      <div class="train-item"><div class="train-num tn-sm">2</div><div class="train-txt"><strong>Basmala's Foul Pattern:</strong> 3 fouls M1, 5 fouls DQ in M2. 8 fouls in 2 matches is unsustainable for a starting guard. Same structural problem as Sporting's Habiba.</div></div>
+      <div class="train-item"><div class="train-num tn-sm">3</div><div class="train-txt"><strong>Slow Q1 Starts:</strong> Conceded Q1 average in both matches (21.0 vs 23.5). Against a team that builds on early leads rather than letting Smouha come back, this is exploitable.</div></div>
+      <div class="train-item"><div class="train-num tn-sm">4</div><div class="train-txt"><strong>Shot Clock Violations:</strong> 3 violations in M2 alone. When the offense breaks down, Smouha has no safety play. Need a designated shot-clock emergency option.</div></div>
+      <div class="train-item"><div class="train-num tn-sm">5</div><div class="train-txt"><strong>Zina Mohamed Fading:</strong> Went from 12pts in M1 to 4pts in M2. Sporting adjusted defensively. Need to develop Zina's counter-moves when primary options are taken away.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     TAB: PLAYER PROFILES
+════════════════════════════════════════ -->
+<div class="section" id="tab-players">
+  <div class="sec-title">Series Player Profiles</div>
+  <div class="sec-sub">2-match combined view — performance arc, strengths, coaching priorities per player</div>
+
+  <div class="sec-hdr"><div class="sec-dot" style="background:var(--sp)"></div><div class="sec-hdr-title">Sporting — Key Players</div></div>
+  <div class="pcards">
+
+    <div class="pcard">
+      <div class="pcard-bg sp">30</div>
+      <div class="pcard-hdr sp">
+        <div><div class="pcard-name">Farida Sherif</div><div class="pcard-pos">FORWARD · #30 · STARTED BOTH MATCHES</div></div>
+        <span class="badge b-star">SERIES TOP SCORER</span>
+      </div>
+      <div class="pcard-stats">
+        <div class="pstat"><div class="pstat-val" style="color:var(--gold)">35</div><div class="pstat-lbl">Series Pts</div></div>
+        <div class="pstat"><div class="pstat-val" style="color:var(--purple)">5</div><div class="pstat-lbl">3-Pointers</div></div>
+        <div class="pstat"><div class="pstat-val" style="color:var(--green)">86%</div><div class="pstat-lbl">FT %</div></div>
+        <div class="pstat"><div class="pstat-val" style="color:var(--red)">DQ</div><div class="pstat-lbl">M1 Q4 Out</div></div>
+      </div>
+      <div class="pcard-trend">
+        <div class="pt-cell"><div class="pt-lbl">Match 1</div><div class="pt-val" style="color:var(--gold)">16 pts · DQ · 0 steals</div></div>
+        <div class="pt-cell"><div class="pt-lbl">Match 2</div><div class="pt-val" style="color:var(--green)">19 pts · No DQ · 2 steals ↑</div></div>
+      </div>
+      <div class="pcard-notes">
+        <div class="note-ttl">Series Analysis</div>
+        <div class="note-row"><div class="note-icon">🌟</div><div class="note-txt"><strong>Best overall performer:</strong> 35 pts, 5 three-pointers, improved foul management M1→M2. The only player who got meaningfully better between matches.</div></div>
+        <div class="note-row"><div class="note-icon">✅</div><div class="note-txt"><strong>Clutch gene:</strong> Both Q2 buzzer-beaters, multiple 3PTs under pressure. Can be trusted with the ball in critical moments.</div></div>
+        <div class="note-row"><div class="note-icon">⚠️</div><div class="note-txt"><strong>Still too many fouls:</strong> DQ in M1, 3-4 in M2. Must reach max 2 fouls/game to stay on court all 4 quarters consistently.</div></div>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-bg sp">32</div>
+      <div class="pcard-hdr sp">
+        <div><div class="pcard-name">Habiba Sorrow</div><div class="pcard-pos">FORWARD · #32 · STARTED BOTH MATCHES</div></div>
+        <span class="badge b-warn">STEAL LEADER / FT CRISIS</span>
+      </div>
+      <div class="pcard-stats">
+        <div class="pstat"><div class="pstat-val" style="color:var(--gold)">30</div><div class="pstat-lbl">Series Pts</div></div>
+        <div class="pstat"><div class="pstat-val" style="color:var(--green)">6</div><div class="pstat-lbl">Steals</div></div>
+        <div class="pstat"><div class="pstat-val" style="color:var(--red)">29%</div><div class="pstat-lbl">FT %</div></div>
+        <div class="pstat"><div class="pstat-val" style="color:var(--red)">6</div><div class="pstat-lbl">Fouls</div></div>
+      </div>
+      <div class="pcard-trend">
+        <div class="pt-cell"><div class="pt-lbl">Match 1</div><div class="pt-val" style="color:var(--gold)">18 pts · 2 fouls · 3 steals</div></div>
+        <div class="pt-cell"><div class="pt-lbl">Match 2</div><div class="pt-val" style="color:var(--red)">12 pts · 4 fouls · 3 steals ↓</div></div>
+      </div>
+      <div class="pcard-notes">
+        <div class="note-ttl">Series Analysis</div>
+        <div class="note-row"><div class="note-icon">🌟</div><div class="note-txt"><strong>Best defensive player in the series:</strong> 6 steals — more than any other player on either team. Her pressure defense creates fast breaks that change games.</div></div>
+        <div class="note-row"><div class="note-icon">🚨</div><div class="note-txt"><strong>FT is a series-level problem:</strong> 2/7 = 29%. In games decided by 4 and 7 points, those 5 missed free throws likely cost Sporting at least 1 win.</div></div>
+        <div class="note-row"><div class="note-icon">🚨</div><div class="note-txt"><strong>Scoring decline M1→M2:</strong> 18 to 12 points. Foul-induced bench time reducing effectiveness. Fundamental defensive technique drill needed immediately.</div></div>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-bg sp">13</div>
+      <div class="pcard-hdr sp">
+        <div><div class="pcard-name">Kanzi Ismail</div><div class="pcard-pos">GUARD · #13 · FOUL TROUBLE BOTH MATCHES</div></div>
+        <span class="badge b-warn">CHRONIC FOUL RISK</span>
+      </div>
+      <div class="pcard-stats">
+        <div class="pstat"><div class="pstat-val" style="color:var(--gold)">10</div><div class="pstat-lbl">Series Pts</div></div>
+        <div class="pstat"><div class="pstat-val" style="color:var(--red)">6</div><div class="pstat-lbl">Fouls</div></div>
+        <div class="pstat"><div class="pstat-val">4</div><div class="pstat-lbl">M1 Fouls</div></div>
+        <div class="pstat"><div class="pstat-val">2+</div><div class="pstat-lbl">M2 Fouls</div></div>
+      </div>
+      <div class="pcard-trend">
+        <div class="pt-cell"><div class="pt-lbl">Match 1</div><div class="pt-val" style="color:var(--gold)">8 pts · 4 fouls · Nearly DQ</div></div>
+        <div class="pt-cell"><div class="pt-lbl">Match 2</div><div class="pt-val" style="color:var(--red)">2 pts · Sat entire Q2</div></div>
+      </div>
+      <div class="pcard-notes">
+        <div class="note-ttl">Series Analysis</div>
+        <div class="note-row"><div class="note-icon">⚠️</div><div class="note-txt"><strong>Pattern confirmed over 2 matches:</strong> Gets in foul trouble in every match. Sat Q2 entirely in M2. This has become a predictable liability that opponents can plan around.</div></div>
+        <div class="note-row"><div class="note-icon">✅</div><div class="note-txt"><strong>When available:</strong> Good screen-setter, causes disruption. The player is not the problem — the defensive technique is.</div></div>
+        <div class="note-row"><div class="note-icon">🚨</div><div class="note-txt"><strong>Coaching decision needed:</strong> Either fix the defensive technique with a dedicated drill series, or redesign Kanzi's role as primarily an offensive specialist who rarely defends in pressure situations.</div></div>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-bg sp">17</div>
+      <div class="pcard-hdr sp">
+        <div><div class="pcard-name">Karma Mohamed</div><div class="pcard-pos">FORWARD · #17 · GROWING ROLE</div></div>
+        <span class="badge b-up">MOST IMPROVED</span>
+      </div>
+      <div class="pcard-stats">
+        <div class="pstat"><div class="pstat-val" style="color:var(--gold)">13</div><div class="pstat-lbl">Series Pts</div></div>
+        <div class="pstat"><div class="pstat-val">5</div><div class="pstat-lbl">2-Pointers</div></div>
+        <div class="pstat"><div class="pstat-val" style="color:var(--green)">1</div><div class="pstat-lbl">Steal→FB</div></div>
+        <div class="pstat"><div class="pstat-val" style="color:var(--gold)">↑225%</div><div class="pstat-lbl">Pts Growth</div></div>
+      </div>
+      <div class="pcard-trend">
+        <div class="pt-cell"><div class="pt-lbl">Match 1</div><div class="pt-val">4 pts · 0 fouls · Limited role</div></div>
+        <div class="pt-cell"><div class="pt-lbl">Match 2</div><div class="pt-val" style="color:var(--green)">9 pts · 1 steal · Key player ↑</div></div>
+      </div>
+      <div class="pcard-notes">
+        <div class="note-ttl">Series Analysis</div>
+        <div class="note-row"><div class="note-icon">✅</div><div class="note-txt"><strong>Biggest improvement match-to-match:</strong> +5 points, added a steal→fast break basket. Stepped up when Habiba was benched. The most promising development trajectory on Sporting.</div></div>
+        <div class="note-row"><div class="note-icon">✅</div><div class="note-txt"><strong>Screen intelligence:</strong> The Farida+Karma double screen produced open shots throughout M2. Basketball IQ is high.</div></div>
+        <div class="note-row"><div class="note-icon">⚠️</div><div class="note-txt"><strong>Needs a 3-point shot:</strong> All 5 baskets are 2-pointers. Adding a mid-range or 3PT option would make her unguardable off screens.</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
+  <div class="sec-hdr"><div class="sec-dot" style="background:var(--sm)"></div><div class="sec-hdr-title">Smouha — Key Players</div></div>
+  <div class="pcards">
+
+    <div class="pcard">
+      <div class="pcard-bg sm">5</div>
+      <div class="pcard-hdr sm">
+        <div><div class="pcard-name">Maya Essam</div><div class="pcard-pos">GUARD · #5 · SERIES MVP</div></div>
+        <span class="badge b-star">SERIES MVP</span>
+      </div>
+      <div class="pcard-stats">
+        <div class="pstat"><div class="pstat-val" style="color:var(--gold)">36</div><div class="pstat-lbl">Series Pts</div></div>
+        <div class="pstat"><div class="pstat-val" style="color:var(--green)">75%</div><div class="pstat-lbl">FT %</div></div>
+        <div class="pstat"><div class="pstat-val">3</div><div class="pstat-lbl">Fouls</div></div>
+        <div class="pstat"><div class="pstat-val" style="color:var(--green)">2</div><div class="pstat-lbl">3-Pointers</div></div>
+      </div>
+      <div class="pcard-trend">
+        <div class="pt-cell"><div class="pt-lbl">Match 1</div><div class="pt-val" style="color:var(--gold)">22 pts · 2 fouls · Series high</div></div>
+        <div class="pt-cell"><div class="pt-lbl">Match 2</div><div class="pt-val">14 pts · 1 foul · Role player</div></div>
+      </div>
+      <div class="pcard-notes">
+        <div class="note-ttl">Series Analysis</div>
+        <div class="note-row"><div class="note-icon">🌟</div><div class="note-txt"><strong>Most complete player in the series:</strong> Top scorer in M1, team player in M2 when Fatma took the lead role. Adapts her game to what the team needs.</div></div>
+        <div class="note-row"><div class="note-icon">✅</div><div class="note-txt"><strong>Best FT shooter:</strong> 75% is the highest on either team. Reliable under pressure — exactly what a guard needs to be.</div></div>
+        <div class="note-row"><div class="note-icon">✅</div><div class="note-txt"><strong>Disciplined fouls:</strong> Only 3 fouls across 2 matches. Never in foul trouble — played full minutes when needed.</div></div>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-bg sm">34</div>
+      <div class="pcard-hdr sm">
+        <div><div class="pcard-name">Fatma Ahmed</div><div class="pcard-pos">CENTER · #34 · M2 MVP</div></div>
+        <span class="badge b-up">EVOLVING WEAPON</span>
+      </div>
+      <div class="pcard-stats">
+        <div class="pstat"><div class="pstat-val" style="color:var(--gold)">36</div><div class="pstat-lbl">Series Pts</div></div>
+        <div class="pstat"><div class="pstat-val" style="color:var(--purple)">2</div><div class="pstat-lbl">3PT in M2</div></div>
+        <div class="pstat"><div class="pstat-val">60%</div><div class="pstat-lbl">FT %</div></div>
+        <div class="pstat"><div class="pstat-val">2</div><div class="pstat-lbl">Fouls (both)</div></div>
+      </div>
+      <div class="pcard-trend">
+        <div class="pt-cell"><div class="pt-lbl">Match 1</div><div class="pt-val">16 pts · 0 three-pointers</div></div>
+        <div class="pt-cell"><div class="pt-lbl">Match 2</div><div class="pt-val" style="color:var(--green)">20 pts · 2 three-pointers · MVP ↑</div></div>
+      </div>
+      <div class="pcard-notes">
+        <div class="note-ttl">Series Analysis</div>
+        <div class="note-row"><div class="note-icon">🌟</div><div class="note-txt"><strong>Added the 3-point shot between matches:</strong> This is extraordinary development. A center who can score in the post AND from range is unguardable at U16. Keep developing this.</div></div>
+        <div class="note-row"><div class="note-icon">✅</div><div class="note-txt"><strong>Exceptional foul discipline:</strong> 1 foul per match despite aggressive post play. Knows how to draw contact without committing it.</div></div>
+        <div class="note-row"><div class="note-icon">⚠️</div><div class="note-txt"><strong>FT improvement ongoing:</strong> M1 63%, M2 57% — slight decline. With 15 FT attempts across the series, this becomes significant. Target 75%+.</div></div>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-bg sm">20</div>
+      <div class="pcard-hdr sm">
+        <div><div class="pcard-name">Basmala Mohamed</div><div class="pcard-pos">GUARD · #20 · HIGH RISK / HIGH REWARD</div></div>
+        <span class="badge b-dq">DQ IN M2</span>
+      </div>
+      <div class="pcard-stats">
+        <div class="pstat"><div class="pstat-val" style="color:var(--gold)">16</div><div class="pstat-lbl">Series Pts</div></div>
+        <div class="pstat"><div class="pstat-val" style="color:var(--purple)">2</div><div class="pstat-lbl">3-Pointers</div></div>
+        <div class="pstat"><div class="pstat-val" style="color:var(--red)">30%</div><div class="pstat-lbl">FT %</div></div>
+        <div class="pstat"><div class="pstat-val" style="color:var(--red)">8</div><div class="pstat-lbl">Series Fouls</div></div>
+      </div>
+      <div class="pcard-trend">
+        <div class="pt-cell"><div class="pt-lbl">Match 1</div><div class="pt-val" style="color:var(--red)">4 pts · 3 fouls · 2/6 FT</div></div>
+        <div class="pt-cell"><div class="pt-lbl">Match 2</div><div class="pt-val" style="color:var(--gold)">12 pts · DQ · 1/4 FT</div></div>
+      </div>
+      <div class="pcard-notes">
+        <div class="note-ttl">Series Analysis</div>
+        <div class="note-row"><div class="note-icon">✅</div><div class="note-txt"><strong>Clutch 3PT ability:</strong> Both 3PTs in M2 came when Smouha was down — kept them in the game. This is a matchup weapon when she's on court and fresh.</div></div>
+        <div class="note-row"><div class="note-icon">🚨</div><div class="note-txt"><strong>#1 priority training need in the series:</strong> 3/10 FTs (30%), 8 fouls, 1 DQ across 2 matches. These three numbers together represent the single biggest risk to Smouha's future success.</div></div>
+        <div class="note-row"><div class="note-icon">🚨</div><div class="note-txt"><strong>If not fixed:</strong> Against a team with better depth that can attack Basmala's foul trouble deliberately, Smouha will lose a Q4 they should win.</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     TAB: PATTERNS & TRENDS
+════════════════════════════════════════ -->
+<div class="section" id="tab-patterns">
+  <div class="sec-title">Series Patterns & Trends</div>
+  <div class="sec-sub">Cross-match evidence · What's consistent · What's changing · Head-to-head matchups</div>
+
+  <div class="pattern-grid">
+    <div class="pattern-card pc-gold">
+      <div class="ptitle">Universal Pattern #1</div>
+      <div class="pbig" style="color:var(--gold)">Q4 DECIDES</div>
+      <div class="psub">In BOTH matches, the team that won Q4 won the game. Smouha outscored Sporting 27–20 in M1 Q4/OT and 23–16 in M2 Q4. The series was won and lost in the final quarter every time.</div>
+    </div>
+    <div class="pattern-card pc-sp">
+      <div class="ptitle">Sporting Pattern</div>
+      <div class="pbig" style="color:var(--sp2)">LEAD → LOSE</div>
+      <div class="psub">Led at halftime in BOTH matches. Sporting are a genuinely strong first-half team whose fouls cost them the second half. Fix the foul problem = fix the result.</div>
+    </div>
+    <div class="pattern-card pc-sm">
+      <div class="ptitle">Smouha Pattern</div>
+      <div class="pbig" style="color:var(--sm2)">TRAIL → WIN</div>
+      <div class="psub">Conceded Q1 in both matches, conceded halftime lead in M2. Won both games. This is not luck — it's a consistent second-half system that activates under pressure.</div>
+    </div>
+    <div class="pattern-card pc-purple">
+      <div class="ptitle">DQ Pattern</div>
+      <div class="pbig" style="color:var(--purple)">DQ = LOSS</div>
+      <div class="psub">M1: Farida DQ → Smouha wins. M2: Basmala DQ → Smouha still wins. But M2's result was close — Basmala's exit with 3 min left nearly gifted Sporting the game.</div>
+    </div>
+    <div class="pattern-card pc-gold">
+      <div class="ptitle">Fast Break Pattern</div>
+      <div class="pbig" style="color:var(--green)">Smouha 9–7</div>
+      <div class="psub">Smouha scored 9 fast break points vs Sporting's 7. Smouha converts steals into scores more reliably. Habiba generates more steals (6) but Smouha converts them better.</div>
+    </div>
+    <div class="pattern-card pc-sp">
+      <div class="ptitle">3PT Pattern</div>
+      <div class="pbig" style="color:var(--purple)">9 – 9 EQUAL</div>
+      <div class="psub">Both teams hit exactly 9 three-pointers across the series. Sporting's came from Farida (5) and Rawda (1). Smouha's spread across 5 players — more dangerous distribution.</div>
+    </div>
+  </div>
+
+  <!-- HEAD TO HEAD -->
+  <div class="sec-hdr" style="margin-top:8px;"><div class="sec-dot" style="background:var(--purple)"></div><div class="sec-hdr-title">Head-to-Head Matchups</div><div class="sec-hdr-sub">Player vs player across the series</div></div>
+  <table class="ptable">
+    <thead>
+      <tr><th>Sporting Player</th><th class="r">Pts</th><th>Smouha Counterpart</th><th class="r">Pts</th><th>Winner</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="pname">Farida Sherif</div><div class="ppos">Forward · #30</div></td>
+        <td class="r"><span class="sn gold">35</span></td>
+        <td><div class="pname">Maya Essam</div><div class="ppos">Guard · #5</div></td>
+        <td class="r"><span class="sn gold">36</span></td>
+        <td><span class="badge" style="background:rgba(155,109,255,.15);color:var(--purple);border:1px solid rgba(155,109,255,.3);">DRAW</span></td>
+        <td style="font-size:12px;color:var(--tx2);">Essentially equal. The best 1v1 matchup of the series. Farida scores more efficiently; Maya plays more complete game.</td>
+      </tr>
+      <tr>
+        <td><div class="pname">Habiba Sorrow</div><div class="ppos">Forward · #32</div></td>
+        <td class="r"><span class="sn">30</span></td>
+        <td><div class="pname">Fatma Ahmed</div><div class="ppos">Center · #34</div></td>
+        <td class="r"><span class="sn gold">36</span></td>
+        <td><span class="badge" style="background:rgba(10,95,212,.15);color:var(--sm2);border:1px solid rgba(10,95,212,.3);">FATMA</span></td>
+        <td style="font-size:12px;color:var(--tx2);">Fatma won clearly in M2 when it mattered most. Habiba is the better defender (6 steals), Fatma the better scorer.</td>
+      </tr>
+      <tr>
+        <td><div class="pname">Rawda Osama</div><div class="ppos">Guard · #10</div></td>
+        <td class="r"><span class="sn">17</span></td>
+        <td><div class="pname">Arwa Shady</div><div class="ppos">Guard · #8</div></td>
+        <td class="r"><span class="sn">12</span></td>
+        <td><span class="badge" style="background:rgba(232,52,10,.15);color:var(--sp2);border:1px solid rgba(232,52,10,.3);">RAWDA</span></td>
+        <td style="font-size:12px;color:var(--tx2);">Rawda outscored Arwa by 5 across the series. Both are secondary playmakers — Rawda clearly the more impactful.</td>
+      </tr>
+      <tr>
+        <td><div class="pname">Karma Mohamed</div><div class="ppos">Forward · #17</div></td>
+        <td class="r"><span class="sn">13</span></td>
+        <td><div class="pname">Basmala Mohamed</div><div class="ppos">Guard · #20</div></td>
+        <td class="r"><span class="sn">16</span></td>
+        <td><span class="badge" style="background:rgba(10,95,212,.15);color:var(--sm2);border:1px solid rgba(10,95,212,.3);">BASMALA</span></td>
+        <td style="font-size:12px;color:var(--tx2);">Despite DQ in M2, Basmala scored more. Karma improving rapidly — may win this matchup in a third meeting.</td>
+      </tr>
+      <tr>
+        <td><div class="pname">Kanzi Ismail</div><div class="ppos">Guard · #13</div></td>
+        <td class="r"><span class="sn">10</span></td>
+        <td><div class="pname">Noha Rami</div><div class="ppos">Guard · #1</div></td>
+        <td class="r"><span class="sn">11</span></td>
+        <td><span class="badge" style="background:rgba(10,95,212,.15);color:var(--sm2);border:1px solid rgba(10,95,212,.3);">NOHA +1</span></td>
+        <td style="font-size:12px;color:var(--tx2);">Nearly equal. Noha improving M1→M2 while Kanzi declined due to foul trouble. Trend favors Noha.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ══════════════════════════════════════
+     TAB: TRAINING PLAN
+════════════════════════════════════════ -->
+<div class="section" id="tab-training">
+  <div class="sec-title">Series Training Plan</div>
+  <div class="sec-sub">Evidence-based — every recommendation backed by 2-match data · Priority ranked</div>
+
+  <div class="coach-box">
+    <div class="coach-title">🎯 The One Number That Explains the Series</div>
+    <p>Smouha averaged <strong>25.0 points in Q4</strong> vs Sporting's <strong>18.0</strong>. That 7-point per quarter gap in the final quarter explains both losses. The root cause of that gap is not skill — Sporting outscored Smouha in Q1 and Q2 every single match. <strong>The root cause is foul-induced rotation collapse in Q3 that leaves Sporting's key players either benched or fatigued in Q4.</strong> Fix the fouls, fix the Q3/Q4 scoring gap, fix the series result.</p>
+  </div>
+
+  <div class="train-grid">
+    <div class="train-card">
+      <div class="train-lbl" style="color:var(--sp2)">🏋️ Sporting — Priority Training</div>
+      <div class="train-item">
+        <div class="train-num tn-sp">1</div>
+        <div class="train-txt"><strong>Foul footwork clinic — weekly, mandatory:</strong> All 3 foul-prone players (Habiba, Kanzi, Farida) attend. Drill: defensive slide with no hands — feet only. Target: 0 reaching fouls. Set "foul budget": max 2 fouls in Q1+Q2 combined per player. Any player exceeding it sits the next quarter regardless of score.</div>
+      </div>
+      <div class="train-item">
+        <div class="train-num tn-sp">2</div>
+        <div class="train-txt"><strong>Habiba's free throws — daily, high-repetition:</strong> 50 FTs per training session, last 20 shot under fatigue (after running). Current rate 29% must reach 70%+ before next tournament. Use the BEEF technique: Balance, Eyes, Elbow, Follow-through. Track % weekly.</div>
+      </div>
+      <div class="train-item">
+        <div class="train-num tn-sp">3</div>
+        <div class="train-txt"><strong>Q3 backup scoring plan:</strong> Design 3 set plays for when Habiba and Kanzi are sitting. Karma and Nour must be able to generate 15+ points between them in Q3. Scrimmage specifically: "no Habiba/Kanzi" 10-minute sets.</div>
+      </div>
+      <div class="train-item">
+        <div class="train-num tn-sp">4</div>
+        <div class="train-txt"><strong>Defend Fatma Ahmed specifically:</strong> Use a player Fatma's height in practice. Train Arwa and Karma to front her in the post — force her to catch further from the basket. If no tall player available, practice 2-3 zone that collapses on her entry.</div>
+      </div>
+      <div class="train-item">
+        <div class="train-num tn-sp">5</div>
+        <div class="train-txt"><strong>Late-game composure drills:</strong> Practice "last 2 minutes" scenarios twice per week. Focus: catch-pivot-look before moving. The Rawda travel and Arwa fumble both happened because the player rushed. Slow is smooth, smooth is fast.</div>
+      </div>
+      <div class="train-item">
+        <div class="train-num tn-sp">6</div>
+        <div class="train-txt"><strong>Karma's 3-point development:</strong> She is the most improved player in the series. Adding a mid-range or three-point option makes the double-screen play with Farida undefendable. 20 extra 3PT reps per session.</div>
+      </div>
+    </div>
+    <div class="train-card">
+      <div class="train-lbl" style="color:var(--sm2)">🏋️ Smouha — Priority Training</div>
+      <div class="train-item">
+        <div class="train-num tn-sm">1</div>
+        <div class="train-txt"><strong>Basmala's free throws — EMERGENCY PRIORITY:</strong> 3/10 = 30% across 2 matches. This is championship-level negligence in an otherwise elite team. 100 FT attempts per session minimum. Use pressure FTs (shoot after deficit situation, teammates watching). Target: 65%+ before next match. Do not start in next tournament until 60%+ in practice.</div>
+      </div>
+      <div class="train-item">
+        <div class="train-num tn-sm">2</div>
+        <div class="train-txt"><strong>Basmala's defensive foul technique:</strong> 8 fouls in 2 matches, including a DQ. Run the same defensive footwork drill as Sporting's Habiba — defensive slide, hands back, feet do the work. Set per-match foul budget: if Basmala reaches 3 fouls before Q4, she sits.</div>
+      </div>
+      <div class="train-item">
+        <div class="train-num tn-sm">3</div>
+        <div class="train-txt"><strong>Q1 activation protocol:</strong> Develop a specific starting-lineup routine that produces 20+ points in Q1. Currently Smouha averages only 21 in Q1 vs Sporting's 23.5. Try: starting Fatma from minute 1 instead of bringing her off the bench. The 2-match data suggests Fatma should start both halves, not be used as a Q3 weapon.</div>
+      </div>
+      <div class="train-item">
+        <div class="train-num tn-sm">4</div>
+        <div class="train-txt"><strong>Shot clock emergency play:</strong> 3 violations in M2. Designate a "shot clock emergency" option: if the play breaks down and 8 seconds remain, the ball goes to Maya or Fatma for an isolation. Run this specific scenario in practice 10 times per session.</div>
+      </div>
+      <div class="train-item">
+        <div class="train-num tn-sm">5</div>
+        <div class="train-txt"><strong>Fatma Ahmed's 3PT shot — expand it:</strong> She hit 2 in M2. Now defenders will start to respect it. Work on Fatma catching at the three-point line, pump faking, and driving — or catching in rhythm for the real 3PT. This one skill makes Smouha potentially unbeatable at U16 level.</div>
+      </div>
+      <div class="train-item">
+        <div class="train-num tn-sm">6</div>
+        <div class="train-txt"><strong>Zina Mohamed's counter-moves:</strong> Went from 12pts (M1) to 4pts (M2) — Sporting adjusted defensively. Develop 2 counter-moves for when Zina's primary option is taken away: drive when they play her outside, shoot when they sag. Otherwise she becomes predictable.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="coach-box" style="margin-top:6px;">
+    <div class="coach-title">🔮 Series Verdict & Future Prediction</div>
+    <p>This was one of the most competitive U16 basketball series in recent memory. <strong>The talent gap between these teams is minimal</strong> — they share the same number of three-pointers (9 each), similar free throw percentages (65% vs 61%), and virtually identical top scorers (Farida 35 pts vs Maya 36 pts, Habiba 30 pts vs Fatma 36 pts).</p>
+    <p><strong>Smouha win series 2-0 because they solve the Q4 problem better</strong> — their key players (Maya, Fatma) stay disciplined and on the court, while Sporting's key players (Habiba, Kanzi, Farida in M1) foul their way to the bench. If Sporting's foul count per player drops by even 30%, the Q3/Q4 gap closes, and the series is likely 1-1.</p>
+    <p><strong>The player to watch in the next meeting:</strong> Karma Mohamed. She improved by 125% between Match 1 and Match 2. If that trajectory continues, she becomes the X-factor that Sporting has been missing — a reliable second scorer who stays out of foul trouble. <strong>And Fatma Ahmed's 3-point shot changes everything</strong> — if she continues developing it, Smouha's offense becomes genuinely unguardable at this level.</p>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <img class="footer-logo" src="https://spinova.app/spinova-logo.png" alt="Spinova">
+    <div class="footer-brand"><span>Spinova</span> · Performance Analytics</div>
+    <p class="footer-meta">Basketball series analytics · Sporting vs Smouha · 2-match combined report · U16 Girls · Alexandria regional</p>
+    <div class="footer-conf">Confidential · Internal coaching use</div>
+  </div>
+</footer>
+
+<script>
+  function show(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>

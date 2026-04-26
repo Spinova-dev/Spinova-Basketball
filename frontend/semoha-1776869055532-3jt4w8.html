@@ -1,0 +1,710 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Match Analytics Report — Sporting vs Smouha | U16 Girls</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #2E8BC0;
+    --blue-dark: #1a6a9a;
+    --blue-deep: #0d4f73;
+    --blue-vdark: #1f2d40;
+    --blue-light: #5BA4D0;
+    --blue-50: #e8f4fa;
+    --lime: #9BC53D;
+    --lime-dark: #7da32e;
+    --dark: #1a2332;
+    --mid-gray: #526378;
+    --light-gray: #8896a7;
+    --page-bg: #f5f7fa;
+    --white: #ffffff;
+    --sport-primary: #E8340A;
+    --sport-secondary: #E85A32;
+    --smouha-primary: #0A5FD4;
+    --smouha-secondary: #2E7FD4;
+    --bg: var(--page-bg);
+    --bg2: var(--white);
+    --bg3: var(--white);
+    --bg4: #f0f4f8;
+    --border: #e4ecf2;
+    --border2: #dce6ef;
+    --text: var(--dark);
+    --text2: var(--mid-gray);
+    --text3: var(--light-gray);
+    --accent: var(--lime);
+    --gold: var(--lime);
+    --spinova-lime: var(--lime);
+    --spinova-lime-dim: rgba(155, 197, 61, 0.45);
+    --green: #0a8f5c;
+    --red: #d63447;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Cairo', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  .brand-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    padding: 14px 40px;
+    background: var(--blue-vdark);
+    border-bottom: 3px solid var(--lime);
+  }
+  .brand-bar-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .brand-bar .brand-logo {
+    height: 40px;
+    width: auto;
+    display: block;
+  }
+  .brand-bar .brand-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--lime);
+    font-family: 'Outfit', sans-serif;
+  }
+  .brand-bar .brand-line {
+    font-size: 12px;
+    color: #fff;
+    letter-spacing: 0.3px;
+  }
+  .brand-bar .brand-line strong {
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .hero {
+    position: relative;
+    padding: 60px 40px 50px;
+    background: var(--blue-vdark);
+    border-bottom: 3px solid var(--lime);
+    overflow: hidden;
+    color: #fff;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 80% at 50% -20%, rgba(255,255,255,0.03) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 20px;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .team-hero { text-align: center; }
+  .team-tag {
+    display: inline-block;
+    font-family: 'Outfit', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 6px;
+    margin-bottom: 14px;
+  }
+  .team-tag.sport { background: rgba(232,52,10,0.15); color: var(--sport-secondary); border: 1px solid rgba(232,52,10,0.3); }
+  .team-tag.smouha { background: rgba(10,95,212,0.15); color: var(--smouha-secondary); border: 1px solid rgba(10,95,212,0.3); }
+  .team-name {
+    font-family: 'Cairo', sans-serif;
+    font-size: 52px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+  .team-name.sport { color: var(--sport-primary); }
+  .team-name.smouha { color: var(--smouha-primary); }
+  .team-record {
+    font-size: 12px;
+    color: rgba(255,255,255,0.75);
+    margin-top: 8px;
+    font-family: 'Cairo', sans-serif;
+  }
+  .scoreboard {
+    text-align: center;
+    padding: 0 30px;
+  }
+  .score-display {
+    font-family: 'Cairo', sans-serif;
+    font-size: 80px;
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1;
+    color: #fff;
+  }
+  .score-sep { color: rgba(255,255,255,0.45); }
+  .match-meta {
+    font-size: 11px;
+    color: rgba(255,255,255,0.7);
+    font-family: 'Outfit', sans-serif;
+    margin-top: 8px;
+    letter-spacing: 1px;
+  }
+  .winner-badge {
+    display: inline-block;
+    background: var(--lime);
+    color: var(--dark);
+    font-family: 'Cairo', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    padding: 4px 12px;
+    border-radius: 6px;
+    margin-top: 10px;
+  }
+  .tournament-label {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.65);
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .nav-tabs {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    box-shadow: 0 1px 0 rgba(13,79,115,0.06);
+  }
+  .tab-btn {
+    padding: 16px 22px;
+    background: none;
+    border: none;
+    color: var(--mid-gray);
+    font-family: 'Cairo', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--blue); }
+  .tab-btn.active { color: var(--blue-deep); border-bottom-color: var(--lime); }
+
+  .section { display: none; padding: 40px; max-width: 1400px; margin: 0 auto; }
+  .section.active { display: block; }
+
+  .section-title {
+    font-family: 'Cairo', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 0;
+    margin-bottom: 6px;
+    color: var(--dark);
+    border-left: 4px solid var(--lime);
+    padding-left: 14px;
+  }
+  .section-sub {
+    font-size: 13px;
+    color: var(--text3);
+    margin-bottom: 32px;
+  }
+
+  .quarter-timeline {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-bottom: 40px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--border);
+  }
+  .qt-block {
+    background: var(--white);
+    padding: 20px 16px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+    position: relative;
+    box-shadow: 0 1px 0 rgba(13,79,115,0.04);
+  }
+  .qt-block:last-child { border-right: none; }
+  .qt-label {
+    font-family: 'Outfit', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--text3);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+  .qt-score {
+    font-family: 'Cairo', sans-serif;
+    font-size: 36px;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .qt-leader {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .qt-leader.sport { color: var(--sport-secondary); }
+  .qt-leader.smouha { color: var(--smouha-secondary); }
+  .qt-leader.draw { color: var(--gold); }
+  .qt-points {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 8px;
+    font-size: 11px;
+    color: var(--text3);
+  }
+  .qt-pts-s { color: var(--sport-secondary); font-weight: 600; }
+  .qt-pts-m { color: var(--smouha-secondary); font-weight: 600; }
+
+  .comparison-grid {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+  .comp-row {
+    display: grid;
+    grid-template-columns: 1fr 120px 1fr;
+    gap: 12px;
+    align-items: center;
+    background: var(--white);
+    padding: 14px 18px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+  }
+  .comp-bar-wrap { position: relative; height: 6px; background: #e8f0f5; border-radius: 3px; }
+  .comp-bar {
+    position: absolute;
+    top: 0;
+    height: 6px;
+    border-radius: 3px;
+    transition: width 0.8s ease;
+  }
+  .comp-bar.sport-bar { right: 0; background: var(--sport-primary); }
+  .comp-bar.smouha-bar { left: 0; background: var(--smouha-primary); }
+  .comp-label {
+    text-align: center;
+    font-family: 'Cairo', sans-serif;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text3);
+  }
+  .comp-val-sport {
+    text-align: right;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 500;
+    color: var(--sport-secondary);
+    font-size: 15px;
+  }
+  .comp-val-smouha {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 500;
+    color: var(--smouha-secondary);
+    font-size: 15px;
+  }
+
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 32px; }
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .card.sport-card::before { background: var(--sport-primary); }
+  .card.smouha-card::before { background: var(--smouha-primary); }
+  .card.neutral-card::before { background: var(--gold); }
+  .card-title {
+    font-family: 'Cairo', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 10px;
+  }
+  .card-val {
+    font-family: 'Cairo', sans-serif;
+    font-size: 42px;
+    font-weight: 900;
+    line-height: 1;
+  }
+  .card-val.sport { color: var(--sport-secondary); }
+  .card-val.smouha { color: var(--smouha-secondary); }
+  .card-sub { font-size: 12px; color: var(--text3); margin-top: 4px; }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 32px;
+    font-size: 13px;
+  }
+  .data-table th {
+    background: var(--blue-deep);
+    padding: 12px 14px;
+    text-align: left;
+    font-family: 'Cairo', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #fff;
+    border-bottom: none;
+  }
+  .data-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  .data-table tr:hover td { background: var(--blue-50); }
+  .data-table tr:last-child td { border-bottom: none; }
+  .player-num {
+    font-family: 'Cairo', sans-serif;
+    font-size: 11px;
+    color: var(--text3);
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+  }
+  .player-num.sport { background: rgba(232,52,10,0.15); color: var(--sport-secondary); }
+  .player-num.smouha { background: rgba(10,95,212,0.15); color: var(--smouha-secondary); }
+  .player-name { font-weight: 600; font-size: 14px; }
+  .player-pos {
+    font-size: 10px;
+    color: var(--text3);
+    font-family: 'Cairo', sans-serif;
+    letter-spacing: 1px;
+  }
+  .stat-num {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+  }
+  .stat-num.highlight { color: var(--gold); }
+  .foul-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin: 0 2px;
+  }
+  .foul-dot.active { background: var(--red); }
+  .foul-dot.inactive { background: var(--bg4); border: 1px solid var(--border2); }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .badge.dq { background: rgba(255,59,92,0.15); color: var(--red); border: 1px solid rgba(255,59,92,0.3); }
+  .badge.star { background: rgba(155,197,61,0.15); color: var(--lime-dark); border: 1px solid rgba(155,197,61,0.35); }
+  .badge.key { background: rgba(0,208,132,0.15); color: var(--green); border: 1px solid rgba(0,208,132,0.3); }
+  .badge.sub { background: var(--page-bg); color: var(--text3); border: 1px solid var(--border); }
+
+  .moments-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+  .moment {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 16px;
+    align-items: center;
+    background: var(--white);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--border2);
+  }
+  .moment.sport { border-left-color: var(--sport-primary); }
+  .moment.smouha { border-left-color: var(--smouha-primary); }
+  .moment.critical { border-left-color: var(--gold); }
+  .moment-time {
+    font-family: 'Cairo', sans-serif;
+    font-size: 12px;
+    color: var(--text3);
+    text-align: center;
+  }
+  .moment-score {
+    font-family: 'Cairo', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--lime-dark);
+  }
+  .moment-desc { font-size: 13px; color: var(--text2); margin-top: 2px; }
+  .moment-player { font-size: 11px; color: var(--text3); margin-top: 4px; font-family: 'Cairo', sans-serif; }
+
+  .coach-note {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--lime);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .coach-note::before {
+    content: '📋';
+    position: absolute;
+    right: 20px;
+    top: 16px;
+    font-size: 32px;
+    opacity: 0.15;
+  }
+  .coach-note-title {
+    font-family: 'Cairo', sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--blue);
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+  .coach-note p { font-size: 13px; color: var(--text2); line-height: 1.7; }
+  .coach-note p + p { margin-top: 8px; }
+  strong { color: var(--text); }
+
+  footer {
+    padding: 28px 40px 32px;
+    border-top: 3px solid var(--lime);
+    background: var(--blue-vdark);
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+  }
+  .footer-inner .footer-logo {
+    height: 32px;
+    width: auto;
+    opacity: 0.95;
+  }
+  .footer-brand {
+    font-family: 'Cairo', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  .footer-brand span {
+    color: var(--lime);
+  }
+  .footer-meta {
+    font-size: 12px;
+    color: #fff;
+    font-family: 'Cairo', sans-serif;
+    letter-spacing: 0.3px;
+    line-height: 1.6;
+    max-width: 560px;
+  }
+  .footer-conf {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .divider { height: 1px; background: var(--border); margin: 32px 0; }
+
+  @media (max-width: 768px) {
+    .brand-bar { padding: 12px 20px; justify-content: center; text-align: center; }
+    .brand-bar-left { align-items: center; width: 100%; }
+    .brand-bar .brand-logo { height: 34px; }
+    .hero { padding: 30px 20px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 16px; text-align: center; }
+    .team-name { font-size: 36px; }
+    .score-display { font-size: 60px; }
+    .section { padding: 24px 16px; }
+    .quarter-timeline { grid-template-columns: repeat(2,1fr); }
+    .nav-tabs { padding: 0 16px; }
+    footer { padding: 24px 16px 28px; }
+    .footer-inner .footer-logo { height: 28px; }
+  }
+
+  .section.active .comp-bar { animation: barGrow 0.8s ease forwards; }
+  @keyframes barGrow { from { width: 0; } }
+  .card { animation: fadeUp 0.3s ease backwards; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+
+<div class="brand-bar">
+  <div class="brand-bar-left">
+    <img class="brand-logo" src="https://spinova.app/spinova-logo.png" alt="Spinova">
+    <span class="brand-tag">Performance Analytics</span>
+  </div>
+  <div class="brand-line">Match report · <strong>Sporting vs Smouha</strong> · U16 Girls · Prepared by <strong>Spinova</strong></div>
+</div>
+
+<div class="hero">
+  <div class="hero-grid">
+    <div class="team-hero">
+      <div class="team-tag sport">SPORTING CLUB</div>
+      <div class="team-name sport">SPORTING</div>
+      <div class="team-record">Runner-Up — 63 Points</div>
+    </div>
+    <div class="scoreboard">
+      <div class="score-display">63<span class="score-sep"> – </span>70</div>
+      <div class="match-meta">REGULATION · U16 GIRLS BASKETBALL</div>
+      <div><span class="winner-badge">🏆 SMOUHA CHAMPION</span></div>
+    </div>
+    <div class="team-hero">
+      <div class="team-tag smouha">SMOUHA CLUB</div>
+      <div class="team-name smouha">SMOUHA</div>
+      <div class="team-record">Champions — 70 Points</div>
+    </div>
+  </div>
+  <div class="tournament-label">Alexandria Region · U16 Girls Championship · Final</div>
+</div>
+
+<div class="nav-tabs">
+  <button class="tab-btn active" onclick="showTab('match')">Match Overview</button>
+  <button class="tab-btn" onclick="showTab('sporting')">Sporting Report</button>
+  <button class="tab-btn" onclick="showTab('smouha')">Smouha Report</button>
+  <button class="tab-btn" onclick="showTab('analysis')">Deep Analysis</button>
+</div>
+
+<div class="section active" id="tab-match">
+  <div class="section-title">Match Overview</div>
+  <div class="section-sub">Quarter-by-quarter breakdown · Team stats comparison · Key moments timeline</div>
+
+  <div class="quarter-timeline">
+    <div class="qt-block">
+      <div class="qt-label">Q1</div>
+      <div class="qt-score" style="color: var(--sport-secondary)">23–19</div>
+      <div class="qt-leader sport">Sporting Lead</div>
+      <div class="qt-points"><span class="qt-pts-s">+23</span><span class="qt-pts-m">+19</span></div>
+    </div>
+    <div class="qt-block">
+      <div class="qt-label">Q2</div>
+      <div class="qt-score" style="color: var(--sport-secondary)">43–36</div>
+      <div class="qt-leader sport">Sporting Lead</div>
+      <div class="qt-points"><span class="qt-pts-s">+20</span><span class="qt-pts-m">+17</span></div>
+    </div>
+    <div class="qt-block">
+      <div class="qt-label">Q3</div>
+      <div class="qt-score" style="color: var(--sport-secondary)">56–47</div>
+      <div class="qt-leader sport">Sporting Lead</div>
+      <div class="qt-points"><span class="qt-pts-s">+13</span><span class="qt-pts-m">+11</span></div>
+    </div>
+    <div class="qt-block">
+      <div class="qt-label">Q4</div>
+      <div class="qt-score" style="color: var(--smouha-secondary)">63–70</div>
+      <div class="qt-leader smouha">Smouha Win</div>
+      <div class="qt-points"><span class="qt-pts-s">+7</span><span class="qt-pts-m">+23</span></div>
+    </div>
+  </div>
+
+  <div class="section-title" style="font-size:18px;margin-bottom:16px;">Team Stats Comparison</div>
+  <div class="comparison-grid">
+    <div class="comp-row">
+      <div>
+        <div class="comp-val-sport">63</div>
+        <div class="comp-bar-wrap"><div class="comp-bar sport-bar" style="width:47.4%"></div></div>
+      </div>
+      <div class="comp-label">Total Points</div>
+      <div>
+        <div class="comp-val-smouha">70</div>
+        <div class="comp-bar-wrap"><div class="comp-bar smouha-bar" style="width:52.6%"></div></div>
+      </div>
+    </div>
+    <div class="comp-row">
+      <div>
+        <div class="comp-val-sport">4</div>
+        <div class="comp-bar-wrap"><div class="comp-bar sport-bar" style="width:40%"></div></div>
+      </div>
+      <div class="comp-label">3-Pointers</div>
+      <div>
+        <div class="comp-val-smouha">6</div>
+        <div class="comp-bar-wrap"><div class="comp-bar smouha-bar" style="width:60%"></div></div>
+      </div>
+    </div>
+    <div class="comp-row">
+      <div>
+        <div class="comp-val-sport">12</div>
+        <div class="comp-bar-wrap"><div class="comp-bar sport-bar" style="width:48%"></div></div>
+      </div>
+      <div class="comp-label">Free Throws Made</div>
+      <div>
+        <div class="comp-val-smouha">13</div>
+        <div class="comp-bar-wrap"><div class="comp-bar smouha-bar" style="width:52%"></div></div>
+      </div>
+    </div>
+    <div class="comp-row">
+      <div>
+        <div class="comp-val-sport" style="color:var(--red)">22+</div>
+        <div class="comp-bar-wrap"><div class="comp-bar sport-bar" style="width:58%"></div></div>
+      </div>
+      <div class="comp-label">Total Fouls</div>
+      <div>
+        <div class="comp-val-smouha" style="color:var(--red)">16+</div>
+        <div class="comp-bar-wrap"><div class="comp-bar smouha-bar" style="width:42%"></div></div>
+      </div>
+    </div>
+    <div class="comp-row">
+      <div>
+        <div class="comp-val-sport">0</div>
+        <div class="comp-bar-wrap"><div class="comp-bar sport-bar" style="width:0%"></div></div>
+      </div>
+      <div class="comp-label">Disqualifications</div>
+      <div>
+        <div class="comp-val-smouha">0</div>
+        <div class="comp-bar-wrap"><div class="comp-bar smouha-bar" style="width:0%"></div></div>
+      </div>
+    </div>
+    <div class="comp-row">
+      <div>
+        <div class="comp-val-sport">6</div>
+        <div class="comp-bar-wrap">
