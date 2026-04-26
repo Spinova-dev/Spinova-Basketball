@@ -2,7 +2,21 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import { localHrefMaps } from "@/lib/route-map";
 
-const demoRoot = path.join(process.cwd(), "Spinova Demo");
+const demoRootCandidates = [
+  path.join(process.cwd(), "Spinova Demo"),
+  path.join(process.cwd(), "..", "Spinova Demo")
+];
+
+async function resolveDemoFile(relativeFile) {
+  for (const root of demoRootCandidates) {
+    try {
+      const p = path.join(root, relativeFile);
+      await fs.access(p);
+      return p;
+    } catch {}
+  }
+  return path.join(demoRootCandidates[0], relativeFile);
+}
 
 function buildTopbarUser(user) {
   return `
@@ -32,7 +46,7 @@ function rewriteBody(body, role, user) {
 }
 
 export default async function LegacyTemplate({ file, role, user }) {
-  const filePath = path.join(demoRoot, file);
+  const filePath = await resolveDemoFile(file);
   const source = await fs.readFile(filePath, "utf8");
   const bodyMatch = source.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
   const bodyHtml = bodyMatch ? bodyMatch[1] : source;

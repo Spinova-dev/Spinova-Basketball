@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import LegacyTemplate from "@/components/LegacyTemplate";
 
+export const dynamic = "force-dynamic";
+
 export default function OnboardingPage({ params }) {
   if (params.type === "player") {
     return <LegacyTemplate file="onboarding/player.html" role="" user={{ role: "", name: "" }} />;

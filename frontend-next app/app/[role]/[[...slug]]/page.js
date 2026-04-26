@@ -1,10 +1,9 @@
-import { cookies } from "next/headers";
 import { notFound, redirect } from "next/navigation";
 import LegacyTemplate from "@/components/LegacyTemplate";
-import { decodeSession, getSessionCookieName } from "@/lib/auth";
+import { auth } from "@/auth";
 import { roleRouteToFile } from "@/lib/route-map";
 
-export default function RolePage({ params }) {
+export default async function RolePage({ params }) {
   const role = params.role;
   const slug = params.slug ?? ["dashboard"];
 
@@ -12,14 +11,21 @@ export default function RolePage({ params }) {
     notFound();
   }
 
-  const sessionValue = cookies().get(getSessionCookieName())?.value;
-  const user = decodeSession(sessionValue);
-  if (!user) redirect("/login");
-  if (user.role !== role) redirect(`/${user.role}/dashboard`);
+  const session = await auth();
+  if (!session?.user) redirect("/login");
+
+  const userRole = session.user.role || "player";
+  if (userRole !== role) redirect(`/${userRole}/dashboard`);
 
   const key = slug.join("/");
   const file = roleRouteToFile[role]?.[key];
   if (!file) notFound();
+
+  const user = {
+    email: session.user.email,
+    name: session.user.name,
+    role: userRole
+  };
 
   return <LegacyTemplate file={file} role={role} user={user} />;
 }

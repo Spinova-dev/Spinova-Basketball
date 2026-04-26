@@ -1,4 +1,5 @@
 import { fetchTranscriptWithTimestamps, generateReportHtml } from "@/lib/report-generation";
+import { auth } from "@/auth";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 
@@ -12,6 +13,11 @@ function slugify(value) {
 
 export async function POST(request) {
   try {
+    const session = await auth();
+    if (!session?.user || session.user.role !== "admin") {
+      return Response.json({ error: "Admin access required." }, { status: 403 });
+    }
+
     const body = await request.json();
     if (!body.youtubeUrl) {
       return Response.json({ error: "YouTube URL is required." }, { status: 400 });

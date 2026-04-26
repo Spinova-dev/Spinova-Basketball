@@ -1,0 +1,280 @@
+/* Login + admin signup — loaded from globals so client routes always get branding */
+
+.login-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #0d1b2a;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 65% 70% at 80% 40%, rgba(232, 119, 34, 0.14) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 60% at 5% 90%, rgba(58, 155, 213, 0.1) 0%, transparent 60%);
+}
+
+.login-container {
+  position: relative;
+  z-index: 1;
+  max-width: 1000px;
+  width: 100%;
+  padding: 40px 20px;
+}
+
+.login-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.login-brand {
+  color: #fff;
+}
+
+.login-tagline {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 24px;
+}
+
+.login-brand-copy {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 15px;
+  line-height: 1.65;
+  max-width: 440px;
+  margin: 0 0 8px 0;
+}
+
+.login-brand-copy strong {
+  color: var(--court3, #f99849);
+  font-weight: 700;
+}
+
+.role-chips {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.role-chip {
+  padding: 8px 18px;
+  border-radius: var(--r-pill, 999px);
+  font-size: 12px;
+  font-weight: 700;
+  font-family: "Outfit", sans-serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.role-chip.admin {
+  background: rgba(232, 119, 34, 0.15);
+  color: var(--court3, #f99849);
+  border: 1px solid rgba(232, 119, 34, 0.3);
+}
+
+.role-chip.coach {
+  background: rgba(181, 227, 58, 0.15);
+  color: var(--lime, #b5e33a);
+  border: 1px solid rgba(181, 227, 58, 0.3);
+}
+
+.role-chip.player {
+  background: rgba(58, 155, 213, 0.15);
+  color: var(--blue, #3a9bd5);
+  border: 1px solid rgba(58, 155, 213, 0.3);
+}
+
+.login-card {
+  background: var(--white, #fff);
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.login-eyebrow {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--light, #7d8fa0);
+  margin-bottom: 12px;
+  font-family: "Outfit", sans-serif;
+}
+
+.login-card h2 {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--navy, #0d1b2a);
+  margin-bottom: 24px;
+  font-family: "Outfit", sans-serif;
+}
+
+.login-card .login-lead {
+  font-size: 14px;
+  color: var(--mid, #4a5c70);
+  margin-bottom: 22px;
+  line-height: 1.55;
+}
+
+.login-card .login-lead strong {
+  color: var(--navy, #0d1b2a);
+}
+
+.error-message {
+  color: var(--red, #d94f3d);
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.login-card .error-message {
+  display: block;
+}
+
+.demo-credentials {
+  margin-top: 40px;
+}
+
+.demo-credentials h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 16px;
+  font-family: "Outfit", sans-serif;
+}
+
+.demo-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+
+.demo-card {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.demo-card.admin {
+  border-top: 3px solid var(--court, #e87722);
+}
+
+.demo-card.coach {
+  background: var(--court, #e87722);
+  border: none;
+}
+
+.demo-card.player {
+  background: var(--blue, #3a9bd5);
+  border: none;
+}
+
+.demo-card .role {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.8;
+  margin-bottom: 8px;
+  font-family: "Outfit", sans-serif;
+}
+
+.demo-card.coach .role,
+.demo-card.player .role {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.demo-card .name {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #fff;
+  font-family: "Outfit", sans-serif;
+}
+
+.demo-card.admin .name {
+  color: var(--court3, #f99849);
+}
+
+.demo-card .cred {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 4px;
+}
+
+.demo-card.admin .cred {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.demo-note {
+  margin-top: 12px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.btn-google-oauth {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 14px 28px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: "Outfit", sans-serif;
+  background: #fff;
+  color: #1f2937;
+  border: 1px solid #dadce0;
+  border-radius: var(--r-sm, 7px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.btn-google-oauth:hover:not(:disabled) {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  border-color: #c6cbd3;
+}
+
+.btn-google-oauth:active:not(:disabled) {
+  transform: scale(0.99);
+}
+
+.btn-google-oauth:disabled {
+  opacity: 0.75;
+  cursor: wait;
+}
+
+.login-card-footer {
+  font-size: 13px;
+  color: var(--light, #7d8fa0);
+  margin-top: 24px;
+}
+
+.login-card-footer a {
+  color: var(--court, #e87722);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.login-card-footer a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+  .login-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .demo-cards {
+    grid-template-columns: 1fr;
+  }
+}

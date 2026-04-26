@@ -18,7 +18,10 @@ export default function RootLayout({ children }) {
             __html: `
               window.logout = async function logout() {
                 try {
-                  await fetch('/api/auth/logout', { method: 'POST' });
+                  const r = await fetch('/api/auth/csrf');
+                  const { csrfToken } = await r.json();
+                  const body = new URLSearchParams({ csrfToken, callbackUrl: '/login' });
+                  await fetch('/api/auth/signout', { method: 'POST', body, headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
                 } finally {
                   window.location.href = '/login';
                 }
