@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-
-const players = ["Ahmed Al-Rashidi", "Youssef Samir", "Kareem Mostafa"];
+import { useEffect } from "react";
+import { signOut } from "next-auth/react";
 
 export default function NewReportPage() {
   const [form, setForm] = useState({
@@ -18,6 +18,20 @@ export default function NewReportPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [generationInfo, setGenerationInfo] = useState(null);
+  const [players, setPlayers] = useState([]);
+
+  useEffect(() => {
+    async function loadPlayers() {
+      try {
+        const res = await fetch("/api/players");
+        if (!res.ok) return;
+        const data = await res.json();
+        const names = (data.items || []).map((p) => `${p.first_name} ${p.last_name}`.trim()).filter(Boolean);
+        setPlayers(names);
+      } catch {}
+    }
+    loadPlayers();
+  }, []);
 
   function onChange(key, value) {
     setForm((s) => ({ ...s, [key]: value }));
@@ -73,7 +87,7 @@ export default function NewReportPage() {
         <div className="topbar-user" id="topbar-user">
           <span className="role-badge">ADMIN</span>
           <span>Khalid Al-Mansouri</span>
-          <button className="logout-btn" onClick={() => window.logout()}>Logout</button>
+          <button className="logout-btn" onClick={() => signOut({ callbackUrl: "/login" })}>Logout</button>
         </div>
       </div>
 
@@ -97,7 +111,7 @@ export default function NewReportPage() {
             <a href="/admin/settings">Settings</a>
           </div>
           <div className="sidenav-logout">
-            <button onClick={() => window.logout()}>Logout</button>
+            <button onClick={() => signOut({ callbackUrl: "/login" })}>Logout</button>
           </div>
         </nav>
 

@@ -1,5 +1,6 @@
 import { fetchTranscriptWithTimestamps, generateReportHtml } from "@/lib/report-generation";
 import { auth } from "@/auth";
+import { createReportArtifacts } from "@/lib/domain-store";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 
@@ -9,6 +10,15 @@ function slugify(value) {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "")
     .slice(0, 60);
+}
+
+function extractVideoId(youtubeUrl) {
+  try {
+    const parsed = new URL(youtubeUrl);
+    return parsed.searchParams.get("v") || null;
+  } catch {
+    return null;
+  }
 }
 
 export async function POST(request) {
@@ -88,8 +98,22 @@ export async function POST(request) {
     await fs.writeFile(path.join(metaDir, metaFileName), JSON.stringify(meta, null, 2), "utf8");
     await fs.appendFile(path.join(logsDir, "report-generation-log.jsonl"), `${JSON.stringify(meta)}\n`, "utf8");
 
+    const persistedReportId = await createReportArtifacts({
+      appUserId: session.user.appUserId,
+      reportInput: {
+        ...body,
+        html: generated.html,
+        videoId: extractVideoId(body.youtubeUrl),
+        role: session.user.role
+      },
+      reportFile: `/generated/reports/${reportFileName}`,
+      transcriptFile: `/generated/transcripts/${transcriptFileName}`,
+      transcriptRows: generated.transcriptUsed
+    });
+
     return Response.json({
       ok: true,
+      reportId: persistedReportId,
       transcriptCount: transcript.length,
       html: generated.html,
       transcriptFedPreview,

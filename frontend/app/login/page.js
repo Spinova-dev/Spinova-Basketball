@@ -1,29 +1,16 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
+import Link from "next/link";
 import { signIn } from "next-auth/react";
 
 export default function LoginPage() {
+  const demoEnabled = String(process.env.NEXT_PUBLIC_AUTH_DEMO_ENABLED || "true").toLowerCase() === "true";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
-  async function handleAuthentik() {
-    setError("");
-    setLoading(true);
-    try {
-      const res = await fetch("/api/auth/sso-options", { cache: "no-store" });
-      const j = await res.json().catch(() => ({}));
-      const oidc = { prompt: "login" };
-      if (j.authentikSourceSlug) oidc.source = j.authentikSourceSlug;
-      await signIn("authentik", { callbackUrl: "/" }, oidc);
-    } catch {
-      setLoading(false);
-      setError("Could not start SSO. Please try again.");
-    }
-  }
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -41,6 +28,13 @@ export default function LoginPage() {
     window.location.href = `/${role}/dashboard`;
   }
 
+  async function onGoogleSignIn() {
+    setError("");
+    setGoogleLoading(true);
+    await signIn("google", { callbackUrl: "/player/dashboard" });
+    setGoogleLoading(false);
+  }
+
   return (
     <div className="login-page">
       <div className="login-container">
@@ -54,65 +48,76 @@ export default function LoginPage() {
               <span className="role-chip player">Player</span>
             </div>
 
-            <div className="demo-credentials">
-              <h3>Demo Credentials</h3>
-              <div className="demo-cards">
-                <div className="demo-card admin">
-                  <div className="role">Admin</div>
-                  <div className="name">Khalid Al-Mansouri</div>
-                  <div className="cred">admin@spinova.app</div>
-                  <div className="cred">Admin2026!</div>
+            {demoEnabled ? (
+              <div className="demo-credentials">
+                <h3>Demo Credentials</h3>
+                <div className="demo-cards">
+                  <div className="demo-card admin">
+                    <div className="role">Admin</div>
+                    <div className="name">Khalid Al-Mansouri</div>
+                    <div className="cred">admin@spinova.app</div>
+                    <div className="cred">Admin2026!</div>
+                  </div>
+                  <div className="demo-card coach">
+                    <div className="role">Coach</div>
+                    <div className="name">Omar Salah</div>
+                    <div className="cred">coach@spinova.app</div>
+                    <div className="cred">Coach2026!</div>
+                  </div>
+                  <div className="demo-card player">
+                    <div className="role">Player</div>
+                    <div className="name">Ahmed Al-Rashidi</div>
+                    <div className="cred">player@spinova.app</div>
+                    <div className="cred">Player2026!</div>
+                  </div>
                 </div>
-                <div className="demo-card coach">
-                  <div className="role">Coach</div>
-                  <div className="name">Omar Salah</div>
-                  <div className="cred">coach@spinova.app</div>
-                  <div className="cred">Coach2026!</div>
-                </div>
-                <div className="demo-card player">
-                  <div className="role">Player</div>
-                  <div className="name">Ahmed Al-Rashidi</div>
-                  <div className="cred">player@spinova.app</div>
-                  <div className="cred">Player2026!</div>
-                </div>
+                <div className="demo-note">Demo credentials — optional local fallback</div>
               </div>
-              <div className="demo-note">Demo credentials — see your role card above</div>
-            </div>
+            ) : null}
           </div>
 
           <div className="login-card">
             <div className="login-eyebrow">Platform Login</div>
             <h2>Welcome Back</h2>
 
+            <p style={{ fontSize: 12, color: "var(--light)", textAlign: "center", marginBottom: 8 }}>
+              Sign in with Google to access Spinova.
+            </p>
+            <p style={{ fontSize: 12, color: "var(--light)", textAlign: "center", marginBottom: 10 }}>
+              New users must sign up first by selecting a role below.
+            </p>
+            {demoEnabled ? (
+              <p style={{ fontSize: 12, color: "var(--light)", textAlign: "center", marginBottom: 20 }}>
+                Demo credentials remain available as a fallback.
+              </p>
+            ) : <div style={{ marginBottom: 20 }} />}
+
             <button
               type="button"
-              onClick={handleAuthentik}
-              disabled={loading}
+              onClick={onGoogleSignIn}
+              disabled={googleLoading}
               className="btn btn-primary btn-lg"
-              style={{ width: "100%", justifyContent: "center", marginBottom: 12 }}
+              style={{ width: "100%", justifyContent: "center", marginBottom: 16 }}
             >
-              Sign in with Spinova SSO (Google · GitHub)
+              {googleLoading ? "Redirecting to Google..." : "Continue with Google"}
             </button>
-            <p style={{ fontSize: 12, color: "var(--light)", textAlign: "center", marginBottom: 8 }}>
-              New user?{" "}
-              <Link href="/signup" style={{ color: "var(--court)", fontWeight: 700 }}>
-                Sign up with Google
-              </Link>
-              {" · "}New admin?{" "}
-              <Link href="/signup/admin" style={{ color: "var(--court)", fontWeight: 700 }}>
-                Sign up as admin (Google)
-              </Link>
-            </p>
-            <p style={{ fontSize: 12, color: "var(--light)", textAlign: "center", marginBottom: 20 }}>
-              Returning user: SSO will send you to the right dashboard for your role.
-            </p>
+            <div style={{ display: "flex", justifyContent: "center", gap: 10, marginBottom: 14, flexWrap: "wrap" }}>
+              <Link href="/signup?role=admin" style={{ fontSize: 12 }}>Sign up as admin</Link>
+              <span style={{ color: "#98a2b3" }}>|</span>
+              <Link href="/signup?role=coach" style={{ fontSize: 12 }}>Sign up as coach</Link>
+              <span style={{ color: "#98a2b3" }}>|</span>
+              <Link href="/signup?role=player" style={{ fontSize: 12 }}>Sign up as player</Link>
+            </div>
 
             <div style={{ display: "flex", alignItems: "center", gap: 10, margin: "12px 0 20px" }}>
               <div style={{ flex: 1, height: 1, background: "#e4e7ec" }} />
-              <span style={{ fontSize: 11, color: "var(--light)", letterSpacing: 2 }}>OR DEMO LOGIN</span>
+              <span style={{ fontSize: 11, color: "var(--light)", letterSpacing: 2 }}>
+                {demoEnabled ? "OR DEMO LOGIN" : "GOOGLE SSO ONLY"}
+              </span>
               <div style={{ flex: 1, height: 1, background: "#e4e7ec" }} />
             </div>
 
+            {demoEnabled ? (
             <form onSubmit={onSubmit}>
               <div className="form-group">
                 <label className="input-label">Email Address</label>
@@ -143,6 +148,7 @@ export default function LoginPage() {
                 {loading ? "Signing in…" : "Demo Sign In →"}
               </button>
             </form>
+            ) : null}
           </div>
         </div>
       </div>

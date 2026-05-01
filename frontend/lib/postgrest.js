@@ -1,91 +1,60 @@
-import "server-only";
-import jwt from "jsonwebtoken";
+import { createHmac } from "node:crypto";
 
-const POSTGREST_URL = process.env.POSTGREST_URL;
-const POSTGREST_ROLE = process.env.POSTGREST_ROLE || "spinova_dev";
-const POSTGREST_JWT_SECRET = process.env.POSTGREST_JWT_SECRET;
+function base64Url(input) {
+  return Buffer.from(input)
+    .toString("base64")
+    .replace(/=/g, "")
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_");
+}
 
-/** True when PostgREST URL + JWT secret look usable (avoids 401 noise in dev). */
 export function isPostgrestReady() {
-  const s = String(POSTGREST_JWT_SECRET || "").trim();
-  if (!POSTGREST_URL || !s) return false;
-  if (/REPLACE|PASTE|CHANGE_ME/i.test(s)) return false;
-  return s.length >= 16;
+  return Boolean(process.env.POSTGREST_URL && process.env.POSTGREST_JWT_SECRET);
 }
 
-function ensureConfigured() {
-  if (!POSTGREST_URL) throw new Error("POSTGREST_URL is not set");
-  if (!POSTGREST_JWT_SECRET) throw new Error("POSTGREST_JWT_SECRET is not set");
-}
+export function createPostgrestToken(hours = 1) {
+  const secret = process.env.POSTGREST_JWT_SECRET;
+  if (!secret) throw new Error("POSTGREST_JWT_SECRET is missing.");
 
-/**
- * Sign a short-lived JWT that PostgREST will accept.
- * The `role` claim MUST match a Postgres role that PostgREST knows about.
- */
-export function signPostgrestToken({ role = POSTGREST_ROLE, ttlSeconds = 300, extra = {} } = {}) {
-  ensureConfigured();
-  const now = Math.floor(Date.now() / 1000);
-  return jwt.sign(
-    {
+  const role = process.env.POSTGREST_ROLE || "spinova_dev";
+  const header = base64Url(JSON.stringify({ alg: "HS256", typ: "JWT" }));
+  const payload = base64Url(
+    JSON.stringify({
       role,
-      iat: now,
-      exp: now + ttlSeconds,
-      ...extra
-    },
-    POSTGREST_JWT_SECRET,
-    { algorithm: "HS256" }
+      exp: Math.floor(Date.now() / 1000) + hours * 3600
+    })
   );
+  const signature = createHmac("sha256", secret)
+    .update(`${header}.${payload}`)
+    .digest("base64")
+    .replace(/=/g, "")
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_");
+  return `${header}.${payload}.${signature}`;
 }
 
-/**
- * Low-level fetch helper. Always uses a freshly-signed short-lived JWT.
- * @param {string} path  e.g. "/users?email=eq.foo@bar.com"
- * @param {RequestInit & {role?: string}} init
- */
-export async function pgRest(path, init = {}) {
-  ensureConfigured();
-  const token = signPostgrestToken({ role: init.role || POSTGREST_ROLE });
-  const headers = new Headers(init.headers || {});
-  headers.set("Authorization", `Bearer ${token}`);
-  if (init.body && !headers.has("Content-Type")) {
-    headers.set("Content-Type", "application/json");
-  }
-  if (!headers.has("Accept")) headers.set("Accept", "application/json");
+export async function postgrestFetch(path, { method = "GET", body = null } = {}) {
+  const baseUrl = process.env.POSTGREST_URL;
+  if (!baseUrl) throw new Error("POSTGREST_URL is missing.");
 
-  const url = `${POSTGREST_URL}${path.startsWith("/") ? path : `/${path}`}`;
-  const res = await fetch(url, { ...init, headers, cache: "no-store" });
-  if (!res.ok) {
-    const text = await res.text().catch(() => "");
-    throw new Error(`PostgREST ${res.status} ${res.statusText} on ${path}: ${text}`);
-  }
-  const ct = res.headers.get("content-type") || "";
-  if (ct.includes("application/json")) return res.json();
-  return res.text();
-}
+  const headers = {
+    Authorization: `Bearer ${createPostgrestToken()}`,
+    "Content-Type": "application/json"
+  };
+  if (method === "POST") headers.Prefer = "resolution=merge-duplicates,return=representation";
+  if (method === "PATCH") headers.Prefer = "return=representation";
 
-export async function pgSelect(table, query = "") {
-  const qs = query ? (query.startsWith("?") ? query : `?${query}`) : "";
-  return pgRest(`/${table}${qs}`);
-}
-
-export async function pgInsert(table, row, { onConflict, returnRow = true } = {}) {
-  const params = new URLSearchParams();
-  if (onConflict) params.set("on_conflict", onConflict);
-  const qs = params.toString() ? `?${params.toString()}` : "";
-  const headers = { "Content-Type": "application/json" };
-  if (returnRow) headers.Prefer = onConflict ? "return=representation,resolution=merge-duplicates" : "return=representation";
-  return pgRest(`/${table}${qs}`, {
-    method: "POST",
+  const response = await fetch(`${baseUrl}${path}`, {
+    method,
     headers,
-    body: JSON.stringify(row)
+    body: body ? JSON.stringify(body) : undefined,
+    cache: "no-store"
   });
-}
 
-export async function pgUpdate(table, query, patch) {
-  const qs = query.startsWith("?") ? query : `?${query}`;
-  return pgRest(`/${table}${qs}`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json", Prefer: "return=representation" },
-    body: JSON.stringify(patch)
-  });
+  const text = await response.text();
+  const payload = text ? JSON.parse(text) : null;
+  if (!response.ok) {
+    throw new Error(payload?.message || `PostgREST request failed (${response.status}).`);
+  }
+  return payload;
 }

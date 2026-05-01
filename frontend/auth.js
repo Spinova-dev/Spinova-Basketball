@@ -1,66 +1,60 @@
-import { cookies } from "next/headers";
 import NextAuth from "next-auth";
-import authConfig, { roleFromGroups } from "./auth.config";
-import { getDbRoleForEmail, syncUserFromOidc } from "@/lib/db-sync";
-import { pickHigherRole } from "@/lib/signup-intent";
-import { isPostgrestReady } from "@/lib/postgrest";
-import {
-  getPersistedRoleForEmail,
-  setPersistedRoleForEmail,
-  clearPersistedRoleForEmail
-} from "@/lib/role-persistence";
-import { verifySignupIntentValue, SIGNUP_INTENT_COOKIE } from "@/lib/signup-intent";
+import { cookies } from "next/headers";
+import authConfig from "./auth.config";
+import { upsertGoogleUser } from "@/lib/user-store";
+
+const SIGNUP_ROLE_COOKIE = "spinova_signup_role";
+
+function sanitizeRole(role) {
+  const value = String(role || "").trim().toLowerCase();
+  if (value === "admin" || value === "coach" || value === "player") return value;
+  return null;
+}
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
   callbacks: {
     ...authConfig.callbacks,
     async signIn({ user, account, profile }) {
-      if (account?.provider !== "authentik") return true;
+      if (account?.provider !== "google") return true;
 
-      const email = profile?.email || user?.email;
-      const sub = profile?.sub || user?.id;
-      const name = profile?.name || user?.name;
-      if (!email) return true;
+      const providerAccountId = account.providerAccountId || profile?.sub || user?.id;
+      const email = profile?.email || user?.email || null;
+      const name = profile?.name || user?.name || null;
+      const image = profile?.picture || user?.image || null;
 
-      const secret = process.env.AUTH_SECRET;
-      const rawIntent = cookies().get(SIGNUP_INTENT_COOKIE)?.value;
-      const intentAdmin = secret ? verifySignupIntentValue(rawIntent, secret) : null;
-      cookies().set(SIGNUP_INTENT_COOKIE, "", {
-        path: "/",
-        maxAge: 0,
-        httpOnly: true,
-        sameSite: "lax",
-        secure: process.env.NODE_ENV === "production"
+      if (!providerAccountId || !email) return false;
+
+      let roleFromCookie = null;
+      try {
+        roleFromCookie = sanitizeRole(cookies().get(SIGNUP_ROLE_COOKIE)?.value);
+      } catch {
+        roleFromCookie = null;
+      }
+      const saved = await upsertGoogleUser({
+        providerAccountId,
+        email,
+        name,
+        image,
+        preferredRole: roleFromCookie || null
       });
 
-      const groups = profile?.groups || profile?.roles || [];
-      let role = roleFromGroups(groups);
-      const fromFile = getPersistedRoleForEmail(email);
-      if (fromFile) role = pickHigherRole(role, fromFile);
-      if (isPostgrestReady()) {
-        const fromDb = await getDbRoleForEmail(email);
-        if (fromDb) role = pickHigherRole(role, fromDb);
-      }
-      if (intentAdmin === "admin") role = "admin";
-
-      try {
-        const synced = await syncUserFromOidc({ sub, email, name, role });
-        if (synced?.skipped) {
-          user.role = role;
-          user.dbId = null;
-          setPersistedRoleForEmail(email, sub, role);
-        } else {
-          user.role = synced.role || role;
-          user.dbId = synced.id;
-          clearPersistedRoleForEmail(email);
+      if (roleFromCookie) {
+        try {
+          cookies().set({
+            name: SIGNUP_ROLE_COOKIE,
+            value: "",
+            path: "/",
+            maxAge: 0
+          });
+        } catch {
+          // Ignore cookie cleanup failures.
         }
-      } catch (err) {
-        console.error("[auth] DB sync failed, using merged role and local store if needed:", err.message);
-        user.role = role;
-        user.dbId = null;
-        setPersistedRoleForEmail(email, sub, role);
       }
+
+      user.appUserId = saved.id;
+      user.role = saved.role || "player";
+      user.demo = false;
       return true;
     }
   }
