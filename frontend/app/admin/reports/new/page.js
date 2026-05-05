@@ -51,7 +51,7 @@ export default function NewReportPage() {
     setLoading(true);
     setError("");
     setGenerationInfo(null);
-    setStatus("Validating URL and fetching transcript...");
+    setStatus("Sending video URL to report pipeline...");
 
     try {
       const res = await fetch("/api/reports/generate", {
@@ -62,7 +62,7 @@ export default function NewReportPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to generate report.");
 
-      setStatus(`Transcript loaded (${data.transcriptCount} segments). Report generated.`);
+      setStatus("Report generated successfully from n8n flow.");
       setGenerationInfo(data);
 
       const blob = new Blob([data.html], { type: "text/html" });
@@ -133,7 +133,7 @@ export default function NewReportPage() {
                   <input className="input" type="url" required value={form.youtubeUrl} onChange={(e) => onChange("youtubeUrl", e.target.value)} placeholder="https://youtube.com/watch?v=..." />
                 </div>
                 <div className="callout blue">
-                  <p>Spinova will transcribe audio timestamps, infer the final score from transcript context, and generate a full AI report.</p>
+                  <p>Spinova sends your YouTube URL to the n8n pipeline and waits for the generated HTML report.</p>
                 </div>
               </div>
 
@@ -173,9 +173,10 @@ export default function NewReportPage() {
                 <div className="card" style={{ marginTop: 16 }}>
                   <div className="card-title">Generation Details</div>
                   <p style={{ fontSize: 14, color: "var(--mid)", marginBottom: 10 }}>
-                    Model: <strong>{generationInfo.model}</strong> | Input tokens: <strong>{generationInfo.usage?.inputTokens || 0}</strong> | Output tokens: <strong>{generationInfo.usage?.outputTokens || 0}</strong> | Estimated cost: <strong>${generationInfo.estimatedCostUsd}</strong>
+                    Source: <strong>{generationInfo.model}</strong> | Report status: <strong>HTML ready</strong>
                   </p>
                   <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 10 }}>
+                    <a className="btn btn-secondary" href={generationInfo.downloadReportUrl} target="_blank" rel="noreferrer">Open Report</a>
                     <a className="btn btn-secondary" href={generationInfo.downloadReportUrl} download>Download Report</a>
                     <a className="btn btn-secondary" href={generationInfo.transcriptFileUrl} target="_blank">View Transcript File</a>
                     <a className="btn btn-secondary" href={generationInfo.metadataFileUrl} target="_blank">View Generation Metadata</a>

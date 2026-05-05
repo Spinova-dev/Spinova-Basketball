@@ -1,4 +1,3 @@
-import { fetchTranscriptWithTimestamps, generateReportHtml } from "@/lib/report-generation";
 import { auth } from "@/auth";
 import { createReportArtifacts } from "@/lib/domain-store";
 import { promises as fs } from "node:fs";
@@ -21,6 +20,51 @@ function extractVideoId(youtubeUrl) {
   }
 }
 
+async function generateViaN8n(youtubeUrl) {
+  const encodedUrl = encodeURIComponent(youtubeUrl);
+  const endpoint = `https://dataflow.webmeccano.cloud/webhook/youtube?url=${encodedUrl}`;
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 8 * 60 * 1000);
+  try {
+    const response = await fetch(endpoint, {
+      method: "POST",
+      signal: controller.signal,
+      cache: "no-store"
+    });
+    if (!response.ok) {
+      const body = await response.text();
+      throw new Error(`n8n flow failed (${response.status}): ${body.slice(0, 300)}`);
+    }
+
+    const rawText = await response.text();
+    const trimmed = rawText?.trim();
+    if (!trimmed) {
+      throw new Error("n8n response was empty.");
+    }
+
+    // Case 1: webhook returns HTML directly.
+    if (trimmed.startsWith("<!DOCTYPE") || trimmed.startsWith("<html")) {
+      return rawText;
+    }
+
+    // Case 2: webhook returns JSON object or array with html field.
+    try {
+      const payload = JSON.parse(rawText);
+      const first = Array.isArray(payload) ? payload[0] : payload;
+      const html = first?.html || first?.reportHtml || first?.data?.html || null;
+      if (typeof html === "string" && html.trim()) {
+        return html;
+      }
+    } catch {
+      // If not JSON, continue to error below.
+    }
+
+    throw new Error("n8n response did not contain valid HTML.");
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
 export async function POST(request) {
   try {
     const session = await auth();
@@ -33,21 +77,7 @@ export async function POST(request) {
       return Response.json({ error: "YouTube URL is required." }, { status: 400 });
     }
 
-    const transcript = await fetchTranscriptWithTimestamps(body.youtubeUrl);
-    if (!transcript.length) {
-      return Response.json({ error: "No transcript found for this video." }, { status: 400 });
-    }
-
-    const generated = await generateReportHtml({
-      youtubeUrl: body.youtubeUrl,
-      matchTitle: body.matchTitle || "",
-      matchDate: body.matchDate || "",
-      competition: body.competition || "",
-      venue: body.venue || "",
-      taggedPlayers: body.taggedPlayers || [],
-      notes: body.notes || "",
-      transcript
-    });
+    const generatedHtml = await generateViaN8n(body.youtubeUrl);
 
     const id = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
     const reportSlug = slugify(body.matchTitle || body.competition || "basketball-report");
@@ -64,17 +94,12 @@ export async function POST(request) {
     const transcriptFileName = `${reportSlug}-${id}-transcript.json`;
     const metaFileName = `${reportSlug}-${id}-meta.json`;
 
-    await fs.writeFile(path.join(reportsDir, reportFileName), generated.html, "utf8");
+    await fs.writeFile(path.join(reportsDir, reportFileName), generatedHtml, "utf8");
     await fs.writeFile(
       path.join(transcriptsDir, transcriptFileName),
-      JSON.stringify(generated.transcriptUsed, null, 2),
+      JSON.stringify([], null, 2),
       "utf8"
     );
-    const transcriptFedPreview = [
-      ...generated.transcriptUsed.slice(0, 80),
-      ...(generated.transcriptUsed.length > 160 ? [{ index: -1, start: 0, duration: 0, text: "...truncated preview..." }] : []),
-      ...generated.transcriptUsed.slice(-80)
-    ];
 
     const meta = {
       id,
@@ -86,11 +111,9 @@ export async function POST(request) {
       venue: body.venue || "",
       taggedPlayers: body.taggedPlayers || [],
       notes: body.notes || "",
-      model: generated.model,
-      usage: generated.usage,
-      estimatedCostUsd: generated.estimatedCostUsd,
-      transcriptCount: transcript.length,
-      transcriptFedCount: generated.transcriptUsed.length,
+      source: "n8n-youtube-webhook",
+      transcriptCount: 0,
+      transcriptFedCount: 0,
       reportFile: `/generated/reports/${reportFileName}`,
       transcriptFile: `/generated/transcripts/${transcriptFileName}`
     };
@@ -102,25 +125,25 @@ export async function POST(request) {
       appUserId: session.user.appUserId,
       reportInput: {
         ...body,
-        html: generated.html,
+        html: generatedHtml,
         videoId: extractVideoId(body.youtubeUrl),
         role: session.user.role
       },
       reportFile: `/generated/reports/${reportFileName}`,
       transcriptFile: `/generated/transcripts/${transcriptFileName}`,
-      transcriptRows: generated.transcriptUsed
+      transcriptRows: []
     });
 
     return Response.json({
       ok: true,
       reportId: persistedReportId,
-      transcriptCount: transcript.length,
-      html: generated.html,
-      transcriptFedPreview,
-      transcriptFedCount: generated.transcriptUsed.length,
-      model: generated.model,
-      usage: generated.usage,
-      estimatedCostUsd: generated.estimatedCostUsd,
+      transcriptCount: 0,
+      html: generatedHtml,
+      transcriptFedPreview: [],
+      transcriptFedCount: 0,
+      model: "n8n-webhook",
+      usage: null,
+      estimatedCostUsd: null,
       downloadReportUrl: `/generated/reports/${reportFileName}`,
       transcriptFileUrl: `/generated/transcripts/${transcriptFileName}`,
       metadataFileUrl: `/generated/meta/${metaFileName}`,
